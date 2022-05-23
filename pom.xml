@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>anhtester.com</groupId>
+    <artifactId>AutomationFrameworkCucumberTestNG</artifactId>
+    <version>1.0</version>
+    <name>AutomationFrameworkCucumberTestNG</name>
+    <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java-compiler.version>11</java-compiler.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+
+        <cucumber.java.version>7.2.3</cucumber.java.version>
+        <gherkin.version>22.0.0</gherkin.version>
+        <cucumber-reporting.version>5.7.0</cucumber-reporting.version>
+        <selenium.version>4.1.4</selenium.version>
+        <testng.version>7.6.0</testng.version>
+        <webdrivermanager.version>5.1.1</webdrivermanager.version>
+        <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
+        <ashot.version>1.5.4</ashot.version>
+        <log4j.version>2.17.2</log4j.version>
+        <allure-testng.version>2.17.3</allure-testng.version>
+        <allure-maven.version>2.10.0</allure-maven.version>
+        <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
+        <allure.cmd.download.url>
+            https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
+        </allure.cmd.download.url>
+        <extentreports.version>5.0.9</extentreports.version>
+        <apache-poi.version>5.0.0</apache-poi.version>
+        <apache-poi-xml.version>5.0.0</apache-poi-xml.version>
+        <owner.version>1.0.12</owner.version>
+        <assertj.version>3.22.0</assertj.version>
+        <javafaker.version>1.0.2</javafaker.version>
+        <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
+        <mysql-connector-java.version>8.0.29</mysql-connector-java.version>
+        <google.zxing.version>3.5.0</google.zxing.version>
+        <lombok.version>1.18.24</lombok.version>
+        <google.guava.version>31.1-jre</google.guava.version>
+        <data.supplier.version>1.9.7</data.supplier.version>
+        <javax.mail.version>1.6.2</javax.mail.version>
+        <zip.version>1.15</zip.version>
+        <jackson.version>2.13.3</jackson.version>
+
+        <!-- Suite XML path -->
+        <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
+        <suite.client.parallel>src/test/resources/suites/Clients-parallel.xml</suite.client.parallel>
+        <suite.client.simple>src/test/resources/suites/Clients-simple.xml</suite.client.simple>
+        <suite.feature>src/test/resources/suites/RunSuiteFeature.xml</suite.feature>
+    </properties>
+
+    <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.java.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.java.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.java.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-gherkin -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-gherkin</artifactId>
+            <version>${cucumber.java.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/gherkin -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>gherkin</artifactId>
+            <version>${gherkin.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
+        <!--        <dependency>-->
+        <!--            <groupId>net.masterthought</groupId>-->
+        <!--            <artifactId>cucumber-reporting</artifactId>-->
+        <!--            <version>${cucumber-reporting.version}</version>-->
+        <!--        </dependency>-->
+
+
+        <!-- https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter -->
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extentreports-cucumber7-adapter</artifactId>
+            <version>1.5.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/tech.grasshopper/extent-pdf-report -->
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extent-pdf-report</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.vimalselvam/cucumber-extentsreport -->
+        <dependency>
+            <groupId>com.vimalselvam</groupId>
+            <artifactId>cucumber-extentsreport</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-cucumber7-jvm -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber7-jvm</artifactId>
+            <version>${allure-testng.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/io.github.sskorol/test-data-supplier -->
+        <dependency>
+            <groupId>io.github.sskorol</groupId>
+            <artifactId>test-data-supplier</artifactId>
+            <version>${data.supplier.version}</version>
+        </dependency>
+
+        <!--https://mvnrepository.com/artifact/com.sun.mail/javax.mail/		 -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>${javax.mail.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.zeroturnaround/zt-zip -->
+        <dependency>
+            <groupId>org.zeroturnaround</groupId>
+            <artifactId>zt-zip</artifactId>
+            <version>${zip.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>${javafaker.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot -->
+        <dependency>
+            <groupId>ru.yandex.qatools.ashot</groupId>
+            <artifactId>ashot</artifactId>
+            <version>${ashot.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure-testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-attachments</artifactId>
+            <version>${allure-testng.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.automatedowl/allure-environment-writer -->
+        <dependency>
+            <groupId>com.github.automatedowl</groupId>
+            <artifactId>allure-environment-writer</artifactId>
+            <version>${allure-environment-writer.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${google.guava.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven-compiler-plugin.version}</version>
+            <type>maven-plugin</type>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${apache-poi.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${apache-poi-xml.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder -->
+        <dependency>
+            <groupId>com.github.stephenc.monte</groupId>
+            <artifactId>monte-screen-recorder</artifactId>
+            <version>${monte-screen-recorder.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner -->
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner</artifactId>
+            <version>${owner.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>${google.zxing.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${google.zxing.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectjweaver.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <!-- This profile execute the TestNG suite inside the suites folder on test/resources/suites -->
+    <profiles>
+        <profile>
+            <id>clients-parallel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>${suite.client.parallel}</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java-compiler.version}</source>
+                    <target>${java-compiler.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <!-- Call Suite name global set up above -->
+                        <suiteXmlFile>${suite.feature}</suiteXmlFile>
+                    </suiteXmlFiles>
+
+                    <rerunFailingTestsCount>1</rerunFailingTestsCount>
+                    <argLine>
+                        -Dfile.encoding=UTF-8
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
+                    </argLine>
+                    <reportsDirectory>target/test-output</reportsDirectory>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <systemPropertyVariables>
+                        <allure.results.directory>target/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
+
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure-maven.version}</version>
+                <configuration>
+                    <reportVersion>${allure-testng.version}</reportVersion>
+                    <allureDownloadUrl>
+                        ${allure.cmd.download.url}/${allure-testng.version}/allure-commandline-${allure-testng.version}.zip
+                    </allureDownloadUrl>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!--https://mvnrepository.com/artifact/net.masterthought/maven-cucumber-reporting-->
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>${cucumber-reporting.version}</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>AutomationFrameworkCucumberTestNG</projectName>
+                            <skip>false</skip>
+                            <outputDirectory>CucumberReports/cucumber-reports</outputDirectory>
+                            <inputDirectory>target/cucumber-reports</inputDirectory>
+                            <jsonFiles>
+                                <param>**/*.json</param>
+                            </jsonFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
