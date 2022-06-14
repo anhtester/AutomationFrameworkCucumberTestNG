@@ -97,6 +97,26 @@ public enum BrowserFactory {
 
             return safariOptions;
         }
+    }, OPERA {
+        @Override
+        public WebDriver createDriver() {
+            WebDriverManager.getInstance(DriverManagerType.OPERA).setup();
+
+            return new OperaDriver(getOptions());
+        }
+
+        @Override
+        public OperaOptions getOptions() {
+            OperaOptions operaOptions = new OperaOptions();
+            operaOptions.addArguments(START_MAXIMIZED);
+            operaOptions.addArguments("--disable-infobars");
+            operaOptions.addArguments("--disable-notifications");
+
+            if (TRUE.equals(Boolean.valueOf(FrameworkConstants.HEADLESS)))
+                throw new HeadlessNotSupportedException(operaOptions.getBrowserName());
+
+            return operaOptions;
+        }
     }, IE {
         @Override
         public WebDriver createDriver() {

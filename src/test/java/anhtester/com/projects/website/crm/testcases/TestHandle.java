@@ -12,53 +12,39 @@ import anhtester.com.helpers.Helpers;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
-import anhtester.com.helpers.DatabaseHelpers;
 import anhtester.com.utils.LocalStorageUtils;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
 import anhtester.com.utils.Log;
-import com.google.common.util.concurrent.Uninterruptibles;
-import com.google.zxing.*;
 import com.google.zxing.NotFoundException;
-import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
-import com.google.zxing.common.HybridBinarizer;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v99.network.Network;
-import org.openqa.selenium.devtools.v99.network.model.Headers;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
 import java.text.DecimalFormat;
-import java.time.Duration;
 import java.util.*;
 
 public class TestHandle {
 
     WebDriver driver;
-    DatabaseHelpers databaseHelpers;
     SignInPage signInPage;
     DashboardPage dashboardPage;
     ProjectPage projectPage;
 
     @BeforeMethod
     public void Setup() {
-        driver = new BaseTest().createBrowser("chrome"); //Cách khởi tạo thứ 1
-        // new BaseTest().createDriver("chrome"); //Cách khởi tạo thứ 2
-        // driver = DriverManager.getDriver(); //Get WebDriver global in ThreadLocal
+        driver = new BaseTest().createBrowser("chrome"); //Initialization method 1
+        // new BaseTest().createDriver("chrome"); //Initialization method 2
+        // driver = DriverManager.getDriver(); //Get WebDriver from global in ThreadLocal
     }
 
     @Test
-    public void testLocalStorage(){
+    public void testLocalStorage() {
         WebUI.getToUrl(FrameworkConstants.BASE_URL);
         WebUI.sleep(1);
 
@@ -66,18 +52,18 @@ public class TestHandle {
         LocalStorageUtils.setItem("email", "admin02@mailinator.com");
         LocalStorageUtils.setItem("password", "123456");
 
-        WebUI.setText(ObjectUtils.getLocator("SigninPage.email"), LocalStorageUtils.getItem("email"));
-        WebUI.setText(ObjectUtils.getLocator("SigninPage.passwordInput"), LocalStorageUtils.getItem("password"));
-        WebUI.clickElement(ObjectUtils.getLocator("SigninPage.signInBtn"));
+        WebUI.setText(ObjectUtils.getObject("inputEmail"), LocalStorageUtils.getItem("email"));
+        WebUI.setText(ObjectUtils.getObject("inputPassword"), LocalStorageUtils.getItem("password"));
+        WebUI.clickElement(ObjectUtils.getObject("buttonSignIn"));
         WebUI.waitForPageLoaded();
 
         //Get value in Project page
-        WebUI.clickElement(ObjectUtils.getLocator("projectMenu"));
+        WebUI.clickElement(ObjectUtils.getObject("menuProjects"));
         WebUI.logConsole(LocalStorageUtils.getItem("email"));
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
-        //Get value in Client page
-        WebUI.clickElement(ObjectUtils.getLocator("clientMenu"));
+        //Get value in ClientModel page
+        WebUI.clickElement(ObjectUtils.getObject("menuClients"));
         WebUI.logConsole(LocalStorageUtils.getItem("password"));
 
         //=> You can get value by key everywhere before closing the browser
@@ -369,11 +355,11 @@ public class TestHandle {
         dashboardPage = signInPage.signIn("tld01@mailinator.com", "123456");
         projectPage = dashboardPage.openProjectPage();
         String dataSearchTitle = "Smart Home";
-        String dataSearchClient = "AN check Client 001";
+        String dataSearchClient = "AN check ClientModel 001";
         // Search cột 2 Title
         projectPage.searchByValue(dataSearchTitle);
         WebUI.checkContainsSearchTableByColumn(2, dataSearchTitle);
-        // Search cột 3 Client
+        // Search cột 3 ClientModel
         projectPage.searchByValue(dataSearchClient);
         WebUI.checkContainsSearchTableByColumn(3, dataSearchClient);
     }

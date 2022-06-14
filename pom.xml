@@ -20,23 +20,24 @@
         <cucumber.java.version>7.2.3</cucumber.java.version>
         <gherkin.version>22.0.0</gherkin.version>
         <cucumber-reporting.version>5.7.0</cucumber-reporting.version>
-        <selenium.version>4.1.4</selenium.version>
-        <testng.version>7.6.0</testng.version>
-        <webdrivermanager.version>5.1.1</webdrivermanager.version>
+        <selenium.version>4.2.2</selenium.version>
+        <testng.version>7.4.0</testng.version>
+        <webdrivermanager.version>5.2.0</webdrivermanager.version>
         <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
         <ashot.version>1.5.4</ashot.version>
         <log4j.version>2.17.2</log4j.version>
-        <allure-testng.version>2.17.3</allure-testng.version>
+        <allure-testng.version>2.18.1</allure-testng.version>
         <allure-maven.version>2.10.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
         <extentreports.version>5.0.9</extentreports.version>
-        <apache-poi.version>5.0.0</apache-poi.version>
-        <apache-poi-xml.version>5.0.0</apache-poi-xml.version>
+        <apache-poi.version>5.2.2</apache-poi.version>
+        <apache-poi-xml.version>5.2.2</apache-poi-xml.version>
+        <commons-io.version>2.11.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
-        <assertj.version>3.22.0</assertj.version>
+        <assertj.version>3.23.1</assertj.version>
         <javafaker.version>1.0.2</javafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.29</mysql-connector-java.version>
@@ -154,14 +155,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>${jackson.version}</version>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/io.github.sskorol/test-data-supplier -->
-        <dependency>
-            <groupId>io.github.sskorol</groupId>
-            <artifactId>test-data-supplier</artifactId>
-            <version>${data.supplier.version}</version>
         </dependency>
 
         <!--https://mvnrepository.com/artifact/com.sun.mail/javax.mail/		 -->
@@ -284,7 +277,14 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>${apache-poi-xml.version}</version>
+            <version>${apache-poi.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder -->

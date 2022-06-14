@@ -1,15 +1,11 @@
 package anhtester.com.common;
 
-import anhtester.com.constants.FrameworkConstants;
-import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.listeners.TestListener;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
 import anhtester.com.report.AllureManager;
 import anhtester.com.utils.WebUI;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
@@ -21,7 +17,6 @@ public class BaseTest {
     public void beforeSuite() {
         AllureManager.setAllureEnvironmentInformation();
         PropertiesHelpers.loadAllFiles(); //Config and Locators
-        ExcelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn");
     }
 
     @Parameters("browser")
@@ -36,7 +31,6 @@ public class BaseTest {
         DriverManager.quit();
         WebUI.stopSoftAssertAll();
     }
-
 
     public WebDriver createBrowser(@Optional("chrome") String browser) {
         PropertiesHelpers.loadAllFiles();

@@ -1,7 +1,5 @@
 package anhtester.com.runners;
 
-import anhtester.com.constants.FrameworkConstants;
-import anhtester.com.helpers.ExcelHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.report.AllureManager;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
@@ -35,7 +33,6 @@ public class TestRunner extends AbstractTestNGCucumberTests {
         System.out.println("================ BEFORE SUITE ================");
         AllureManager.setAllureEnvironmentInformation();
         PropertiesHelpers.loadAllFiles(); //Config and Locators
-        ExcelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH_FULL, "SignIn");
     }
 
     @AfterSuite

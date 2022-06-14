@@ -3,17 +3,17 @@
 **SOME FEATURES IN FRAMEWORK**
 
 1. Run the parallel test case
-2. Read Object web element from a properties file
+2. Read Object web element from Properties file
 3. Extent Report
 4. Allure Report
 5. Send Mail after the run test (Report information and HTML file attachment)
-6. Logfile
+6. Write Log to file
 7. Record video and Screenshot test case for failed
-8. Read data test form Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
+8. Read data test from Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
 9. Base function in the package: utils, helpers
-10. Read data from Json file
-11. Main Keyword: WebUI (call common function)
-12. Sample test function
+10. Read data test from Json file
+11. Main keyword is WebUI
+12. Sample test feature
 
 ## **SYSTEM REQUIREMENTS**
 
@@ -41,7 +41,7 @@
 
   ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
 
-**2. Read Object web element from a properties file**
+**2. Read Object web element from Properties file**
 
 ![image](https://user-images.githubusercontent.com/87883620/161658681-58f3a183-cbfd-433d-853a-927e4373f51c.png)
 
@@ -83,7 +83,7 @@
 
 ![image](https://user-images.githubusercontent.com/87883620/161710836-8f3eee7c-19ba-410d-8498-5f314e6289a5.png)
 
-**6. Log to file**
+**6. Write Log to file**
 
 - Call class: Log.info , Log.pass, Log.error,... (**Log** is a custom global class from Log4j2)
   (**_import anhtester.com.utils.Log.java_**)
@@ -112,17 +112,17 @@
 - **_src/main/java/anhtester/com/utils_**
 - **_src/main/java/anhtester/com/helpers_**
 
-**10. Read data from JSON file**
+**10. Read data test from JSON file**
 
 - **JsonUtils** class select the json file path and call **"get"** method with **key**
 
-**11. Main Keyword: WebUI**
+**11. Main keyword is WebUI**
 
 - WebUI class is main keyword in Framework. It contains common functions
 - How to use: WebUI.function_name
 - Example: WebUI.setWindowSize(1024, 768), WebUI.screenshotElement(By by, String elementName),...
 
-**12. Call function to using sample**
+**12. Call test case sample**
 
 - Run test case TestNG: src/test/java/anhtester/com/projects/website/crm/testcases
 - Run test case Gherkin: src/test/resources/suites/RunSuiteFeature.xml
@@ -139,134 +139,7 @@
 ## Project structure
 
 ```
-📦AutomationFrameworkCucumberTestNG
- ┣ 📂src
- ┃ ┣ 📂main
- ┃ ┃ ┣ 📂java
- ┃ ┃ ┃ ┗ 📂anhtester
- ┃ ┃ ┃ ┃ ┗ 📂com
- ┃ ┃ ┃ ┃ ┃ ┣ 📂annotations
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkAnnotation.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ConfigFactory.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Configuration.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂constants
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂data
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂driver
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverManager.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetFactory.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂enums
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthorType.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Browser.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryType.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FailureHandling.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Platform.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Project.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Target.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂exceptions
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FrameworkException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜HeadlessNotSupportedException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExcelException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExtentReportFileException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForFilesException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidRemoteWebDriverURLException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetNotValidException.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂helpers
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CaptureHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DatabaseHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExcelHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Helpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TxtFileHelpers.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂mail
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailConfig.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂models
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Client.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignIn.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂report
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureManager.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentReportManager.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ExtentTestManager.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📂utils
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserInfoUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataGenerateUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DateUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DecodeUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailSendUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜IconUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LanguageUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LocalStorageUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Log.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ObjectUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportUtils.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WebUI.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ZipUtils.java
- ┃ ┃ ┗ 📂resources
- ┃ ┃ ┃ ┣ 📜drag_and_drop_helper.js
- ┃ ┃ ┃ ┣ 📜jquery_load_helper.js
- ┃ ┃ ┃ ┗ 📜log4j2.properties
- ┃ ┗ 📂test
- ┃ ┃ ┣ 📂java
- ┃ ┃ ┃ ┗ 📂anhtester
- ┃ ┃ ┃ ┃ ┗ 📂com
- ┃ ┃ ┃ ┃ ┃ ┣ 📂common
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BaseTest.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂listeners
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂projects
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂website
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Dashboard
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂SignIn
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPage.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂testcases
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientTest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SignInTest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂runners
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestRunner.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📂stepdefinitions
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseSteps.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DashboardSteps.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Hooks.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginSteps.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestContext.java
- ┃ ┃ ┗ 📂resources
- ┃ ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┃ ┣ 📜config.json
- ┃ ┃ ┃ ┃ ┣ 📜config.properties
- ┃ ┃ ┃ ┃ ┗ 📜datatest.properties
- ┃ ┃ ┃ ┣ 📂features
- ┃ ┃ ┃ ┃ ┣ 📜Dashboard.feature
- ┃ ┃ ┃ ┃ ┗ 📜Login.feature
- ┃ ┃ ┃ ┣ 📂objects.crm
- ┃ ┃ ┃ ┃ ┗ 📜crm_locators.properties
- ┃ ┃ ┃ ┣ 📂suites
- ┃ ┃ ┃ ┃ ┣ 📜Clients-parallel.xml
- ┃ ┃ ┃ ┃ ┣ 📜Clients-simple.xml
- ┃ ┃ ┃ ┃ ┣ 📜RunSuiteFeature.xml
- ┃ ┃ ┃ ┃ ┗ 📜SignIn-simple.xml
- ┃ ┃ ┃ ┣ 📂testdatafile
- ┃ ┃ ┃ ┃ ┣ 📜ClientsDataExcel.xlsx
- ┃ ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx
- ┃ ┃ ┃ ┃ ┣ 📜LoginCSV.csv
- ┃ ┃ ┃ ┃ ┗ 📜TxtFileData.txt
- ┃ ┃ ┃ ┣ 📜cucumber.properties
- ┃ ┃ ┃ ┗ 📜extent.properties
- ┣ 📜pom.xml
- ┗ 📜README.md
+
 ```
 
 ## I shall write document for my Framework. Coming soon...
