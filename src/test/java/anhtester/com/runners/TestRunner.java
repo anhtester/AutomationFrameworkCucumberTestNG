@@ -2,6 +2,7 @@ package anhtester.com.runners;
 
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.report.AllureManager;
+import anhtester.com.utils.Log;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.AfterSuite;
@@ -12,7 +13,7 @@ import org.testng.annotations.Test;
 @Test
 @CucumberOptions(
         features = "src/test/resources/features",
-        glue = {"anhtester.com.stepdefinitions"},
+        glue = {"anhtester.com.projects.website.crm.stepdefinitions"},
         plugin = {"pretty",
                 "html:target/cucumber-reports/cucumber-reports.html",
                 "json:target/cucumber-reports/cucumber-reports.json",
@@ -31,12 +32,14 @@ public class TestRunner extends AbstractTestNGCucumberTests {
     @BeforeSuite
     public void beforeSuite() {
         System.out.println("================ BEFORE SUITE ================");
+        Log.info("================ BEFORE SUITE ================");
         AllureManager.setAllureEnvironmentInformation();
-        PropertiesHelpers.loadAllFiles(); //Config and Locators
+        PropertiesHelpers.loadAllFiles(); //Load Config and Locators
     }
 
     @AfterSuite
     public void afterSuite() {
         System.out.println("================ AFTER SUITE ================");
+        Log.info("================ AFTER SUITE ================");
     }
 }

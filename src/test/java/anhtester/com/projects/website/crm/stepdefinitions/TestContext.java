@@ -1,11 +1,9 @@
-package anhtester.com.stepdefinitions;
+package anhtester.com.projects.website.crm.stepdefinitions;
 
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 
 import java.util.HashMap;
 import java.util.Map;
