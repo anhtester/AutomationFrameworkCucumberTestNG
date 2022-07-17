@@ -25,8 +25,8 @@ public class ObjectUtils {
         }
 
         // extract the locator type and value from the object
-        String locatorType = locator.split(":")[0];
-        String locatorValue = locator.split(":")[1];
+        String locatorType = locator.split("&&")[0];
+        String locatorValue = locator.split("&&")[1];
 
         Log.info("Retrieving object of type '" + locatorType + "' and locator '" + locatorValue + "' from the object repository");
 
@@ -91,29 +91,6 @@ public class ObjectUtils {
         return null;
     }
 
-
-    /**
-     * Receives a wildcard string, replace the wildcard with the value and return to the caller
-     *
-     * @param xpath Xpath with wildcard string
-     *              VD: //a[text()='%s']   =>  %s is String, %d is int
-     * @param value value to be replaced in place of wildcard
-     * @return dynamic xpath string
-     * @author Anh Tester
-     */
-    public static String getXpathDynamic(String xpath, Object value) {
-        if (xpath == null || xpath == "") {
-            try {
-                Log.info("Parameter passing error. The 'xpath' parameter is null.");
-                throw new Exception("Warning !! The xpath is null.");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        } else {
-            return String.format(xpath, value);
-        }
-    }
 
     /**
      * Receives a wildcard string, replace the wildcard with the value and return to the caller

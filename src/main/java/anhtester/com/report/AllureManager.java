@@ -24,10 +24,10 @@ public class AllureManager {
     public static void setAllureEnvironmentInformation() {
         AllureEnvironmentWriter.allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder().
-                        put("Test URL", FrameworkConstants.BASE_URL).
+                        put("Test URL", FrameworkConstants.URL_CRM).
                         put("Target Execution", FrameworkConstants.TARGET).
                         put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
-                        put("Headless Dode", FrameworkConstants.HEADLESS).
+                        put("Headless Mode", FrameworkConstants.HEADLESS).
                         put("Local Browser", String.valueOf(Browser.CHROME)).
                         put("Remote URL", FrameworkConstants.REMOTE_URL).
                         put("Remote Port", FrameworkConstants.REMOTE_PORT).
@@ -58,6 +58,7 @@ public class AllureManager {
     public static String addBrowserInformationOnAllureReport() {
         return BrowserInfoUtils.getOSInfo();
     }
+
 
     //Text attachments for Allure
     @Attachment(value = "{0}", type = "text/plain")

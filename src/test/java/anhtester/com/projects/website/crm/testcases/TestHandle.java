@@ -15,19 +15,24 @@ import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.utils.LocalStorageUtils;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
-import anhtester.com.utils.Log;
 import com.google.zxing.NotFoundException;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Set;
 
 public class TestHandle {
 
@@ -45,7 +50,7 @@ public class TestHandle {
 
     @Test
     public void testLocalStorage() {
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
+        WebUI.getToUrl(FrameworkConstants.URL_CRM);
         WebUI.sleep(1);
 
         //Set key=value in Sign in page
@@ -119,7 +124,7 @@ public class TestHandle {
 
         By inputFileUpload = By.xpath("//div[@class='actions']/input");
 
-        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdatafile\\TxtFileData.txt";
+        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
 
         WebUI.uploadFileSendkeys(inputFileUpload, filePath);
 
@@ -135,7 +140,7 @@ public class TestHandle {
         By divFileUpload = By.xpath("//div[@id='uploadifive-file_upload']");
         By inputFileUpload = By.xpath("//div[@id='file_select_button']//input[@id='file_upload']");
 
-        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdatafile\\TxtFileData.txt";
+        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
 
         WebUI.uploadFileForm(divFileUpload, filePath);
 
@@ -263,9 +268,9 @@ public class TestHandle {
         By to1 = By.cssSelector("#bin");
         By from2 = By.cssSelector("#two");
         WebUI.sleep(1);
-        WebUI.dragAndDropJS(WebUI.findWebElement(from1), WebUI.findWebElement(to1));
+        WebUI.dragAndDropJS(WebUI.getWebElement(from1), WebUI.getWebElement(to1));
         WebUI.sleep(1);
-        WebUI.dragAndDropJS(WebUI.findWebElement(from2), WebUI.findWebElement(to1));
+        WebUI.dragAndDropJS(WebUI.getWebElement(from2), WebUI.getWebElement(to1));
         WebUI.sleep(2);
     }
 
@@ -334,17 +339,18 @@ public class TestHandle {
         WebUI.sleep(1);
 
         //Cách 1 sendKeys link từ source
-        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src/test/resources/DOCX_File_01.docx");
+        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\DOCX_File_01.docx");
+
+        WebUI.sleep(1);
 
         //Cách 2 mở form local máy nên file là trong ổ đĩa máy tính
-        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), "D:\\Document.csv");
+        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv");
 
         WebUI.sleep(3);
     }
 
     @Test
     public void handleTable1() {
-        Log.info("handleTable1");
         WebUI.getToUrl("https://colorlib.com/polygon/notika/data-table.html");
         System.out.println(WebUI.getValueTableByColumn(2));
     }
@@ -370,7 +376,8 @@ public class TestHandle {
         WebUI.waitForPageLoaded();
         String originalWindow = driver.getWindowHandle();
 
-        WebUI.clickElement(By.xpath("//td[normalize-space()='user01@anhtester.com']"));
+        WebUI.setText(By.id("email"), "admin@mailinator.com");
+        WebUI.setText(By.id("password"), "123456");
         WebUI.clickElement(By.xpath("//button[normalize-space()='Login']"));
         WebUI.waitForPageLoaded();
         WebUI.clickElement(By.xpath("//a[@role='button']"));
@@ -413,7 +420,6 @@ public class TestHandle {
 
     @Test
     public void handleAuthentication() {
-
         // Authentication username & password
         String username = "admin";
         String password = "admin";

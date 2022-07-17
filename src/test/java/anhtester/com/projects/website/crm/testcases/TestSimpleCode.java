@@ -7,7 +7,6 @@ package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.*;
-import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.utils.*;
 import org.testng.annotations.Test;
 
@@ -44,7 +43,7 @@ public class TestSimpleCode {
     @Test
     public void testReadFileJSON() {
         WebUI.logConsole(JsonUtils.get("url"));
-        WebUI.logConsole(JsonUtils.get("browser"));
+        WebUI.logConsole(JsonUtils.get("BROWSER"));
         WebUI.logConsole(JsonUtils.get("button"));
     }
 
@@ -57,7 +56,7 @@ public class TestSimpleCode {
     public void testGetAndSetPropertiesFile() {
         PropertiesHelpers.loadAllFiles();
 
-        WebUI.logConsole(PropertiesHelpers.getValue("browser"));
+        WebUI.logConsole(PropertiesHelpers.getValue("BROWSER"));
         WebUI.logConsole(PropertiesHelpers.getValue("buttonTag"));
         WebUI.logConsole(PropertiesHelpers.getValue("buttonDangNhap"));
     }
@@ -74,7 +73,6 @@ public class TestSimpleCode {
     @Test
     public void testEncryptDecryptData() {
         String pass = "123456";
-
         //Encrypt password
         WebUI.logConsole(DecodeUtils.encrypt(pass));
         //Decrypt password
@@ -83,17 +81,17 @@ public class TestSimpleCode {
 
     @Test
     public void testCreateFolder() {
-        Helpers.CreateFolder("src/test/resources/TestCreateNewFolder");
+        Helpers.createFolder("src/test/resources/TestCreateNewFolder");
     }
 
     @Test
     public void testPropertiesFile() {
         PropertiesHelpers.loadAllFiles();
         //  Handle Properties file
-        WebUI.logConsole(PropertiesHelpers.getValue("browser"));
-        WebUI.logConsole(PropertiesHelpers.getValue("base_url"));
-        WebUI.logConsole(PropertiesHelpers.getValue("author"));
-        WebUI.logConsole(PropertiesHelpers.getValue("projectName"));
+        WebUI.logConsole(PropertiesHelpers.getValue("BROWSER"));
+        WebUI.logConsole(PropertiesHelpers.getValue("URL_CRM"));
+        WebUI.logConsole(PropertiesHelpers.getValue("AUTHOR"));
+        WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
 //        PropertiesHelpers.setFile("src/test/resources/config/datatest.properties");
 //        PropertiesHelpers.setValue("base_url", "https://anhtetser.com");
     }
@@ -101,25 +99,24 @@ public class TestSimpleCode {
     @Test
     public void testGetCurrentDateTime() {
         WebUI.logConsole(DateUtils.getCurrentDateTime());
-        //Log.info(Helpers.CurrentDateTime());
     }
 
     @Test
     public void testReadAndWriteTxtFile() {
         PropertiesHelpers.loadAllFiles();
         //Read all data
-        TxtFileHelpers.readTxtFile(PropertiesHelpers.getValue("txtFilePath"));
+        TxtFileHelpers.readTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH"));
         //Read data by line number
-        WebUI.logConsole(TxtFileHelpers.readLineTxtFile(PropertiesHelpers.getValue("txtFilePath"), 0));
+        WebUI.logConsole(TxtFileHelpers.readLineTxtFile(PropertiesHelpers.getValue("TXT_FILE_PATH"), 0));
     }
 
     @Test
     public void testExcelFile1() {
         PropertiesHelpers.loadAllFiles();
-        WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"));
+        WebUI.logConsole(Helpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"));
         //  Handle Excel file
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        excelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("excelClients"), "SignInModel");
+        excelHelpers.setExcelFile(Helpers.getCurrentDir() + PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH"), "SignIn");
         WebUI.logConsole(excelHelpers.getCellData(1, "EMAIL"));
         WebUI.logConsole(excelHelpers.getCellData(1, "PASSWORD"));
         excelHelpers.setCellData("pass", 1, "EXPECTED_TITLE");
@@ -129,9 +126,7 @@ public class TestSimpleCode {
     public void testExcelFile2() throws Exception {
         PropertiesHelpers.loadAllFiles();
         ExcelHelpers excelHelpers = new ExcelHelpers();
-        WebUI.logConsole(excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_PATH, "SignInModel", 1, 2));
-        //WebUI.logConsole(ExcelHelpers.getDataReflection(Helpers.getCurrentDir() + "src/test/resources/testdatafile/ClientsDataExcel.xlsx", "SignInModel", 1, 2));
-
+        WebUI.logConsole(excelHelpers.getDataHashTable(Helpers.getCurrentDir() + FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignInModel", 1, 2));
     }
 
     @Test

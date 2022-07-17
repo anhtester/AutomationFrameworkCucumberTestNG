@@ -1,10 +1,11 @@
-Feature: Login Page
+Feature: Login page CRM
 
-  Scenario Outline: Login page to HRM
+  @Regression
+  Scenario Outline: Login with an email valid
     Given user navigate to url "<url>"
     When user enter username "<username>" and password "<password>"
     And click login button
     Then The user redirect to Dashboard page
     Examples:
-      | url                                 | username | password |
-      | https://hrm.anhtester.com/erp/login | admin01  | 123456   |
+      | url                       | username             | password |
+      | https://crm.anhtester.com | admin@mailinator.com | 123456   |

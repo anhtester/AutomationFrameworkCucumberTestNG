@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite Cucumber">
     <test name="Test Cucumber">
-<!--        <parameter name="browser" value="edge"></parameter>-->
+        <parameter name="BROWSER" value="edge"></parameter>
         <classes>
             <class name="anhtester.com.runners.TestRunner"></class>
         </classes>

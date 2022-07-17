@@ -11,8 +11,6 @@ import java.util.Date;
 //final -> We do not want any class to extend this class
 public final class DateUtils {
 
-    //private -> We do not want anyone to create the object of this class
-    //Private constructor to avoid external instantiation
     private DateUtils() {
     }
 
@@ -30,9 +28,16 @@ public final class DateUtils {
     public static String getCurrentDateTime() {
         Date now = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//        System.out.println(formatter.format(now));
-//        String Timestamp = now.toString().replace(":", "-");
         return formatter.format(now);
+    }
+
+    public static String getCurrentDateTimeCustom(String separator_Character) {
+        Date now = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String timeStamp = formatter.format(now).replace("/", separator_Character);
+        timeStamp = timeStamp.replace(" ", separator_Character);
+        timeStamp = timeStamp.replace(":", separator_Character);
+        return timeStamp;
     }
 
 }

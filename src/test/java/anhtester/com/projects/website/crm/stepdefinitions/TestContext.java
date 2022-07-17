@@ -15,6 +15,7 @@ public class TestContext {
 
     public TestContext() {
         driver = ThreadGuard.protect(new TargetFactory().createInstance());
+        driver.manage().window().maximize();
         DriverManager.setDriver(driver);
         System.out.println("Driver in TestContext: " + getDriver());
     }
@@ -33,11 +34,6 @@ public class TestContext {
 
     public WebDriver getDriver() {
         return DriverManager.getDriver();
-    }
-
-    public void closeDriver() {
-        driver.close();
-        driver.quit();
     }
 
     public enum Context {

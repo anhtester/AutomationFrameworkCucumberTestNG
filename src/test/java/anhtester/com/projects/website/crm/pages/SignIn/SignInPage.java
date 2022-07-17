@@ -7,6 +7,7 @@ import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.utils.DecodeUtils;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 
 import java.util.Hashtable;
@@ -15,16 +16,20 @@ public class SignInPage {
 
     private String pageUrl = "/signin";
     private String pageText = "";
-    private String pageTitle = "CRM Project Manager | Anh Tester Demo";
+    private String pageTitle = "Sign in | CRM Project Manager | Anh Tester Demo";
     private String dashboardPageURL = "/dashboard";
 
+    public By email_error = ObjectUtils.getObject("labelEmailError");
+
+    ExcelHelpers excelHelpers;
+
     public SignInPage() {
+        excelHelpers = new ExcelHelpers();
     }
 
     public DashboardPage signInWithAdminRole() {
-        ExcelHelpers excelHelpers = new ExcelHelpers();
-        excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
+        excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
+        WebUI.getToUrl(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
         WebUI.setText(ObjectUtils.getObject("inputEmail"), excelHelpers.getCellData(1, SignInModel.getEmail()));
@@ -38,9 +43,8 @@ public class SignInPage {
     }
 
     public DashboardPage signInWithTeamLeaderRole() {
-        ExcelHelpers excelHelpers = new ExcelHelpers();
-        excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
+        excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
+        WebUI.getToUrl(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
         WebUI.setText(ObjectUtils.getObject("inputEmail"), excelHelpers.getCellData(2, SignInModel.getEmail()));
@@ -54,9 +58,8 @@ public class SignInPage {
     }
 
     public DashboardPage signInWithTeamMemberRole() {
-        ExcelHelpers excelHelpers = new ExcelHelpers();
-        excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_PATH, "SignIn");
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
+        excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
+        WebUI.getToUrl(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
         WebUI.setText(ObjectUtils.getObject("inputEmail"), excelHelpers.getCellData(3, SignInModel.getEmail()));
@@ -70,7 +73,7 @@ public class SignInPage {
     }
 
     public DashboardPage signIn(String email, String password) {
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
+        WebUI.getToUrl(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of Sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "Tiêu đề trang sign in chưa đúng");
         WebUI.sleep(1);
@@ -83,7 +86,7 @@ public class SignInPage {
     }
 
     public DashboardPage signIn(Hashtable<String, String> data) {
-        WebUI.getToUrl(FrameworkConstants.BASE_URL);
+        WebUI.getToUrl(FrameworkConstants.URL_CRM);
         Assert.assertTrue(WebUI.verifyPageUrl(pageUrl), "The url of sign in page not match.");
         Assert.assertTrue(WebUI.verifyPageTitle(pageTitle), "The title of sign in page not match.");
         WebUI.setText(ObjectUtils.getObject("inputEmail"), data.get(SignInModel.getEmail()));

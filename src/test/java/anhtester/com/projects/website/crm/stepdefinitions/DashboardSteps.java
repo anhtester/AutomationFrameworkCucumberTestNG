@@ -1,5 +1,6 @@
 package anhtester.com.projects.website.crm.stepdefinitions;
 
+import anhtester.com.common.CommonSteps;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.utils.WebUI;
 import io.cucumber.java.en.Given;
@@ -8,19 +9,26 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
-public class DashboardSteps {
+public class DashboardSteps extends CommonPage {
 
-    @Given("user navigate to dashboard")
-    public void userNavigateToDashboard() {
-        WebUI.logConsole("Driver on DashboardSteps class: " + DriverManager.getDriver());
+    public DashboardSteps(){
+
+    }
+
+    @Given("User logged in with email {string} and password {string}")
+    public void userLoggedInWithEmailAndPassword(String email, String password) {
         WebUI.getToUrl("https://hrm.anhtester.com/erp/login");
-        WebUI.sleep(1);
-        WebUI.setText(By.xpath("//input[@id='iusername']"), "admin01");
-        WebUI.setText(By.xpath("//input[@id='ipassword']"), "123456");
+        WebUI.setText(By.xpath("//input[@id='iusername']"), email);
+        WebUI.setText(By.xpath("//input[@id='ipassword']"), password);
         WebUI.clickElement(By.xpath("//button[@type='submit']"));
     }
 
-    @When("user click {string}")
+    @Given("User navigate to dashboard")
+    public void userNavigateToDashboard() {
+        WebUI.verifyPageUrl(dashboardPage.pageUrl);
+    }
+
+    @When("User click {string}")
     public void userClick(String menu) {
         WebUI.waitForPageLoaded();
         WebUI.waitForJQueryLoaded();

@@ -1,35 +1,34 @@
 package anhtester.com.common;
 
-import anhtester.com.helpers.PropertiesHelpers;
-import anhtester.com.listeners.TestListener;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
-import anhtester.com.report.AllureManager;
-import anhtester.com.utils.WebUI;
+import anhtester.com.helpers.PropertiesHelpers;
+import anhtester.com.listeners.TestListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.testng.annotations.*;
+
+import java.lang.reflect.Method;
 
 @Listeners({TestListener.class})
 public class BaseTest {
 
     @BeforeSuite
     public void beforeSuite() {
-        AllureManager.setAllureEnvironmentInformation();
-        PropertiesHelpers.loadAllFiles(); //Config and Locators
+
     }
 
-    @Parameters("browser")
-    @BeforeClass
-    public void createDriver(@Optional("chrome") String browser) {
+    @Parameters("BROWSER")
+    @BeforeMethod(alwaysRun = true)
+    public void createDriver(@Optional("chrome") String browser, Method method) {
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));
+        driver.manage().window().maximize();
         DriverManager.setDriver(driver);
     }
 
-    @AfterClass
+    @AfterMethod(alwaysRun = true)
     public void closeDriver() {
         DriverManager.quit();
-        WebUI.stopSoftAssertAll();
     }
 
     public WebDriver createBrowser(@Optional("chrome") String browser) {
@@ -37,7 +36,6 @@ public class BaseTest {
         WebDriver driver = ThreadGuard.protect(new TargetFactory().createInstance(browser));
         DriverManager.setDriver(driver);
         return DriverManager.getDriver();
-
     }
 
 }
