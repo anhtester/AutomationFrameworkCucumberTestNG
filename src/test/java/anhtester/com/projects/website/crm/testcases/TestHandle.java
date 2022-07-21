@@ -16,10 +16,13 @@ import anhtester.com.utils.LocalStorageUtils;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
 import com.google.zxing.NotFoundException;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.v103.log.Log;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -46,6 +49,30 @@ public class TestHandle {
         driver = new BaseTest().createBrowser("chrome"); //Initialization method 1
         // new BaseTest().createDriver("chrome"); //Initialization method 2
         // driver = DriverManager.getDriver(); //Get WebDriver from global in ThreadLocal
+    }
+
+    @Test
+    public void viewConsoleLogs() {
+        ChromeDriver driver;
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        DevTools devTools = driver.getDevTools();
+        devTools.createSession();
+        devTools.send(Log.enable());
+
+        devTools.addListener(Log.entryAdded(), logEntry -> {
+            System.out.println("-------------------------------------------");
+            System.out.println("Request ID = " + logEntry.getNetworkRequestId());
+            System.out.println("URL = " + logEntry.getUrl());
+            System.out.println("Source = " + logEntry.getSource());
+            System.out.println("Level = " + logEntry.getLevel());
+            System.out.println("Text = " + logEntry.getText());
+            System.out.println("Timestamp = " + logEntry.getTimestamp());
+            System.out.println("-------------------------------------------");
+        });
+        driver.get("https://anhtester.com/404");
+        driver.quit();
     }
 
     @Test

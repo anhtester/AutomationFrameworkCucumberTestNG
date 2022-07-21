@@ -413,6 +413,13 @@ public class WebUI {
         return DriverManager.getDriver().getCurrentUrl().contains(pageUrl.trim());
     }
 
+    public static boolean verifyPageUrl(String pageUrl, String message) {
+        smartWait();
+        Log.info("Current URL: " + DriverManager.getDriver().getCurrentUrl());
+        softAssert.assertTrue(DriverManager.getDriver().getCurrentUrl().contains(pageUrl.trim()), message);
+        return DriverManager.getDriver().getCurrentUrl().contains(pageUrl.trim());
+    }
+
     //Handle checkbox and radio button
 
     public static boolean verifyElementChecked(By by) {

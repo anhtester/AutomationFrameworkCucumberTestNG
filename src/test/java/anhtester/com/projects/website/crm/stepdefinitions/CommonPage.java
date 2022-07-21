@@ -13,7 +13,10 @@ public class CommonPage {
     public ProjectPage projectPage;
 
     public CommonPage() {
-
+        getSignInPage();
+        getDashboardPage();
+        getClientPage();
+        getProjectPage();
     }
 
     public SignInPage getSignInPage() {

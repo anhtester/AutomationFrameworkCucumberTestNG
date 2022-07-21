@@ -20,15 +20,13 @@ public class Hooks {
     @Before
     public void beforeScenario() {
         //System.out.println("Starting Driver in Hooks: " + DriverManager.getDriver());
-
     }
 
 
     @After
     public void afterScenario(Scenario scenario) {
-
         //System.out.println("Stop Driver in Hooks: " + DriverManager.getDriver());
-
+        WebUI.sleep(1);
         DriverManager.quit();
         WebUI.stopSoftAssertAll();
     }

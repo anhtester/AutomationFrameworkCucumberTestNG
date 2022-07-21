@@ -333,7 +333,7 @@
     <!-- This profile execute the TestNG suite inside the suites folder on test/resources/suites -->
     <profiles>
         <profile>
-            <id>clients-parallel</id>
+            <id>clients-simple</id>
             <build>
                 <plugins>
                     <plugin>
@@ -342,7 +342,7 @@
                         <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>${suite.client.parallel}</suiteXmlFile>
+                                <suiteXmlFile>${suite.client.simple}</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
