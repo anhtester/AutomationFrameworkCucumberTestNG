@@ -11,13 +11,8 @@ import org.testng.annotations.*;
 import java.lang.reflect.Method;
 
 @Listeners({TestListener.class})
-public class BaseTest {
-
-    @BeforeSuite
-    public void beforeSuite() {
-
-    }
-
+public class BaseTest extends CommonPage {
+    
     @Parameters("BROWSER")
     @BeforeMethod(alwaysRun = true)
     public void createDriver(@Optional("chrome") String browser, Method method) {

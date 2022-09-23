@@ -13,26 +13,20 @@ import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.utils.LocalStorageUtils;
+import anhtester.com.utils.Log;
 import anhtester.com.utils.ObjectUtils;
 import anhtester.com.utils.WebUI;
-import com.google.zxing.NotFoundException;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v103.log.Log;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Set;
@@ -52,50 +46,63 @@ public class TestHandle {
     }
 
     @Test
-    public void viewConsoleLogs() {
-        ChromeDriver driver;
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        DevTools devTools = driver.getDevTools();
-        devTools.createSession();
-        devTools.send(Log.enable());
+    public void testDownloadFileWithJS() {
+        WebUI.getURL("https://www.onlinedatagenerator.com/");
+        WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
+        WebUI.sleep(3);
+        Assert.assertTrue(WebUI.verifyFileDownloadedWithJS("ExportCSV (5).csv"), "Download failed. File not match.");
+    }
 
-        devTools.addListener(Log.entryAdded(), logEntry -> {
-            System.out.println("-------------------------------------------");
-            System.out.println("Request ID = " + logEntry.getNetworkRequestId());
-            System.out.println("URL = " + logEntry.getUrl());
-            System.out.println("Source = " + logEntry.getSource());
-            System.out.println("Level = " + logEntry.getLevel());
-            System.out.println("Text = " + logEntry.getText());
-            System.out.println("Timestamp = " + logEntry.getTimestamp());
-            System.out.println("-------------------------------------------");
-        });
-        driver.get("https://anhtester.com/404");
-        driver.quit();
+    @Test
+    public void testDownloadFileWithJava() {
+        Log.info(WebUI.countFilesInDownloadDirectory());
+        WebUI.getURL("https://www.onlinedatagenerator.com/");
+        WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
+        WebUI.sleep(3);
+        Log.info(WebUI.countFilesInDownloadDirectory());
+        //File name is ExportCSV.csv
+        Assert.assertTrue(WebUI.verifyDownloadFileEqualsNameCompletedWaitTimeout("ExportCSV.csv", 5), "Download failed. File not found.");
+    }
+
+    @Test
+    public void testConvertWebElementToBy() {
+        WebUI.getURL(FrameworkConstants.URL_CRM);
+        SignInPage signInPage = new SignInPage();
+
+        //WebElement
+        WebElement emailElement = WebUI.getWebElement(signInPage.inputEmail);
+
+        //Convert WebElement to By
+        By emailBy = ObjectUtils.getByFromWebElement(emailElement);
+
+        WebUI.setText(emailBy, "admin@mailinator.com");
+
+        WebUI.setText(signInPage.inputPassword, "123456");
+        WebUI.clickElement(signInPage.buttonSignIn);
+        WebUI.waitForElementVisible(new DashboardPage().menuDashboard);
     }
 
     @Test
     public void testLocalStorage() {
-        WebUI.getToUrl(FrameworkConstants.URL_CRM);
+        WebUI.getURL(FrameworkConstants.URL_CRM);
         WebUI.sleep(1);
 
         //Set key=value in Sign in page
-        LocalStorageUtils.setItem("email", "admin02@mailinator.com");
+        LocalStorageUtils.setItem("email", "admin@mailinator.com");
         LocalStorageUtils.setItem("password", "123456");
 
-        WebUI.setText(ObjectUtils.getObject("inputEmail"), LocalStorageUtils.getItem("email"));
-        WebUI.setText(ObjectUtils.getObject("inputPassword"), LocalStorageUtils.getItem("password"));
-        WebUI.clickElement(ObjectUtils.getObject("buttonSignIn"));
+        WebUI.setText(ObjectUtils.getByLocatorFromConfig("inputEmail"), LocalStorageUtils.getItem("email"));
+        WebUI.setText(ObjectUtils.getByLocatorFromConfig("inputPassword"), LocalStorageUtils.getItem("password"));
+        WebUI.clickElement(ObjectUtils.getByLocatorFromConfig("buttonSignIn"));
         WebUI.waitForPageLoaded();
 
         //Get value in Project page
-        WebUI.clickElement(ObjectUtils.getObject("menuProjects"));
+        WebUI.clickElement(ObjectUtils.getByLocatorFromConfig("menuProjects"));
         WebUI.logConsole(LocalStorageUtils.getItem("email"));
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
         //Get value in ClientModel page
-        WebUI.clickElement(ObjectUtils.getObject("menuClients"));
+        WebUI.clickElement(ObjectUtils.getByLocatorFromConfig("menuClients"));
         WebUI.logConsole(LocalStorageUtils.getItem("password"));
 
         //=> You can get value by key everywhere before closing the browser
@@ -103,7 +110,7 @@ public class TestHandle {
 
     @Test
     public void handleHTML5ValidationMessage() {
-        WebUI.getToUrl("https://anhtester.com/login");
+        WebUI.getURL("https://anhtester.com/login");
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
@@ -129,7 +136,7 @@ public class TestHandle {
 
     @Test
     public void handleSetWindow() {
-        WebUI.getToUrl("https://anhtester.com");
+        WebUI.getURL("https://anhtester.com");
         WebUI.waitForPageLoaded();
         WebUI.setWindowSize(1000, 600);
         WebUI.sleep(2);
@@ -139,14 +146,14 @@ public class TestHandle {
 
     @Test
     public void handleScreenshotElement() {
-        WebUI.getToUrl("https://anhtester.com");
+        WebUI.getURL("https://anhtester.com");
         WebUI.waitForPageLoaded();
         WebUI.screenshotElement(By.xpath("//div[@class='col-lg-5']//div[@class='row']//div[1]//div[1]"), "Website_Testing_Module");
     }
 
     @Test
     public void testUploadFileSendKeys() {
-        WebUI.getToUrl("https://www.file.io/");
+        WebUI.getURL("https://www.file.io/");
         WebUI.waitForPageLoaded();
 
         By inputFileUpload = By.xpath("//div[@class='actions']/input");
@@ -160,7 +167,7 @@ public class TestHandle {
 
     @Test
     public void testUploadFileFormDialog() {
-        WebUI.getToUrl("https://files.fm/");
+        WebUI.getURL("https://files.fm/");
         WebUI.waitForPageLoaded();
 
         By textOnPage = By.xpath("//div[@id='file_select_dragndrop_text']");
@@ -177,7 +184,7 @@ public class TestHandle {
     //Phân trang và check data in table
     @Test
     public void checkDataTableWithPagination() {
-        WebUI.getToUrl("https://datatables.net/");
+        WebUI.getURL("https://datatables.net/");
         WebUI.waitForPageLoaded();
 
         By title_H1 = By.xpath("//div[@class='fw-hero']//h1");
@@ -196,10 +203,12 @@ public class TestHandle {
             arrayListString.add(s);
         }
 
+        //Showing 1 to 10 of 57 entries => Lấy ra số 57 á :))
         int itemTotal = Integer.parseInt(arrayListString.get(5));
         System.out.println("Tổng số item: " + itemTotal);
 
         int itemTotalOnePage = 10; //mặc định như mẫu. Tuỳ vào hệ thống mình thay đổi theo
+        //Hoặc lấy bằng auto số default luôn cũng được. Có gì biến tấu thêm hen.
         System.out.println("Số item trên 1 trang: " + itemTotalOnePage);
 
         double pageTotal = (double) itemTotal / (double) itemTotalOnePage;
@@ -207,17 +216,19 @@ public class TestHandle {
         DecimalFormat df = new DecimalFormat("#"); //Làm tròn số đến phần đơn vị của phần thập phân
         //Ví dụ 5.7 thì làm tròn 6 kiểu vậy
         int pageTotalInt = Integer.parseInt(df.format(pageTotal));
-        System.out.println("Tổng số trang: " + df.format(pageTotalInt));
+        System.out.println("Tổng số trang: " + pageTotalInt);
 
         //FOR này chạy tới < pageTotalInt để nó không click thêm lần cuối cùng
         //VD: 6 trang thì nó chỉ click 5 lần thôi chứ hả =))
-        for (int i = 1; i < pageTotalInt; i++) {
+        for (int i = 1; i <= pageTotalInt; i++) {
             WebUI.scrollToElement(title_H1);
             //Gọi hàm Check data in table by column từ keyword WebUI
-            WebUI.checkContainsSearchTableByColumn(1, "", "//div[@id='example_wrapper']//tbody/tr");
+            WebUI.checkContainsValueOnTableByColumn(1, "", "//div[@id='example_wrapper']//tbody/tr");
             WebUI.sleep(1);
             //Click Next
-            driver.findElement(button_Next).click();
+            if (i != pageTotalInt) {
+                driver.findElement(button_Next).click();
+            }
         }
 
         WebUI.scrollToElement(title_H1);
@@ -227,8 +238,8 @@ public class TestHandle {
 
 
     @Test
-    public void QRCode() throws NotFoundException, IOException {
-        WebUI.getToUrl("http://qrcode.meetheed.com/qrcode_examples.php");
+    public void QRCode() {
+        WebUI.getURL("http://qrcode.meetheed.com/qrcode_examples.php");
         WebUI.maximizeWindow();
         WebUI.waitForPageLoaded();
         WebUI.moveToElement(By.xpath("(//div[@class = 'topBox'])[1]/img"));
@@ -238,7 +249,7 @@ public class TestHandle {
 
     @Test
     public void handleZoomInZoomOut() {
-        WebUI.getToUrl("https://anhtester.com");
+        WebUI.getURL("https://anhtester.com");
         WebUI.sleep(1);
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.ADD));
         //driver.findElement(By.tagName("html")).sendKeys(Keys.chord(Keys.CONTROL,Keys.SUBTRACT));
@@ -250,40 +261,8 @@ public class TestHandle {
     public void handleNotificationsBrowser() {
         driver = new ChromeDriver(WebUI.notificationsBlock()); //
         driver.manage().window().maximize();
-        WebUI.getToUrl("https://oto.com.vn/mua-ban-xe");
+        WebUI.getURL("https://oto.com.vn/mua-ban-xe");
         WebUI.sleep(4);
-    }
-
-    @Test
-    public void handleDragAndDropJQuery() throws InterruptedException, IOException {
-        try {
-            String basePath = new File("").getAbsolutePath();
-
-            DriverManager.getDriver().get("https://david-desmaisons.github.io/draggable-example/");
-            Thread.sleep(1000);
-
-            final String JQUERY_LOAD_SCRIPT = (basePath + "/src/main/resources/jquery_load_helper.js");
-            final String DRAG_AND_DROP_SCRIPT = (basePath + "/src/main/resources/drag_and_drop_helper.js");
-            String jQueryLoader = Helpers.readFile(JQUERY_LOAD_SCRIPT);
-            String dragAndDropScriptLoader = Helpers.readFile(DRAG_AND_DROP_SCRIPT);
-
-            JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-            js.executeAsyncScript(jQueryLoader);
-
-            String source = "li:nth-child(1)";
-            String target = "li:nth-child(2)";
-
-            Thread.sleep(1000);
-
-            String javaScript = dragAndDropScriptLoader + "window.jQuery('" + source + "').simulateDragDrop({ dropTarget: '" + target + "'});";
-
-            ((JavascriptExecutor) DriverManager.getDriver()).executeScript(javaScript);
-
-            Thread.sleep(3000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Test
@@ -303,55 +282,44 @@ public class TestHandle {
 
     @Test
     public void handleDragAndDrop() {
-        WebUI.getToUrl("http://demo.guru99.com/test/drag_drop.html");
-        By fromElement1 = By.xpath("//a[normalize-space()='BANK']");
-        By toElement1 = By.xpath("(//div[@id='shoppingCart1']//div)[1]");
-
-        By fromElement2 = By.xpath("(//li[@id='fourth'])[2]");
-        By toElement2 = By.xpath("(//div[@id='shoppingCart4']//div)[1]");
+        WebUI.getURL("http://demo.guru99.com/test/drag_drop.html");
+        By fromElement = By.xpath("//a[normalize-space()='BANK']");
+        By toElement = By.xpath("(//div[@id='shoppingCart1']//div)[1]");
 
         //WebUI.switchToFrameByElement(toElement);
         //WebUI.scrollToElement(toElement);
-        WebUI.dragAndDrop(fromElement1, toElement1);
+        WebUI.dragAndDrop(fromElement, toElement);
         WebUI.sleep(1);
-        WebUI.dragAndDropElement(fromElement2, toElement2);
+    }
+
+    @Test
+    public void handleDragAndDropHTML5() {
+        WebUI.getURL("https://david-desmaisons.github.io/draggable-example/");
+        WebUI.waitForPageLoaded();
+
+        By fromElement = By.xpath("(//li[@class='list-group-item'])[1]");
+        By toElement = By.xpath("(//li[@class='list-group-item'])[2]");
+
+        WebUI.dragAndDropHTML5(fromElement, toElement);
+        
         WebUI.sleep(2);
     }
 
     @Test
-    public void handleDragAndDropOffset() throws AWTException, InterruptedException {
-        WebUI.getToUrl("https://david-desmaisons.github.io/draggable-example/");
-        Thread.sleep(1000);
+    public void handleDragAndDropOffset() {
+        WebUI.getURL("https://david-desmaisons.github.io/draggable-example/");
+        WebUI.waitForPageLoaded();
 
-        By fromElement1 = By.xpath("(//li[@class='list-group-item'])[1]");
-        By toElement1 = By.xpath("(//li[@class='list-group-item'])[2]");
+        By fromElement = By.xpath("(//li[@class='list-group-item'])[1]");
 
-        int X1 = driver.findElement(fromElement1).getLocation().getX();
-        int Y1 = driver.findElement(fromElement1).getLocation().getY();
-        System.out.println(X1 + " , " + Y1);
+        WebUI.dragAndDropToOffset(fromElement, 330, 600);
 
-        int X2 = driver.findElement(toElement1).getLocation().getX();
-        int Y2 = driver.findElement(toElement1).getLocation().getY();
-        System.out.println(X2 + " , " + Y2);
-
-        //Chổ này lấy theo toạ độ cụ thể. Chả biết sao nó lấy toạ độ Element chênh lệch vậy nữa =))
-        Thread.sleep(1000);
-        Robot robot = new Robot();
-        robot.mouseMove(250, 570);
-        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-
-        Thread.sleep(1000);
-        robot.mouseMove(250, 610);
-
-        Thread.sleep(1000);
-        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-
-        Thread.sleep(3000);
+        WebUI.sleep(2);
     }
 
     @Test
     public void handleHighLightElement() {
-        WebUI.getToUrl("https://hrm.anhtester.com/");
+        WebUI.getURL("https://app.hrsale.com/");
         By button = By.xpath("//button[@type='submit']");
         WebUI.highLightElement(button); //Tô màu viền đỏ cho Element trên website
         WebUI.verifyElementAttributeValue(button, "type", "submit");
@@ -361,54 +329,44 @@ public class TestHandle {
 
     @Test
     public void handleUploadFile() {
-        WebUI.getToUrl("https://demoqa.com/upload-download");
+        WebUI.getURL("https://demoqa.com/upload-download");
         WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
-        //Cách 1 sendKeys link từ source
-        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\DOCX_File_01.docx");
+        final String path1 = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\DOCX_File_01.docx";
+        final String path2 = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv";
 
+        //Cách 1 sendKeys link từ source
+        WebUI.uploadFileSendkeys(By.xpath("//input[@id='uploadFile']"), path1);
+        WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "DOCX_File_01ABC.docx");
+        WebUI.sleep(1);
+        WebUI.reloadPage();
+        WebUI.waitForPageLoaded();
         WebUI.sleep(1);
 
         //Cách 2 mở form local máy nên file là trong ổ đĩa máy tính
-        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\LoginCSV.csv");
-
+        WebUI.uploadFileForm(By.xpath("//input[@id='uploadFile']"), path2);
+        WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "LoginCSV.csv");
         WebUI.sleep(3);
     }
 
     @Test
-    public void handleTable1() {
-        WebUI.getToUrl("https://colorlib.com/polygon/notika/data-table.html");
+    public void handleTable() {
+        WebUI.getURL("https://colorlib.com/polygon/notika/data-table.html");
         System.out.println(WebUI.getValueTableByColumn(2));
     }
 
     @Test
-    public void handleTable2() {
-        signInPage = new SignInPage();
-        dashboardPage = signInPage.signIn("tld01@mailinator.com", "123456");
-        projectPage = dashboardPage.openProjectPage();
-        String dataSearchTitle = "Smart Home";
-        String dataSearchClient = "AN check ClientModel 001";
-        // Search cột 2 Title
-        projectPage.searchByValue(dataSearchTitle);
-        WebUI.checkContainsSearchTableByColumn(2, dataSearchTitle);
-        // Search cột 3 ClientModel
-        projectPage.searchByValue(dataSearchClient);
-        WebUI.checkContainsSearchTableByColumn(3, dataSearchClient);
-    }
-
-    @Test
     public void handlePrintPopup() throws AWTException {
-        WebUI.getToUrl("https://pos.anhtester.com/login");
+        WebUI.getURL("https://saleserpnew.bdtask.com/saleserp_v9.8_demo/login");
         WebUI.waitForPageLoaded();
         String originalWindow = driver.getWindowHandle();
 
-        WebUI.setText(By.id("email"), "admin@mailinator.com");
+        WebUI.setText(By.id("email"), "admin@gmail.com");
         WebUI.setText(By.id("password"), "123456");
         WebUI.clickElement(By.xpath("//button[normalize-space()='Login']"));
         WebUI.waitForPageLoaded();
-        WebUI.clickElement(By.xpath("//a[@role='button']"));
-        WebUI.waitForPageLoaded();
+        WebUI.clickElement(By.xpath("//span[normalize-space()='Sale']"));
         WebUI.clickElement(By.xpath("//a[normalize-space()='Manage Sale']"));
         WebUI.clickElement(By.xpath("//span[normalize-space()='Print']"));
 
@@ -460,7 +418,7 @@ public class TestHandle {
     @AfterMethod
     public void closeDriver() {
         DriverManager.quit();
-        if (driver == null) {
+        if (driver != null) {
             driver.quit();
         }
     }

@@ -27,11 +27,13 @@ public class AllureManager {
                         put("Test URL", FrameworkConstants.URL_CRM).
                         put("Target Execution", FrameworkConstants.TARGET).
                         put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
-                        put("Headless Mode", FrameworkConstants.HEADLESS).
+                        put("Headless Dode", FrameworkConstants.HEADLESS).
                         put("Local Browser", String.valueOf(Browser.CHROME)).
                         put("Remote URL", FrameworkConstants.REMOTE_URL).
                         put("Remote Port", FrameworkConstants.REMOTE_PORT).
                         build());
+
+        
     }
 
     @Attachment(value = "Failed test screenshot", type = "image/png")

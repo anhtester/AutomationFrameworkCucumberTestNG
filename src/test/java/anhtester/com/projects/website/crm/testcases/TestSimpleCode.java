@@ -7,6 +7,7 @@ package anhtester.com.projects.website.crm.testcases;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.*;
+import anhtester.com.report.TelegramManager;
 import anhtester.com.utils.*;
 import org.testng.annotations.Test;
 
@@ -16,6 +17,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TestSimpleCode {
+
+    @Test
+    public void testTelegramBotMessage() {
+        TelegramManager.sendReportPath();
+        //TelegramManager.sendFilePath("logs/applog.log");
+    }
+
+    @Test
+    public void testGetOSInfo() {
+        System.out.println(BrowserInfoUtils.getOSInfo());
+        System.out.println(BrowserInfoUtils.isWindows());
+        System.out.println(BrowserInfoUtils.isMac());
+    }
 
     @Test
     public void testGetXpathDynamic() {
@@ -72,7 +86,7 @@ public class TestSimpleCode {
 
     @Test
     public void testEncryptDecryptData() {
-        String pass = "123456";
+        String pass = "riseDemo";
         //Encrypt password
         WebUI.logConsole(DecodeUtils.encrypt(pass));
         //Decrypt password

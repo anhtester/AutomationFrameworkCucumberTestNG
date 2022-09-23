@@ -22,7 +22,6 @@ public class Hooks {
         //System.out.println("Starting Driver in Hooks: " + DriverManager.getDriver());
     }
 
-
     @After
     public void afterScenario(Scenario scenario) {
         //System.out.println("Stop Driver in Hooks: " + DriverManager.getDriver());

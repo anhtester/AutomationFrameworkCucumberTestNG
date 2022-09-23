@@ -9,6 +9,7 @@ import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.helpers.ScreenRecoderHelpers;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
+import anhtester.com.report.TelegramManager;
 import anhtester.com.utils.*;
 import com.aventstack.extentreports.Status;
 import org.testng.*;
@@ -68,7 +69,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.info("Start suite: " + iSuite.getName());
         iSuite.setAttribute("WebDriver", DriverManager.getDriver());
 //        //Gọi hàm startRecord video trong CaptureHelpers class
-//        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+//        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
 //            CaptureHelpers.startRecord(iSuite.getName());
 //        }
     }
@@ -77,15 +78,14 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
     public void onFinish(ISuite iSuite) {
         Log.info("End suite testing " + iSuite.getName());
         WebUI.stopSoftAssertAll();
-        //Kết thúc và thực thi Extents Report
+        //Kết thúc Suite và thực thi Extents Report, đóng gói Folder report và send mail
         ExtentReportManager.flushReports();
-        if (ZIP_FOLDER.trim().toLowerCase().equals(YES)) {
-            ZipUtils.zip();
-        }
+        ZipUtils.zip();
+        TelegramManager.sendReportPath();
         EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
 
         //Gọi hàm stopRecord video trong CaptureHelpers class
-//        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+//        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
 //            CaptureHelpers.stopRecord();
 //        }
     }
@@ -123,7 +123,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + " "
                 + BrowserInfoUtils.getOSInfo() + BOLD_END);
 
-        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.startRecording(getTestName(iTestResult));
         }
 
@@ -134,7 +134,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.info("Test case: " + getTestName(iTestResult) + " is passed.");
         count_passedTCs = count_passedTCs + 1;
 
-        if (screenshot_passed_steps.equals(YES)) {
+        if (SCREENSHOT_PASSED_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
@@ -152,7 +152,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.error("Test case: " + getTestName(iTestResult) + " is failed.");
         count_failedTCs = count_failedTCs + 1;
 
-        if (screenshot_failed_steps.equals(YES)) {
+        if (SCREENSHOT_FAILED_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
@@ -167,7 +167,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.logMessage(Status.FAIL, "Test case: " + getTestName(iTestResult) + " is failed.");
         ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable());
 
-        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.stopRecording(true);
         }
 
@@ -178,13 +178,13 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         Log.warn("Test case: " + getTestName(iTestResult) + " is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
 
-        if (screenshot_skipped_steps.equals(YES)) {
+        if (SCREENSHOT_SKIPPED_STEPS.equals(YES)) {
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
         ExtentReportManager.logMessage(Status.SKIP, "Test case: " + getTestName(iTestResult) + " is skipped.");
 
-        if (VIDEO_RECORD.trim().toLowerCase().equals(YES)) {
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.stopRecording(true);
         }
 
