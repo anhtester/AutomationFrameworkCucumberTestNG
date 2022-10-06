@@ -56,6 +56,10 @@
 - Config from src/test/resources/extent.properties
 - Config PDF from src/test/resources/pdf-config.yaml
 
+![image](https://user-images.githubusercontent.com/87883620/194403666-ad996860-6f53-426d-b606-609cd9689ede.png)
+![image](https://user-images.githubusercontent.com/87883620/194403696-2ac21bc5-4855-49fa-8a39-c032f6f59d46.png)
+![image](https://user-images.githubusercontent.com/87883620/194403721-96198d1b-b8fe-4058-9b16-403d0437f8ab.png)
+![image](https://user-images.githubusercontent.com/87883620/194403743-55aa0e59-39c3-470e-92bf-14275ab2e502.png)
 
 
 **4. Allure Report**
@@ -77,7 +81,7 @@
   (**_src/test/resources/config/config.properties_**)
 - send_email_to_users=**true** is enable send mail
 - Config mail with email and password in **_src/main/java/anhtester/com/mail/EmailConfig.java_**
-- Note: if Gmail, you usage password App
+- Note: if Gmail, you use Password App
 
 ![image](https://user-images.githubusercontent.com/87883620/161658851-2aa41091-ac99-45d9-a79f-aaa828052efb.png)
 
