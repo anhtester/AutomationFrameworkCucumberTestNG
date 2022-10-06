@@ -147,7 +147,144 @@
 ### Project structure
 
 ```
-
+📦AutomationFrameworkCucumberTestNG
+ ┣ 📂src
+ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂anhtester
+ ┃ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂annotations
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkAnnotation.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ConfigFactory.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Configuration.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂constants
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂driver
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetFactory.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂enums
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthorType.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Browser.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryType.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FailureHandling.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Platform.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Project.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Target.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂exceptions
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FrameworkException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜HeadlessNotSupportedException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExcelException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExtentReportFileException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForFilesException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidRemoteWebDriverURLException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetNotValidException.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂helpers
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CaptureHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DatabaseHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExcelHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Helpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ScreenRecoderHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TxtFileHelpers.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂keyword
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebUI.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂mail
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂report
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentReportManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentTestManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TelegramManager.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂utils
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserInfoUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DataGenerateUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DateUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DecodeUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailSendUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜IconUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LanguageUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LocalStorageUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Log.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ObjectUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportUtils.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ZipUtils.java
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┗ 📜log4j2.properties
+ ┃ ┗ 📂test
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂anhtester
+ ┃ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂common
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommonPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonSteps.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂dataprovider
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂listeners
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂projects
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂website
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientModel.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInModel.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Dashboard
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂SignIn
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂Tasks
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TaskPage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂stepdefinitions
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DashboardSteps.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Hooks.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginSteps.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestContext.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂testcases
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SignInTest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestHandle.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestSimpleCode.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂runners
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TestRunnerAllFeatureByTag.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TestRunnerForDashboardHRM.java
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┣ 📜config.json
+ ┃ ┃ ┃ ┃ ┣ 📜config.properties
+ ┃ ┃ ┃ ┃ ┗ 📜datatest.properties
+ ┃ ┃ ┃ ┣ 📂features
+ ┃ ┃ ┃ ┃ ┣ 📜Dashboard.feature
+ ┃ ┃ ┃ ┃ ┗ 📜SignIn.feature
+ ┃ ┃ ┃ ┣ 📂objects
+ ┃ ┃ ┃ ┃ ┗ 📜crm_locators.properties
+ ┃ ┃ ┃ ┣ 📂suites
+ ┃ ┃ ┃ ┃ ┣ 📜Clients-parallel.xml
+ ┃ ┃ ┃ ┃ ┣ 📜Clients-simple.xml
+ ┃ ┃ ┃ ┃ ┣ 📜Clients-testAddClient.xml
+ ┃ ┃ ┃ ┃ ┣ 📜Clients-testSearch.xml
+ ┃ ┃ ┃ ┃ ┣ 📜RunSuiteFeature.xml
+ ┃ ┃ ┃ ┃ ┣ 📜SignIn-parallel-methods.xml
+ ┃ ┃ ┃ ┃ ┣ 📜SignIn-simple.xml
+ ┃ ┃ ┃ ┃ ┗ 📜SuiteAll.xml
+ ┃ ┃ ┃ ┣ 📂testdata
+ ┃ ┃ ┃ ┃ ┣ 📜ClientsDataExcel.xlsx
+ ┃ ┃ ┃ ┃ ┣ 📜DOCX_File_01.docx
+ ┃ ┃ ┃ ┃ ┣ 📜LoginCSV.csv
+ ┃ ┃ ┃ ┃ ┗ 📜TxtFileData.txt
+ ┃ ┃ ┃ ┣ 📜cucumber.properties
+ ┃ ┃ ┃ ┣ 📜extent.properties
+ ┃ ┃ ┃ ┗ 📜pdf-config.yaml
+ ┣ 📜pom.xml
+ ┗ 📜README.md
 ```
 
 ### I shall write document for my Framework. Coming soon...
