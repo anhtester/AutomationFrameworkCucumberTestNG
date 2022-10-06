@@ -1,21 +1,24 @@
-# Automation Framework Cucumber TestNG and Selenium Java building by Anh Tester
+![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+## Automation Framework Cucumber TestNG and Selenium Java building by Anh Tester
 
 **SOME FEATURES IN FRAMEWORK**
 
-1. Run the parallel test case
-2. Read Object web element from Properties file
+1. Run the parallel Scenario on feature file
+2. Cucumber Report
 3. Extent Report
 4. Allure Report
 5. Send Mail after the run test (Report information and HTML file attachment)
 6. Write Log to file
-7. Record video and Screenshot test case for failed
-8. Read data test from Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
+7. Record video and Screenshot test case
+8. Read data test from Excel file (xlsx, csv, json,...)
 9. Base function in the package: utils, helpers
 10. Read data test from Json file
 11. Main keyword is WebUI
 12. Sample test feature
 
-## **SYSTEM REQUIREMENTS**
+### **SYSTEM REQUIREMENTS**
 
 - **JDK All version**
 - Chrome Browser, Edge Browser
@@ -31,30 +34,36 @@
 
 ![image](https://user-images.githubusercontent.com/87883620/161707184-7ad558f2-0d7d-4851-bfd6-2796d4e46593.png)
 
-## **HOW TO USE**
+### **HOW TO USE**
 
 **1. Run parallel the test case**
 
-- Run test case in suite XML (**src/test/resources/suites/**)
-- Run test case from Maven pom.xml file
+- Run Cucumber TestRunner from **src/test/java/anhtester/com/runners**
+- Run Feature file (**src/test/resources/features/**)
+- Run Feature in suite XML (**src/test/resources/suites/**)
+- Run Feature from Maven pom.xml file
   (**mvn clean test**)
 
   ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
 
-**2. Read Object web element from Properties file**
+**2. Cucumber Report**
 
-![image](https://user-images.githubusercontent.com/87883620/161658681-58f3a183-cbfd-433d-853a-927e4373f51c.png)
+![image](https://user-images.githubusercontent.com/87883620/194338092-1046970c-2ca4-40da-b0e8-b03f71656c09.png)
+
 
 **3. Extent Report**
 
-- Insert Framework Annotation as sample:
+- Config from src/test/resources/extent.properties
+- Config PDF from src/test/resources/pdf-config.yaml
 
-![image](https://user-images.githubusercontent.com/87883620/161657646-3dd652c6-a310-4006-a0cb-de63e2e87e36.png)
+![image](https://user-images.githubusercontent.com/87883620/194404333-306a6d53-514a-4229-ba47-f3c42e7cce1f.png)
+![image](https://user-images.githubusercontent.com/87883620/194404351-706fb702-6efd-4783-bc1e-2b20c56c902a.png)
 
-- Value from Enums (src/main/java/anhtester/com/enums)
-- Setup on TestListener and BaseTest
+![image](https://user-images.githubusercontent.com/87883620/194403666-ad996860-6f53-426d-b606-609cd9689ede.png)
+![image](https://user-images.githubusercontent.com/87883620/194403696-2ac21bc5-4855-49fa-8a39-c032f6f59d46.png)
+![image](https://user-images.githubusercontent.com/87883620/194403721-96198d1b-b8fe-4058-9b16-403d0437f8ab.png)
+![image](https://user-images.githubusercontent.com/87883620/194403743-55aa0e59-39c3-470e-92bf-14275ab2e502.png)
 
-![image](https://user-images.githubusercontent.com/87883620/161657754-c29b1ee9-f2fb-44b3-bee0-9f425a7cab6f.png)
 
 **4. Allure Report**
 
@@ -75,13 +84,12 @@
   (**_src/test/resources/config/config.properties_**)
 - send_email_to_users=**true** is enable send mail
 - Config mail with email and password in **_src/main/java/anhtester/com/mail/EmailConfig.java_**
-  Note: enabled Allow less secure apps
+- Note: if Gmail, you use Password App
 
 ![image](https://user-images.githubusercontent.com/87883620/161658851-2aa41091-ac99-45d9-a79f-aaa828052efb.png)
 
 ![image](https://user-images.githubusercontent.com/87883620/161659238-88337f69-b742-4cd7-87f2-76670519c8dd.png)
 
-![image](https://user-images.githubusercontent.com/87883620/161710836-8f3eee7c-19ba-410d-8498-5f314e6289a5.png)
 
 **6. Write Log to file**
 
@@ -136,15 +144,15 @@
 + TestSimpleCode
 ```
 
-## Project structure
+### Project structure
 
 ```
 
 ```
 
-## I shall write document for my Framework. Coming soon...
+### I shall write document for my Framework. Coming soon...
 
-# Copyright 2022 Anh Tester
+## Copyright 2022 Anh Tester
 
 > Anh Tester Blog: https://anhtester.com/
 

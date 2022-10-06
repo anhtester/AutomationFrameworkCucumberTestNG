@@ -30,8 +30,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v102.network.Network;
-import org.openqa.selenium.devtools.v102.network.model.Headers;
+import org.openqa.selenium.devtools.v106.network.Network;
+import org.openqa.selenium.devtools.v106.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -1052,7 +1052,7 @@ public class WebUI {
             return true;
         } catch (Exception e) {
             Log.info("The element does NOT present. " + e.getMessage());
-            Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
+            Assert.fail("The element does NOT present. " + e.getMessage());
             return false;
         }
     }
@@ -1070,7 +1070,7 @@ public class WebUI {
                 Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
             } else {
                 Log.error(message + e.getMessage());
-                Assert.assertTrue(false, message + e.getMessage());
+                Assert.fail(message + e.getMessage());
             }
 
             return false;
@@ -1087,10 +1087,10 @@ public class WebUI {
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
                 Log.error("The element does NOT present. " + e.getMessage());
-                Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
+                Assert.fail("The element does NOT present. " + e.getMessage());
             } else {
                 Log.error(message + e.getMessage());
-                Assert.assertTrue(false, message + e.getMessage());
+                Assert.fail(message + e.getMessage());
             }
 
             return false;
@@ -1104,7 +1104,7 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             Log.error("The element presents. " + by);
-            Assert.assertTrue(false, "The element presents. " + by);
+            Assert.fail("The element presents. " + by);
             return false;
         } catch (Exception e) {
             return true;
@@ -1118,7 +1118,7 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             Log.error("Element is present " + by);
-            Assert.assertTrue(false, "The element presents. " + by);
+            Assert.fail("The element presents. " + by);
             return false;
         } catch (Exception e) {
             return true;
@@ -1133,10 +1133,10 @@ public class WebUI {
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             if (message.isEmpty() || message == null) {
                 Log.error("The element presents. " + by);
-                Assert.assertTrue(false, "The element presents. " + by);
+                Assert.fail("The element presents. " + by);
             } else {
                 Log.error(message + by);
-                Assert.assertTrue(false, message + by);
+                Assert.fail(message + by);
             }
             return false;
         } catch (Exception e) {
@@ -1152,10 +1152,10 @@ public class WebUI {
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             if (message.isEmpty() || message == null) {
                 Log.error("The element presents. " + by);
-                Assert.assertTrue(false, "The element presents. " + by);
+                Assert.fail("The element presents. " + by);
             } else {
                 Log.error(message + by);
-                Assert.assertTrue(false, message + by);
+                Assert.fail(message + by);
             }
             return false;
         } catch (Exception e) {

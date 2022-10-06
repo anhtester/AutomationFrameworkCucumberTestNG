@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite Cucumber">
-    <test name="Test Cucumber" parallel="classes">
+    <test name="Test Cucumber">
         <parameter name="BROWSER" value="chrome"></parameter>
         <classes>
             <class name="anhtester.com.runners.TestRunnerAllFeatureByTag"></class>
-            <class name="anhtester.com.runners.TestRunnerForDashboardHRM"></class>
+<!--            <class name="anhtester.com.runners.TestRunnerForDashboardHRM"></class>-->
         </classes>
     </test>
 </suite>

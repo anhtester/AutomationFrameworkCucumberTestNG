@@ -20,7 +20,7 @@
         <cucumber.java.version>7.8.0</cucumber.java.version>
         <gherkin.version>24.0.0</gherkin.version>
         <cucumber-reporting.version>5.7.0</cucumber-reporting.version>
-        <selenium.version>4.4.0</selenium.version>
+        <selenium.version>4.5.0</selenium.version>
         <testng.version>7.6.1</testng.version>
         <webdrivermanager.version>5.3.0</webdrivermanager.version>
         <aspectjweaver.version>1.9.9.1</aspectjweaver.version>
@@ -48,6 +48,7 @@
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.15</zip.version>
         <jackson.version>2.13.4</jackson.version>
+
 
         <!-- Suite XML path -->
         <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
@@ -101,6 +102,14 @@
             <version>${gherkin.version}</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter -->
         <dependency>
             <groupId>tech.grasshopper</groupId>
@@ -115,12 +124,12 @@
             <version>2.7.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.vimalselvam/cucumber-extentsreport -->
-        <dependency>
-            <groupId>com.vimalselvam</groupId>
-            <artifactId>cucumber-extentsreport</artifactId>
-            <version>3.1.1</version>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/tech.grasshopper/cucumber-pdf-report -->
+<!--        <dependency>-->
+<!--            <groupId>tech.grasshopper</groupId>-->
+<!--            <artifactId>cucumber-pdf-report</artifactId>-->
+<!--            <version>2.10.0</version>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-cucumber7-jvm -->
         <dependency>
@@ -231,12 +240,6 @@
             <version>${allure-environment-writer.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
-        <dependency>
-            <groupId>com.aventstack</groupId>
-            <artifactId>extentreports</artifactId>
-            <version>${extentreports.version}</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
@@ -442,7 +445,7 @@
                         <configuration>
                             <projectName>AutomationFrameworkCucumberTestNG</projectName>
                             <skip>false</skip>
-                            <outputDirectory>CucumberReports/cucumber-reports</outputDirectory>
+                            <outputDirectory>target/CucumberReports/cucumber-reports</outputDirectory>
                             <inputDirectory>target/cucumber-reports</inputDirectory>
                             <jsonFiles>
                                 <param>**/*.json</param>

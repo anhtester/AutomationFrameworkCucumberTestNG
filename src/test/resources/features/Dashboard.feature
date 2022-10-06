@@ -3,7 +3,7 @@ Feature: HRM dashboard page
   Background: User is logged to the HRM system
     Given User logged in with email "frances.burns" and password "frances.burns"
 
-  @Simple
+  @Regression
   Scenario Outline: Open menu
     Given User navigate to dashboard
     When User click "<menu>"
