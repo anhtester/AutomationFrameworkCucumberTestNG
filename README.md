@@ -56,6 +56,9 @@
 - Config from src/test/resources/extent.properties
 - Config PDF from src/test/resources/pdf-config.yaml
 
+![image](https://user-images.githubusercontent.com/87883620/194404333-306a6d53-514a-4229-ba47-f3c42e7cce1f.png)
+![image](https://user-images.githubusercontent.com/87883620/194404351-706fb702-6efd-4783-bc1e-2b20c56c902a.png)
+
 ![image](https://user-images.githubusercontent.com/87883620/194403666-ad996860-6f53-426d-b606-609cd9689ede.png)
 ![image](https://user-images.githubusercontent.com/87883620/194403696-2ac21bc5-4855-49fa-8a39-c032f6f59d46.png)
 ![image](https://user-images.githubusercontent.com/87883620/194403721-96198d1b-b8fe-4058-9b16-403d0437f8ab.png)
