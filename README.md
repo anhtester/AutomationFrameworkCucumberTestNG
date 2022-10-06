@@ -18,7 +18,7 @@
 11. Main keyword is WebUI
 12. Sample test feature
 
-## **SYSTEM REQUIREMENTS**
+### **SYSTEM REQUIREMENTS**
 
 - **JDK All version**
 - Chrome Browser, Edge Browser
@@ -34,7 +34,7 @@
 
 ![image](https://user-images.githubusercontent.com/87883620/161707184-7ad558f2-0d7d-4851-bfd6-2796d4e46593.png)
 
-## **HOW TO USE**
+### **HOW TO USE**
 
 **1. Run parallel the test case**
 
@@ -142,15 +142,15 @@
 + TestSimpleCode
 ```
 
-## Project structure
+### Project structure
 
 ```
 
 ```
 
-## I shall write document for my Framework. Coming soon...
+### I shall write document for my Framework. Coming soon...
 
-# Copyright 2022 Anh Tester
+## Copyright 2022 Anh Tester
 
 > Anh Tester Blog: https://anhtester.com/
 
