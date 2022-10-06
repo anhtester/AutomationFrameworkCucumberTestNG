@@ -1,12 +1,11 @@
 package anhtester.com.projects.website.crm.stepdefinitions;
 
 import anhtester.com.common.CommonPage;
-import anhtester.com.utils.WebUI;
+import anhtester.com.keyword.WebUI;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 public class DashboardSteps extends CommonPage {
 

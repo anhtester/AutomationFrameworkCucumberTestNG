@@ -15,7 +15,7 @@ import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
 import anhtester.com.utils.LocalStorageUtils;
 import anhtester.com.utils.Log;
 import anhtester.com.utils.ObjectUtils;
-import anhtester.com.utils.WebUI;
+import anhtester.com.keyword.WebUI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -301,7 +301,7 @@ public class TestHandle {
         By toElement = By.xpath("(//li[@class='list-group-item'])[2]");
 
         WebUI.dragAndDropHTML5(fromElement, toElement);
-        
+
         WebUI.sleep(2);
     }
 

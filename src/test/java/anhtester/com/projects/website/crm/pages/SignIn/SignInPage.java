@@ -6,7 +6,7 @@ import anhtester.com.projects.website.crm.models.SignInModel;
 import anhtester.com.common.CommonPage;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.utils.DecodeUtils;
-import anhtester.com.utils.WebUI;
+import anhtester.com.keyword.WebUI;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -77,7 +77,7 @@ public class SignInPage extends CommonPage {
         WebUI.setText(inputPassword, password);
         WebUI.clickElement(buttonSignIn);
         WebUI.waitForPageLoaded();
-        
+
         return new DashboardPage();
     }
 

@@ -1,7 +1,7 @@
 package anhtester.com.projects.website.crm.stepdefinitions;
 
 import anhtester.com.common.CommonPage;
-import anhtester.com.utils.WebUI;
+import anhtester.com.keyword.WebUI;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

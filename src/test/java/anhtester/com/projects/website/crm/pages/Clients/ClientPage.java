@@ -3,7 +3,7 @@ package anhtester.com.projects.website.crm.pages.Clients;
 import anhtester.com.enums.FailureHandling;
 import anhtester.com.projects.website.crm.models.ClientModel;
 import anhtester.com.common.CommonPage;
-import anhtester.com.utils.WebUI;
+import anhtester.com.keyword.WebUI;
 import org.openqa.selenium.By;
 
 import java.util.Hashtable;
