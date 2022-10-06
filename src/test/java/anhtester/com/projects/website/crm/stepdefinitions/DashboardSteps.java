@@ -26,7 +26,7 @@ public class DashboardSteps extends CommonPage {
     @When("User click {string}")
     public void userClick(String menu) {
         WebUI.waitForPageLoaded();
-        WebUI.sleep(1);
+        WebUI.sleep(2);
         WebUI.clickElement(By.xpath("//span[contains(text(),'" + menu + "')]"));
     }
 

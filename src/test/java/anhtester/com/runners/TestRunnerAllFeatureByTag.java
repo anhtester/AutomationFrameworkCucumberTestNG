@@ -43,7 +43,5 @@ public class TestRunnerAllFeatureByTag extends AbstractTestNGCucumberTests {
     public void afterSuite() {
         System.out.println("================ AFTER SUITE ================");
         ZipUtils.zip();
-        ReportUtils.openReports("CucumberReports/cucumber-reports/cucumber-html-reports/overview-features.html");
-        ReportUtils.openReports("CucumberReports/CucumberExtentReport "+ DateUtils.getCurrentDate("dd-MM-YYYY") +"/ExtentReport.html");
     }
 }
