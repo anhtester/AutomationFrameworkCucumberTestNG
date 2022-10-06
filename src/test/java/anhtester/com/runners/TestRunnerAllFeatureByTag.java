@@ -2,6 +2,9 @@ package anhtester.com.runners;
 
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.report.AllureManager;
+import anhtester.com.utils.DateUtils;
+import anhtester.com.utils.ReportUtils;
+import anhtester.com.utils.ZipUtils;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.AfterSuite;
@@ -39,5 +42,8 @@ public class TestRunnerAllFeatureByTag extends AbstractTestNGCucumberTests {
     @AfterSuite
     public void afterSuite() {
         System.out.println("================ AFTER SUITE ================");
+        ZipUtils.zip();
+        ReportUtils.openReports("CucumberReports/cucumber-reports/cucumber-html-reports/overview-features.html");
+        ReportUtils.openReports("CucumberReports/CucumberExtentReport "+ DateUtils.getCurrentDate("dd-MM-YYYY") +"/ExtentReport.html");
     }
 }

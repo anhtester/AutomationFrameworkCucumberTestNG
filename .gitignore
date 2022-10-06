@@ -12,5 +12,8 @@ ExtentReports.zip
 /CucumberReports
 HDSD.txt
 *.png
+*.jpg
+*.jpeg
+*.zip
 *.iml
 
