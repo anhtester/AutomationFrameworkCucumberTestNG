@@ -53,14 +53,10 @@
 
 **3. Extent Report**
 
-- Insert Framework Annotation as sample:
+- Config from src/test/resources/extent.properties
+- Config PDF from src/test/resources/pdf-config.yaml
 
-![image](https://user-images.githubusercontent.com/87883620/161657646-3dd652c6-a310-4006-a0cb-de63e2e87e36.png)
 
-- Value from Enums (src/main/java/anhtester/com/enums)
-- Setup on TestListener and BaseTest
-
-![image](https://user-images.githubusercontent.com/87883620/161657754-c29b1ee9-f2fb-44b3-bee0-9f425a7cab6f.png)
 
 **4. Allure Report**
 
