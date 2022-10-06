@@ -1,15 +1,18 @@
-# Automation Framework Cucumber TestNG and Selenium Java building by Anh Tester
+![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+## Automation Framework Cucumber TestNG and Selenium Java building by Anh Tester
 
 **SOME FEATURES IN FRAMEWORK**
 
-1. Run the parallel test case
-2. Read Object web element from Properties file
+1. Run the parallel Scenario on feature file
+2. Cucumber Report
 3. Extent Report
 4. Allure Report
 5. Send Mail after the run test (Report information and HTML file attachment)
 6. Write Log to file
-7. Record video and Screenshot test case for failed
-8. Read data test from Excel file (xlsx, csv, json,...) with class define fields (param: Client client)
+7. Record video and Screenshot test case
+8. Read data test from Excel file (xlsx, csv, json,...)
 9. Base function in the package: utils, helpers
 10. Read data test from Json file
 11. Main keyword is WebUI
@@ -35,15 +38,18 @@
 
 **1. Run parallel the test case**
 
-- Run test case in suite XML (**src/test/resources/suites/**)
-- Run test case from Maven pom.xml file
+- Run Cucumber TestRunner from **src/test/java/anhtester/com/runners**
+- Run Feature file (**src/test/resources/features/**)
+- Run Feature in suite XML (**src/test/resources/suites/**)
+- Run Feature from Maven pom.xml file
   (**mvn clean test**)
 
   ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
 
-**2. Read Object web element from Properties file**
+**2. Cucumber Report**
 
-![image](https://user-images.githubusercontent.com/87883620/161658681-58f3a183-cbfd-433d-853a-927e4373f51c.png)
+![image](https://user-images.githubusercontent.com/87883620/194338092-1046970c-2ca4-40da-b0e8-b03f71656c09.png)
+
 
 **3. Extent Report**
 
