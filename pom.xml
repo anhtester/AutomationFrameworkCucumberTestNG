@@ -446,7 +446,7 @@
                         <configuration>
                             <projectName>AutomationFrameworkCucumberTestNG</projectName>
                             <skip>false</skip>
-                            <outputDirectory>target/CucumberReports/cucumber-reports</outputDirectory>
+                            <outputDirectory>reports/CucumberReports/cucumber-reports</outputDirectory>
                             <inputDirectory>target/cucumber-reports</inputDirectory>
                             <jsonFiles>
                                 <param>**/*.json</param>

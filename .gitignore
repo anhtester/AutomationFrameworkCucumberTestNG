@@ -8,7 +8,7 @@ ExtentReports.zip
 /logs
 /target
 /test-output
-/Reports
+/reports
 /CucumberReports
 HDSD.txt
 *.png
@@ -16,4 +16,5 @@ HDSD.txt
 *.jpeg
 *.zip
 *.iml
+EmailConfig.java
 

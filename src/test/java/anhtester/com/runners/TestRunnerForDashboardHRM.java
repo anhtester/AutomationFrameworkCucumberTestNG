@@ -1,8 +1,10 @@
 package anhtester.com.runners;
 
+import anhtester.com.cucumberHooks.CucumberListener;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.report.AllureManager;
 import anhtester.com.utils.DateUtils;
+import anhtester.com.utils.EmailSendUtils;
 import anhtester.com.utils.ReportUtils;
 import anhtester.com.utils.ZipUtils;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
@@ -15,14 +17,15 @@ import org.testng.annotations.Test;
 @Test
 @CucumberOptions(
         features = "src/test/resources/features/Dashboard.feature",
-        glue = {"anhtester.com.projects.website.crm.stepdefinitions"},
-        plugin = {"pretty",
+        glue = {"anhtester.com.projects.website.crm.stepdefinitions", "anhtester.com.cucumberHooks"},
+        plugin = {"anhtester.com.cucumberHooks.CucumberListener",
+                "pretty",
                 "html:target/cucumber-reports/cucumber-reports.html",
                 "json:target/cucumber-reports/cucumber-reports.json",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
         , monochrome = true,
-        tags = "@Simple"
+        tags = "@Regression or @Smoke"
 )
 
 public class TestRunnerForDashboardHRM extends AbstractTestNGCucumberTests {
@@ -32,17 +35,13 @@ public class TestRunnerForDashboardHRM extends AbstractTestNGCucumberTests {
         return super.scenarios();
     }
 
-    @BeforeSuite
-    public void beforeSuite() {
-        System.out.println("================ BEFORE SUITE ================");
-        PropertiesHelpers.loadAllFiles(); //Load Config and Locators
-        AllureManager.setAllureEnvironmentInformation(); //Setup Allure Report
-    }
-
     @AfterSuite
     public void afterSuite() {
         System.out.println("================ AFTER SUITE ================");
         ZipUtils.zip();
-
+        EmailSendUtils.sendEmail(CucumberListener.count_totalTCs
+                , CucumberListener.count_passedTCs
+                , CucumberListener.count_failedTCs
+                , CucumberListener.count_skippedTCs);
     }
 }

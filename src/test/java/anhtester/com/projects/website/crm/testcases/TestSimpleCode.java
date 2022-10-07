@@ -20,9 +20,16 @@ import java.sql.Statement;
 public class TestSimpleCode {
 
     @Test
-    public void testZIPFolder(){
+    public void testZIPFolder() {
         ZipUtils.zip();
     }
+
+    @Test
+    public void testSendMail() {
+        PropertiesHelpers.loadAllFiles();
+        EmailSendUtils.sendEmail(4, 3, 1, 0);
+    }
+
     @Test
     public void testTelegramBotMessage() {
         TelegramManager.sendReportPath();

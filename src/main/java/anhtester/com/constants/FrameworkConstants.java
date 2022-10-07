@@ -9,6 +9,8 @@ import anhtester.com.helpers.Helpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.utils.ReportUtils;
 
+import java.io.File;
+
 //final -> We do not want any class to extend this class
 public final class FrameworkConstants {
 
@@ -28,6 +30,7 @@ public final class FrameworkConstants {
     public static final String REPORT_TITLE = PropertiesHelpers.getValue("REPORT_TITLE");
     public static final String EXTENT_REPORT_NAME = PropertiesHelpers.getValue("EXTENT_REPORT_NAME");
     public static final String EXTENT_REPORT_FOLDER = PropertiesHelpers.getValue("EXTENT_REPORT_FOLDER");
+    public static final String EXTENT_REPORT_PDF = PropertiesHelpers.getValue("EXTENT_REPORT_PDF");
     public static final String EXPORT_VIDEO_PATH = PropertiesHelpers.getValue("EXPORT_VIDEO_PATH");
     public static final String EXPORT_CAPTURE_PATH = PropertiesHelpers.getValue("EXPORT_CAPTURE_PATH");
     public static final String SEND_REPORT_TO_TELEGRAM = PropertiesHelpers.getValue("SEND_REPORT_TO_TELEGRAM");
@@ -57,7 +60,7 @@ public final class FrameworkConstants {
 
     public static final String EXTENT_REPORT_FOLDER_PATH = PROJECT_PATH + EXTENT_REPORT_FOLDER;
     public static final String EXTENT_REPORT_FILE_NAME = EXTENT_REPORT_NAME + ".html";
-    public static String EXTENT_REPORT_FILE_PATH = EXTENT_REPORT_FOLDER_PATH + "/" + EXTENT_REPORT_FILE_NAME;
+    public static String EXTENT_REPORT_FILE_PATH = EXTENT_REPORT_FOLDER_PATH + File.separator + EXTENT_REPORT_FILE_NAME;
 
     //Zip file for Report folder
     public static final String ZIPPED_EXTENT_REPORTS_FOLDER = EXTENT_REPORT_FOLDER + ".zip";
@@ -108,6 +111,10 @@ public final class FrameworkConstants {
             EXTENT_REPORT_FILE_PATH = ReportUtils.createExtentReportPath();
         }
         return EXTENT_REPORT_FILE_PATH;
+    }
+
+    public static String getZIPFile() {
+        return "";
     }
 
 }

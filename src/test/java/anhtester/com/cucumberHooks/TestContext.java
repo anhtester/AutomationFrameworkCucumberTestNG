@@ -1,4 +1,4 @@
-package anhtester.com.projects.website.crm.stepdefinitions;
+package anhtester.com.cucumberHooks;
 
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
