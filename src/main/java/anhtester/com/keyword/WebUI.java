@@ -8,12 +8,12 @@ package anhtester.com.keyword;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.FailureHandling;
-import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.helpers.Helpers;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import anhtester.com.report.ExtentTestManager;
 import anhtester.com.utils.BrowserInfoUtils;
+import anhtester.com.utils.DateUtils;
 import anhtester.com.utils.Log;
 import com.google.common.util.concurrent.Uninterruptibles;
 import com.google.zxing.BinaryBitmap;
@@ -75,6 +75,16 @@ public class WebUI {
             waitForPageLoaded();
         }
         sleep(WAIT_SLEEP_STEP);
+    }
+
+    public static void addScreenshotToReport(String screenshotName) {
+        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.addScreenShot(Helpers.makeSlug(screenshotName));
+            }
+            //CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug(screenshotName));
+            AllureManager.takeScreenshotStep();
+        }
     }
 
     public static String getPathDownloadDirectory() {
@@ -478,11 +488,10 @@ public class WebUI {
      * @param by       là element thuộc kiểu By
      * @param filePath đường dẫn tuyệt đối đến file trên máy tính của bạn
      */
-    public static void uploadFileForm(By by, String filePath) {
-        if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
-            waitForPageLoaded();
-        }
-        sleep(WAIT_SLEEP_STEP);
+    @Step("Upload File With Local Form")
+    public static void uploadFileWithLocalForm(By by, String filePath) {
+        smartWait();
+
         Actions action = new Actions(DriverManager.getDriver());
         //Click để mở form upload
         action.moveToElement(getWebElement(by)).click().perform();
@@ -543,6 +552,13 @@ public class WebUI {
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
         }
+
+        Log.info("Upload File With Local Form: " + filePath);
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info("Upload File With Local Form: " + filePath);
+        }
+        AllureManager.saveTextLog("Upload File With Local Form: " + filePath);
+
     }
 
     /**
@@ -551,21 +567,40 @@ public class WebUI {
      * @param by       truyền vào element dạng đối tượng By
      * @param filePath đường dẫn tuyệt đối đến file
      */
-    public static void uploadFileSendkeys(By by, String filePath) {
+    @Step("Upload File with SendKeys")
+    public static void uploadFileWithSendKeys(By by, String filePath) {
         smartWait();
-        waitForElementPresent(by).sendKeys(filePath);
+
+        waitForElementVisible(by).sendKeys(filePath);
+
+        Log.info("Upload File with SendKeys");
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info("Upload File with SendKeys");
+        }
+        AllureManager.saveTextLog("Upload File with SendKeys");
+
     }
 
+    @Step("Get Current URL")
     public static String getCurrentUrl() {
         smartWait();
         Log.info("Current Page Url: " + DriverManager.getDriver().getCurrentUrl());
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info("Current Page Url: " + DriverManager.getDriver().getCurrentUrl());
+        }
+        AllureManager.saveTextLog("Current Page Url: " + DriverManager.getDriver().getCurrentUrl());
         return DriverManager.getDriver().getCurrentUrl();
     }
 
+    @Step("Get Page Title")
     public static String getPageTitle() {
         smartWait();
         String title = DriverManager.getDriver().getTitle();
         Log.info("Current Page Title: " + DriverManager.getDriver().getTitle());
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info("Get Current Page Title: " + DriverManager.getDriver().getTitle());
+        }
+        AllureManager.saveTextLog("Get Current Page Title: " + DriverManager.getDriver().getTitle());
         return title;
     }
 
@@ -919,10 +954,8 @@ public class WebUI {
             AllureManager.saveTextLog("Verify text of an element [Equals] - " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
         }
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
         return getTextElement(by).trim().equals(text.trim());
     }
 
@@ -933,13 +966,13 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().equals(text.trim());
 
-        Assert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
-
         if (result == true) {
             Log.info("Verify text of an element [Equals]: " + result);
         } else {
             Log.warn("Verify text of an element [Equals]: " + result);
         }
+
+        Assert.assertEquals(getTextElement(by).trim(), text.trim(), "The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
 
         if (ExtentTestManager.getExtentTest() != null) {
             ExtentReportManager.warning("Verify text of an element [Equals] : " + result);
@@ -947,10 +980,8 @@ public class WebUI {
         }
         AllureManager.saveTextLog("Verify text of an element [Equals] : " + result + ". The actual text is '" + getTextElement(by).trim() + "' not equals '" + text.trim() + "'");
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
         return result;
     }
 
@@ -980,10 +1011,7 @@ public class WebUI {
             AllureManager.saveTextLog("Verify text of an element [Contains] - " + result);
         }
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
         return getTextElement(by).trim().contains(text.trim());
     }
@@ -995,23 +1023,20 @@ public class WebUI {
 
         boolean result = getTextElement(by).trim().contains(text.trim());
 
-        Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
-
         if (result == true) {
             Log.info("Verify text of an element [Contains]: " + result);
         } else {
             Log.warn("Verify text of an element [Contains]: " + result);
         }
 
+        Assert.assertTrue(result, "The actual text is " + getTextElement(by).trim() + " not contains " + text.trim());
+
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.warning("Verify text of an element [Contains] : " + result);
+            ExtentReportManager.info("Verify text of an element [Contains] : " + result);
         }
         AllureManager.saveTextLog("Verify text of an element [Contains] : " + result);
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("verifyElementTextContains_" + result));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
         return result;
     }
@@ -1019,6 +1044,11 @@ public class WebUI {
     public static boolean verifyElementToBeClickable(By by) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+        
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.elementToBeClickable(by));
@@ -1032,9 +1062,15 @@ public class WebUI {
     public static boolean verifyElementPresent(By by) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             Log.info("The element does NOT present. " + e.getMessage());
@@ -1046,13 +1082,19 @@ public class WebUI {
     public static boolean verifyElementPresent(By by, int timeout) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             Log.info("The element does NOT present. " + e.getMessage());
-            Assert.fail("The element does NOT present. " + e.getMessage());
+            Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
             return false;
         }
     }
@@ -1060,9 +1102,15 @@ public class WebUI {
     public static boolean verifyElementPresent(By by, String message) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
@@ -1070,7 +1118,7 @@ public class WebUI {
                 Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
             } else {
                 Log.error(message + e.getMessage());
-                Assert.fail(message + e.getMessage());
+                Assert.assertTrue(false, message + e.getMessage());
             }
 
             return false;
@@ -1080,17 +1128,23 @@ public class WebUI {
     public static boolean verifyElementPresent(By by, int timeout, String message) {
         smartWait();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
+        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
                 Log.error("The element does NOT present. " + e.getMessage());
-                Assert.fail("The element does NOT present. " + e.getMessage());
+                Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
             } else {
                 Log.error(message + e.getMessage());
-                Assert.fail(message + e.getMessage());
+                Assert.assertTrue(false, message + e.getMessage());
             }
 
             return false;
@@ -1104,7 +1158,7 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             Log.error("The element presents. " + by);
-            Assert.fail("The element presents. " + by);
+            Assert.assertTrue(false, "The element presents. " + by);
             return false;
         } catch (Exception e) {
             return true;
@@ -1118,7 +1172,7 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             Log.error("Element is present " + by);
-            Assert.fail("The element presents. " + by);
+            Assert.assertTrue(false, "The element presents. " + by);
             return false;
         } catch (Exception e) {
             return true;
@@ -1133,10 +1187,10 @@ public class WebUI {
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             if (message.isEmpty() || message == null) {
                 Log.error("The element presents. " + by);
-                Assert.fail("The element presents. " + by);
+                Assert.assertTrue(false, "The element presents. " + by);
             } else {
                 Log.error(message + by);
-                Assert.fail(message + by);
+                Assert.assertTrue(false, message + by);
             }
             return false;
         } catch (Exception e) {
@@ -1152,10 +1206,10 @@ public class WebUI {
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
             if (message.isEmpty() || message == null) {
                 Log.error("The element presents. " + by);
-                Assert.fail("The element presents. " + by);
+                Assert.assertTrue(false, "The element presents. " + by);
             } else {
                 Log.error(message + by);
-                Assert.fail(message + by);
+                Assert.assertTrue(false, message + by);
             }
             return false;
         } catch (Exception e) {
@@ -1513,7 +1567,7 @@ public class WebUI {
         }
     }
 
-    @Step("Open website with get URL")
+    @Step("Reload page")
     public static void reloadPage() {
         smartWait();
 
@@ -1553,14 +1607,12 @@ public class WebUI {
         Log.info("Open URL: " + URL);
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(BOLD_START + ICON_Navigate_Right + " Open URL : " + BOLD_END + URL);
+            ExtentReportManager.pass("Open URL: " + URL);
         }
         AllureManager.saveTextLog("Open URL: " + URL);
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("getURL_" + URL));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1574,14 +1626,12 @@ public class WebUI {
         waitForPageLoaded();
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(BOLD_START + ICON_Navigate_Right + " Navigate to URL: " + BOLD_END + URL);
+            ExtentReportManager.pass("Navigate to URL: " + URL);
         }
         AllureManager.saveTextLog("Navigate to URL: " + URL);
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("navigateToUrl_" + URL));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1595,13 +1645,12 @@ public class WebUI {
         waitForElementVisible(by).sendKeys(value);
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(FrameworkConstants.BOLD_START + value + FrameworkConstants.BOLD_END + " value is successfully passed in textbox.");
+            ExtentReportManager.pass(value + " value is successfully passed in textbox.");
         }
         AllureManager.saveTextLog(value + " value is successfully passed in textbox.");
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("setText_" + value + "_" + by));
-            AllureManager.takeScreenshotStep();
-        }
+
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1613,13 +1662,11 @@ public class WebUI {
     public static void clearText(By by) {
         waitForElementVisible(by).clear();
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clear" + FrameworkConstants.BOLD_END + " value in textbox successfully.");
+            ExtentReportManager.pass("Clear value in textbox successfully.");
         }
         AllureManager.saveTextLog("Clear value in textbox successfully.");
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clearText_" + by.toString()));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1632,15 +1679,12 @@ public class WebUI {
         waitForElementVisible(by).click();
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(FrameworkConstants.BOLD_START + "Clicked" + FrameworkConstants.BOLD_END + " on the object " + by.toString());
+            ExtentReportManager.pass("Clicked on the object " + by.toString());
         }
         AllureManager.saveTextLog("Clicked on the object " + by.toString());
 
-        //Screenshot for this step if screenshot_all_steps = yes in config.properties file
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickElement_" + by.toString()));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1660,10 +1704,8 @@ public class WebUI {
 
         Log.info("Click element with JS: " + by);
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickElementWithJs_" + by));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1682,10 +1724,8 @@ public class WebUI {
         WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(linkText)));
         elementWaited.click();
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("clickLinkText_" + linkText));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**
@@ -1698,10 +1738,8 @@ public class WebUI {
         Actions action = new Actions(DriverManager.getDriver());
         action.contextClick(waitForElementVisible(by)).build().perform();
 
-        if (SCREENSHOT_ALL_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug("rightClickElement_" + by));
-            AllureManager.takeScreenshotStep();
-        }
+        addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+
     }
 
     /**

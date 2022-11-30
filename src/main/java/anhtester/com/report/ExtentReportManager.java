@@ -4,18 +4,23 @@ import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
+import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.utils.BrowserInfoUtils;
 import anhtester.com.utils.DateUtils;
 import anhtester.com.utils.IconUtils;
 import anhtester.com.utils.ReportUtils;
 import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import tech.grasshopper.reporter.ExtentPDFReporter;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 import static anhtester.com.constants.FrameworkConstants.*;
@@ -31,13 +36,20 @@ public final class ExtentReportManager {
 
             if (OVERRIDE_REPORTS.trim().equals(NO)) {
                 System.out.println("OVERRIDE_REPORTS = " + OVERRIDE_REPORTS);
-                link = EXTENT_REPORT_FOLDER_PATH + "/" + DateUtils.getCurrentDateTimeCustom("_") + "_"
-                        + EXTENT_REPORT_FILE_NAME;
+                link = EXTENT_REPORT_FOLDER_PATH + "/" + DateUtils.getCurrentDateTimeCustom("_") + "_" + EXTENT_REPORT_FILE_NAME;
                 System.out.println("link report:" + link);
             } else {
                 link = EXTENT_REPORT_FILE_PATH;
                 System.out.println("link report:" + link);
             }
+
+            ExtentPDFReporter pdf = new ExtentPDFReporter("reports/ExtentReports/PdfReport.pdf");
+            try {
+                pdf.loadJSONConfig(new File("src/test/resources/pdf-config.json"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            extentReports.attachReporter(pdf);
 
             ExtentSparkReporter spark = new ExtentSparkReporter(link);
             extentReports.attachReporter(spark);
@@ -80,10 +92,14 @@ public final class ExtentReportManager {
      * @param message the message
      */
     public static void addScreenShot(String message) {
-        String base64Image = "data:image/png;base64,"
-                + ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BASE64);
-        ExtentTestManager.getExtentTest().log(Status.INFO, message,
-                ExtentTestManager.getExtentTest().addScreenCaptureFromBase64String(base64Image).getModel().getMedia().get(0));
+        String base64Image = "data:image/png;base64," + ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BASE64);
+
+        //Base64 from Screenshot of Selenium
+        //ExtentTestManager.getExtentTest().log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromBase64String(base64Image).build());
+
+        //File Path from Screenshot of Java
+        ExtentTestManager.getExtentTest().log(Status.INFO, MediaEntityBuilder.createScreenCaptureFromPath(String.valueOf(CaptureHelpers.getScreenshot(message))).build());
+
     }
 
     /**
@@ -93,11 +109,14 @@ public final class ExtentReportManager {
      * @param message the message
      */
     public static void addScreenShot(Status status, String message) {
-        String base64Image = "data:image/png;base64,"
-                + ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BASE64);
+        String base64Image = "data:image/png;base64," + ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BASE64);
 
-        ExtentTestManager.getExtentTest().log(status, message,
-                ExtentTestManager.getExtentTest().addScreenCaptureFromBase64String(base64Image).getModel().getMedia().get(0));
+        //Base64 from Screenshot of Selenium
+        //ExtentTestManager.getExtentTest().log(status, MediaEntityBuilder.createScreenCaptureFromBase64String(base64Image).build());
+
+        //File Path from Screenshot of Java
+        ExtentTestManager.getExtentTest().log(status, MediaEntityBuilder.createScreenCaptureFromPath(String.valueOf(CaptureHelpers.getScreenshot(message))).build());
+
     }
 
     synchronized public static void addAuthors(AuthorType[] authors) {

@@ -22,13 +22,6 @@ public final class DateUtils {
         return date.toString().replace(":", "_").replace(" ", "_");
     }
 
-    public static String getCurrentDate(String pattern){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String date = simpleDateFormat.format(new Date());
-        //System.out.println(date);
-        return date;
-    }
-
     /**
      * @return lấy ra ngày tháng năm và giờ phút giây hiện tại của máy theo cấu trúc dd/MM/yyyy HH:mm:ss
      */
