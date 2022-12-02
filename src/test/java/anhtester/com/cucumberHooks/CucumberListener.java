@@ -1,11 +1,13 @@
 package anhtester.com.cucumberHooks;
 
 import anhtester.com.constants.FrameworkConstants;
+import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.keyword.WebUI;
 import anhtester.com.utils.EmailSendUtils;
 import anhtester.com.utils.ZipUtils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.gherkin.model.Given;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -103,7 +105,7 @@ public class CucumberListener implements EventListener {
         String featureName = event.getTestCase().getUri().toString();
 
         scenario = feature.get(featureName).createNode(event.getTestCase().getName());
-        
+
         if (event.getResult().getStatus().toString() == "PASSED") {
             count_passedTCs = count_passedTCs + 1;
         } else if (event.getResult().getStatus().toString() == "SKIPPED") {
@@ -141,13 +143,16 @@ public class CucumberListener implements EventListener {
 
     // This is triggered when TestStep is finished
     private void stepFinished(TestStepFinished event) {
-
         if (event.getResult().getStatus().toString() == "PASSED") {
-            step.log(Status.PASS, "This passed");
+            //step.log(Status.PASS, "This passed");
         } else if (event.getResult().getStatus().toString() == "SKIPPED") {
-            step.log(Status.SKIP, "This step was skipped ");
+            step.log(Status.SKIP, "Step was skipped");
+            //String relative = new File(Helpers.getCurrentDir()).toURI().relativize(new File(String.valueOf(CaptureHelpers.getScreenshot(event.toString()))).toURI()).getPath();
+            step.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(String.valueOf(CaptureHelpers.getScreenshot(event.toString()))).build());
         } else {
-            step.log(Status.FAIL, "This failed");
+            step.log(Status.FAIL, "Step was failed");
+            //String relative = new File(Helpers.getCurrentDir()).toURI().relativize(new File(String.valueOf(CaptureHelpers.getScreenshot(event.toString()))).toURI()).getPath();
+            step.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath(String.valueOf(CaptureHelpers.getScreenshot(event.toString()))).build());
         }
     }
 

@@ -1048,7 +1048,7 @@ public class WebUI {
             ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
         }
         AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
-        
+
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.elementToBeClickable(by));
@@ -1280,6 +1280,7 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+            Log.info("Verify element visible " + by);
             return true;
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
@@ -1299,11 +1300,11 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            Log.error("The element is visible. " + by);
-            Assert.assertTrue(false, "The element is visible. " + by);
+            Log.error("FAILED. The element is visible " + by);
+            Assert.fail("FAILED. The element is visible " + by);
             return false;
         } catch (Exception e) {
-            return false;
+            return true;
         }
     }
 
@@ -1313,11 +1314,11 @@ public class WebUI {
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            Log.error("The element is visible. " + by);
-            Assert.assertTrue(false, "The element is visible. " + by);
+            Log.error("FAILED. The element is visible " + by);
+            Assert.fail("FAILED. The element is visible " + by);
             return false;
         } catch (Exception e) {
-            return false;
+            return true;
         }
     }
 
@@ -1328,15 +1329,15 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             if (message.isEmpty() || message == null) {
-                Log.error("The element is visible. " + by);
-                Assert.assertTrue(false, "The element is visible. " + by);
+                Log.error("FAILED. The element is visible " + by);
+                Assert.fail("FAILED. The element is visible " + by);
             } else {
-                Log.error(message + by);
-                Assert.assertTrue(false, message + by);
+                Log.error(message + " " + by);
+                Assert.fail(message + " " + by);
             }
             return false;
         } catch (Exception e) {
-            return false;
+            return true;
         }
     }
 
@@ -1347,23 +1348,24 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
             if (message.isEmpty() || message == null) {
-                Log.error("The element is visible. " + by);
-                Assert.assertTrue(false, "The element is visible. " + by);
+                Log.error("FAILED. The element is visible " + by);
+                Assert.fail("FAILED. The element is visible " + by);
             } else {
-                Log.error(message + by);
-                Assert.assertTrue(false, message + by);
+                Log.error(message + " " + by);
+                Assert.fail(message + " " + by);
             }
             return false;
         } catch (Exception e) {
-            return false;
+            return true;
         }
     }
 
-    public static void scrollToElement(By element) {
+    public static void scrollToElement(By by) {
         smartWait();
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
-        js.executeScript("arguments[0].scrollIntoView(true);", getWebElement(element));
+        js.executeScript("arguments[0].scrollIntoView(true);", getWebElement(by));
+        Log.info("Scroll to element " + by);
     }
 
     public static void scrollToElement(WebElement element) {
@@ -1371,6 +1373,7 @@ public class WebUI {
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript("arguments[0].scrollIntoView(true);", element);
+        Log.info("Scroll to element " + element);
     }
 
     public static void scrollToPosition(int X, int Y) {
@@ -1378,14 +1381,16 @@ public class WebUI {
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript("window.scrollTo(" + X + "," + Y + ");");
+        Log.info("Scroll to position X = " + X + " ; Y = " + Y);
     }
 
-    public static boolean hoverElement(By by) {
+    public static boolean hoverOnElement(By by) {
         smartWait();
 
         try {
             Actions action = new Actions(DriverManager.getDriver());
             action.moveToElement(getWebElement(by)).perform();
+            Log.info("Hover on element " + by);
             return true;
         } catch (Exception e) {
             return false;
@@ -1398,6 +1403,7 @@ public class WebUI {
         try {
             Actions action = new Actions(DriverManager.getDriver());
             action.moveToElement(getWebElement(by)).perform();
+            Log.info("Mouse hover on element " + by);
             return true;
         } catch (Exception e) {
             return false;
@@ -1409,6 +1415,7 @@ public class WebUI {
 
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript("function createEvent(typeOfEvent) {\n" + "var event =document.createEvent(\"CustomEvent\");\n" + "event.initCustomEvent(typeOfEvent,true, true, null);\n" + "event.dataTransfer = {\n" + "data: {},\n" + "setData: function (key, value) {\n" + "this.data[key] = value;\n" + "},\n" + "getData: function (key) {\n" + "return this.data[key];\n" + "}\n" + "};\n" + "return event;\n" + "}\n" + "\n" + "function dispatchEvent(element, event,transferData) {\n" + "if (transferData !== undefined) {\n" + "event.dataTransfer = transferData;\n" + "}\n" + "if (element.dispatchEvent) {\n" + "element.dispatchEvent(event);\n" + "} else if (element.fireEvent) {\n" + "element.fireEvent(\"on\" + event.type, event);\n" + "}\n" + "}\n" + "\n" + "function simulateHTML5DragAndDrop(element, destination) {\n" + "var dragStartEvent =createEvent('dragstart');\n" + "dispatchEvent(element, dragStartEvent);\n" + "var dropEvent = createEvent('drop');\n" + "dispatchEvent(destination, dropEvent,dragStartEvent.dataTransfer);\n" + "var dragEndEvent = createEvent('dragend');\n" + "dispatchEvent(element, dragEndEvent,dropEvent.dataTransfer);\n" + "}\n" + "\n" + "var source = arguments[0];\n" + "var destination = arguments[1];\n" + "simulateHTML5DragAndDrop(source,destination);", from, to);
+
     }
 
     public static boolean dragAndDrop(By fromElement, By toElement) {
@@ -1573,6 +1580,7 @@ public class WebUI {
 
         DriverManager.getDriver().navigate().refresh();
         waitForPageLoaded();
+        Log.info("Reloaded page " + DriverManager.getDriver().getCurrentUrl());
     }
 
 
@@ -1580,7 +1588,7 @@ public class WebUI {
      * @param by truyền vào đối tượng element dạng By
      * @return Tô màu viền đỏ cho Element trên website
      */
-    @Step("High light on element")
+    @Step("Highlight on element")
     public static WebElement highLightElement(By by) {
         smartWait();
 
@@ -1588,6 +1596,7 @@ public class WebUI {
         if (DriverManager.getDriver() instanceof JavascriptExecutor) {
             ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].style.border='3px solid red'", waitForElementVisible(by));
             sleep(1);
+            Log.info("Highlight on element " + by);
         }
         return getWebElement(by);
     }
@@ -1597,7 +1606,7 @@ public class WebUI {
      *
      * @param URL
      */
-    @Step("Open website with URL")
+    @Step("Open website with URL {0}")
     public static void getURL(String URL) {
         sleep(WAIT_SLEEP_STEP);
 
@@ -1620,10 +1629,12 @@ public class WebUI {
      *
      * @param URL
      */
-    @Step("Open website with navigate to URL")
+    @Step("Navigate to URL {0}")
     public static void navigateToUrl(String URL) {
         DriverManager.getDriver().navigate().to(URL);
         waitForPageLoaded();
+
+        Log.info("Navigate to URL: " + URL);
 
         if (ExtentTestManager.getExtentTest() != null) {
             ExtentReportManager.pass("Navigate to URL: " + URL);
@@ -1640,14 +1651,15 @@ public class WebUI {
      * @param by    element dạng đối tượng By
      * @param value giá trị cần điền vào ô text
      */
-    @Step("Set value in textbox")
+    @Step("Set text on textbox")
     public static void setText(By by, String value) {
         waitForElementVisible(by).sendKeys(value);
+        Log.info("Set text " + value + " on " + by.toString());
 
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass(value + " value is successfully passed in textbox.");
+            ExtentReportManager.pass("Set text " + value + " on " + by.toString());
         }
-        AllureManager.saveTextLog(value + " value is successfully passed in textbox.");
+        AllureManager.saveTextLog("Set text " + value + " on " + by.toString());
 
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
@@ -1661,10 +1673,12 @@ public class WebUI {
     @Step("Clear value in textbox")
     public static void clearText(By by) {
         waitForElementVisible(by).clear();
+        Log.info("Clear value in textbox " + by.toString());
+
         if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.pass("Clear value in textbox successfully.");
+            ExtentReportManager.pass("Clear value in textbox " + by.toString());
         }
-        AllureManager.saveTextLog("Clear value in textbox successfully.");
+        AllureManager.saveTextLog("Clear value in textbox");
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -1674,9 +1688,10 @@ public class WebUI {
      *
      * @param by element dạng đối tượng By
      */
-    @Step("Click on the element")
+    @Step("Click on the element {0}")
     public static void clickElement(By by) {
         waitForElementVisible(by).click();
+        Log.info("Click on element " + by.toString());
 
         if (ExtentTestManager.getExtentTest() != null) {
             ExtentReportManager.pass("Clicked on the object " + by.toString());
@@ -1692,7 +1707,7 @@ public class WebUI {
      *
      * @param by element dạng đối tượng By
      */
-    @Step("Click on the object by Javascript")
+    @Step("Click on the element by Javascript {0}")
     public static void clickElementWithJs(By by) {
         //Đợi đến khi element đó tồn tại
         waitForElementPresent(by);
@@ -1702,8 +1717,11 @@ public class WebUI {
         //click với js
         js.executeScript("arguments[0].click();", getWebElement(by));
 
-        Log.info("Click element with JS: " + by);
-
+        Log.info("Click on element with JS: " + by);
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass("Click on element with JS: " + by);
+        }
+        AllureManager.saveTextLog("Clicked on the object " + by);
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -1713,19 +1731,20 @@ public class WebUI {
      *
      * @param linkText is the visible text of a link
      */
-    @Step("Click on the link text")
+    @Step("Click on the link text {0}")
     public static void clickLinkText(String linkText) {
-        if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
-            waitForPageLoaded();
-        }
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
 
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
         WebElement elementWaited = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(linkText)));
         elementWaited.click();
 
+        Log.info("Click on link text " + linkText);
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass("Click on link text " + linkText);
+        }
+        AllureManager.saveTextLog("Click on link text " + linkText);
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
-
     }
 
     /**
@@ -1733,11 +1752,15 @@ public class WebUI {
      *
      * @param by element dạng đối tượng By
      */
-    @Step("Right click on element")
+    @Step("Right click on element {0}")
     public static void rightClickElement(By by) {
         Actions action = new Actions(DriverManager.getDriver());
         action.contextClick(waitForElementVisible(by)).build().perform();
 
+        if (ExtentTestManager.getExtentTest() != null) {
+            ExtentReportManager.pass("Right click on element " + by);
+        }
+        AllureManager.saveTextLog("Right click on element " + by);
         addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
 
     }
@@ -1748,14 +1771,11 @@ public class WebUI {
      * @param by element dạng đối tượng By
      * @return text of a element
      */
-    @Step("Get text element")
+    @Step("Get text of element {0}")
     public static String getTextElement(By by) {
-        if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
-            waitForPageLoaded();
-        }
-        sleep(WAIT_SLEEP_STEP);
-        AllureManager.saveTextLog("Get text object: " + by.toString());
-        AllureManager.saveTextLog("===> The value is: " + waitForElementVisible(by).getText());
+        smartWait();
+        AllureManager.saveTextLog("Get text of element " + by.toString());
+        AllureManager.saveTextLog("==> The Text is: " + waitForElementVisible(by).getText());
         return waitForElementVisible(by).getText().trim();
     }
 
@@ -1767,10 +1787,7 @@ public class WebUI {
      * @return giá trị thuộc tính của element
      */
     public static String getAttributeElement(By by, String attributeName) {
-        if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
-            waitForPageLoaded();
-        }
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
         return waitForElementVisible(by).getAttribute(attributeName);
     }
 
@@ -1782,10 +1799,7 @@ public class WebUI {
      * @return giá trị của CSS
      */
     public static String getCssValueElement(By by, String cssName) {
-        if (ACTIVE_PAGE_LOADED.trim().toLowerCase().equals("true")) {
-            waitForPageLoaded();
-        }
-        sleep(WAIT_SLEEP_STEP);
+        smartWait();
         return waitForElementVisible(by).getCssValue(cssName);
     }
 
@@ -1892,7 +1906,6 @@ public class WebUI {
      */
     public static ArrayList getValueTableByColumn(int column) {
         smartWait();
-
 
         List<WebElement> totalRows = DriverManager.getDriver().findElements(By.xpath("//tbody/tr"));
         sleep(1);
@@ -2022,8 +2035,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeOut), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.presenceOfElementLocated(by));
         } catch (Throwable error) {
-            Assert.fail("Timeout waiting for the element to exist. " + by.toString());
             Log.error("Timeout waiting for the element to exist. " + by.toString());
+            Assert.fail("Timeout waiting for the element to exist. " + by.toString());
         }
 
         return null;
@@ -2042,8 +2055,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.presenceOfElementLocated(by));
         } catch (Throwable error) {
-            Assert.fail("Element not exist. " + by.toString());
             Log.error("Element not exist. " + by.toString());
+            Assert.fail("Element not exist. " + by.toString());
         }
         return null;
     }
@@ -2062,8 +2075,8 @@ public class WebUI {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             return wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attribute));
         } catch (Throwable error) {
-            Assert.fail("Timeout for element " + by.toString() + " to exist attribute: " + attribute);
             Log.error("Timeout for element " + by.toString() + " to exist attribute: " + attribute);
+            Assert.fail("Timeout for element " + by.toString() + " to exist attribute: " + attribute);
         }
         return false;
     }
@@ -2085,9 +2098,8 @@ public class WebUI {
             wait.until(ExpectedConditions.attributeToBe(by, attribute, value));
             return true;
         } catch (Throwable error) {
-            Assert.fail("Object: " + by.toString() + ". Not found value: " + value + " with attribute type: " + attribute + ". Actual get Attribute value is: " + getAttributeElement(by, attribute));
             Log.error("Object: " + by.toString() + ". Not found value: " + value + " with attribute type: " + attribute + ". Actual get Attribute value is: " + getAttributeElement(by, attribute));
-
+            Assert.fail("Object: " + by.toString() + ". Not found value: " + value + " with attribute type: " + attribute + ". Actual get Attribute value is: " + getAttributeElement(by, attribute));
             return false;
         }
     }
@@ -2106,6 +2118,7 @@ public class WebUI {
             wait.until(ExpectedConditions.attributeToBeNotEmpty(waitForElementPresent(by), attribute));
             return true;
         } catch (Throwable error) {
+            Log.error("Not found Attribute " + attribute + " of element " + by.toString());
             Assert.fail("Not found Attribute " + attribute + " of element " + by.toString());
             return false;
         }

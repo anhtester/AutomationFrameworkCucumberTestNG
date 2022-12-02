@@ -56,7 +56,8 @@
         <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
         <suite.client.parallel>src/test/resources/suites/Clients-parallel.xml</suite.client.parallel>
         <suite.client.simple>src/test/resources/suites/Clients-simple.xml</suite.client.simple>
-        <suite.feature>src/test/resources/suites/RunSuiteFeature.xml</suite.feature>
+        <suite.feature>src/test/resources/suites/SuiteFeatureByTag.xml</suite.feature>
+        <suite.feature.login.cms>src/test/resources/suites/SuiteFeatureLoginCMS.xml</suite.feature.login.cms>
     </properties>
 
     <dependencies>
@@ -433,7 +434,7 @@
                         <version>${maven-surefire-plugin.version}</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>${suite.feature}</suiteXmlFile>
+                                <suiteXmlFile>${suite.feature.login.cms}</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
@@ -463,7 +464,7 @@
                 <configuration>
                     <suiteXmlFiles>
                         <!-- Call Suite name global set up above -->
-                        <suiteXmlFile>${suite.feature}</suiteXmlFile>
+                        <suiteXmlFile>${suite.feature.login.cms}</suiteXmlFile>
                     </suiteXmlFiles>
 
                     <rerunFailingTestsCount>1</rerunFailingTestsCount>
