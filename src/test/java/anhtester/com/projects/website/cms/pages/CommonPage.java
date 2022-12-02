@@ -8,6 +8,7 @@ public class CommonPage {
     private By menuDashboard = By.xpath("//span[normalize-space()='Dashboard']");
 
     public void verifyDashboardPageDisplays(){
+        WebUI.waitForPageLoaded();
         WebUI.verifyElementVisible(menuDashboard, 10, "Login failed. The Dashboard page not displays.");
     }
 

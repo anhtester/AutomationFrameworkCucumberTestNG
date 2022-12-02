@@ -1265,10 +1265,10 @@ public class WebUI {
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
                 Log.error("The element is not visible. " + by);
-                Assert.assertTrue(false, "The element is not visible. " + by);
+                Assert.fail("The element is not visible. " + by);
             } else {
                 Log.error(message + by);
-                Assert.assertTrue(false, message + by);
+                Assert.fail(message + by);
             }
             return false;
         }
@@ -1285,10 +1285,10 @@ public class WebUI {
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
                 Log.error("The element is not visible. " + by);
-                Assert.assertTrue(false, "The element is not visible. " + by);
+                Assert.fail("The element is not visible. " + by);
             } else {
                 Log.error(message + by);
-                Assert.assertTrue(false, message + by);
+                Assert.fail(message + by);
             }
             return false;
         }
