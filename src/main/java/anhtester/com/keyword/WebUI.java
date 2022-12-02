@@ -1041,20 +1041,61 @@ public class WebUI {
         return result;
     }
 
-    public static boolean verifyElementToBeClickable(By by) {
+    public static boolean verifyElementClickable(By by) {
         smartWait();
-
-        if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
-        }
-        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
 
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.elementToBeClickable(by));
+            Log.info("Verify element clickable " + by);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.info("Verify element clickable " + by);
+            }
+            AllureManager.saveTextLog("Verify element clickable " + by);
             return true;
         } catch (Exception e) {
             Log.error(e.getMessage());
+            Assert.fail("FAILED. Element not clickable " + by);
+            return false;
+        }
+    }
+
+    public static boolean verifyElementClickable(By by, int timeout) {
+        smartWait();
+
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout), Duration.ofMillis(500));
+            wait.until(ExpectedConditions.elementToBeClickable(by));
+            Log.info("Verify element clickable " + by);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.info("Verify element clickable " + by);
+            }
+            AllureManager.saveTextLog("Verify element clickable " + by);
+            return true;
+        } catch (Exception e) {
+            Log.error("FAILED. Element not clickable " + by);
+            Log.error(e.getMessage());
+            Assert.fail("FAILED. Element not clickable " + by);
+            return false;
+        }
+    }
+
+    public static boolean verifyElementClickable(By by, int timeout, String message) {
+        smartWait();
+
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout), Duration.ofMillis(500));
+            wait.until(ExpectedConditions.elementToBeClickable(by));
+            Log.info("Verify element clickable " + by);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.info("Verify element clickable " + by);
+            }
+            AllureManager.saveTextLog("Verify element clickable " + by);
+            return true;
+        } catch (Exception e) {
+            Log.error(message);
+            Log.error(e.getMessage());
+            Assert.fail(message + "" + e.getMessage());
             return false;
         }
     }
@@ -1062,19 +1103,19 @@ public class WebUI {
     public static boolean verifyElementPresent(By by) {
         smartWait();
 
-        if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
-        }
-        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
-
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            Log.info("Verify element present " + by);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.info("Verify element present " + by);
+            }
+            AllureManager.saveTextLog("Verify element present " + by);
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             Log.info("The element does NOT present. " + e.getMessage());
-            Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
+            Assert.fail("The element does NOT present. " + e.getMessage());
             return false;
         }
     }
@@ -1082,19 +1123,19 @@ public class WebUI {
     public static boolean verifyElementPresent(By by, int timeout) {
         smartWait();
 
-        if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
-        }
-        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
-
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            Log.info("Verify element present " + by);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.info("Verify element present " + by);
+            }
+            AllureManager.saveTextLog("Verify element present " + by);
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             Log.info("The element does NOT present. " + e.getMessage());
-            Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
+            Assert.fail("The element does NOT present. " + e.getMessage());
             return false;
         }
     }
@@ -1102,23 +1143,23 @@ public class WebUI {
     public static boolean verifyElementPresent(By by, String message) {
         smartWait();
 
-        if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
-        }
-        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
-
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            Log.info("Verify element present " + by);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.info("Verify element present " + by);
+            }
+            AllureManager.saveTextLog("Verify element present " + by);
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
                 Log.error("The element does NOT present. " + e.getMessage());
-                Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
+                Assert.fail("The element does NOT present. " + e.getMessage());
             } else {
-                Log.error(message + e.getMessage());
-                Assert.assertTrue(false, message + e.getMessage());
+                Log.error(message);
+                Assert.fail(message);
             }
 
             return false;
@@ -1128,23 +1169,23 @@ public class WebUI {
     public static boolean verifyElementPresent(By by, int timeout, String message) {
         smartWait();
 
-        if (ExtentTestManager.getExtentTest() != null) {
-            ExtentReportManager.info(Thread.currentThread().getStackTrace()[1].getMethodName());
-        }
-        AllureManager.saveTextLog(Thread.currentThread().getStackTrace()[1].getMethodName());
-
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.presenceOfElementLocated(by));
+            Log.info("Verify element present " + by);
+            if (ExtentTestManager.getExtentTest() != null) {
+                ExtentReportManager.info("Verify element present " + by);
+            }
+            AllureManager.saveTextLog("Verify element present " + by);
             addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
             return true;
         } catch (Exception e) {
             if (message.isEmpty() || message == null) {
                 Log.error("The element does NOT present. " + e.getMessage());
-                Assert.assertTrue(false, "The element does NOT present. " + e.getMessage());
+                Assert.fail("The element does NOT present. " + e.getMessage());
             } else {
-                Log.error(message + e.getMessage());
-                Assert.assertTrue(false, message + e.getMessage());
+                Log.error(message);
+                Assert.fail(message);
             }
 
             return false;

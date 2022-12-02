@@ -9,7 +9,7 @@ public class CommonPage {
 
     public void verifyDashboardPageDisplays(){
         WebUI.waitForPageLoaded();
-        WebUI.verifyElementVisible(menuDashboard, 10, "Login failed. The Dashboard page not displays.");
+        WebUI.verifyElementPresent(menuDashboard, 10, "Login failed. The Dashboard page not displays.");
     }
 
 }
