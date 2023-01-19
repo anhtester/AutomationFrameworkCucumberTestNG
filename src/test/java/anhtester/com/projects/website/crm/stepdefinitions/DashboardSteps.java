@@ -1,11 +1,14 @@
 package anhtester.com.projects.website.crm.stepdefinitions;
 
 import anhtester.com.common.CommonPage;
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+
+import static anhtester.com.keywords.WebUI.getCurrentUrl;
+import static anhtester.com.keywords.WebUI.verifyContains;
 
 public class DashboardSteps extends CommonPage {
 
@@ -19,7 +22,8 @@ public class DashboardSteps extends CommonPage {
 
     @Given("User navigate to dashboard")
     public void userNavigateToDashboard() {
-        WebUI.verifyPageUrl(getDashboardPage().pageUrl);
+        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "The url of sign in page not match.");
+
     }
 
     @When("User click {string}")

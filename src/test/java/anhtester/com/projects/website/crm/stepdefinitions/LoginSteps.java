@@ -1,12 +1,15 @@
 package anhtester.com.projects.website.crm.stepdefinitions;
 
 import anhtester.com.common.CommonPage;
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+
+import static anhtester.com.keywords.WebUI.getCurrentUrl;
+import static anhtester.com.keywords.WebUI.verifyContains;
 
 public class LoginSteps extends CommonPage {
 
@@ -28,7 +31,8 @@ public class LoginSteps extends CommonPage {
     @Then("The user redirect to Dashboard page")
     public void theUserRedirectToDashboardPage() {
         WebUI.waitForPageLoaded();
-        Assert.assertTrue(WebUI.verifyPageUrl(getDashboardPage().pageUrl), "Can not redirect to the dashboard page");
+        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Can not redirect to the dashboard page.");
+
     }
 
     @Then("The user can not redirect to Dashboard page")

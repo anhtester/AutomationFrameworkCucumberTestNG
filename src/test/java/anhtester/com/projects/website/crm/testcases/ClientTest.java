@@ -11,7 +11,7 @@ import anhtester.com.dataprovider.DataProviderManager;
 import anhtester.com.enums.AuthorType;
 import anhtester.com.enums.CategoryType;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;

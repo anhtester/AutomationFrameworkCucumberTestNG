@@ -1,6 +1,6 @@
 package anhtester.com.projects.website.cms.pages;
 
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
 import org.openqa.selenium.By;
 
 public class LoginPage {

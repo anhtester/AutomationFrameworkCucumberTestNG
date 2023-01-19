@@ -1,7 +1,8 @@
-package anhtester.com.cucumberHooks;
+package anhtester.com.hooks;
 
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
+import anhtester.com.utils.Log;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 
@@ -17,7 +18,7 @@ public class TestContext {
         driver = ThreadGuard.protect(new TargetFactory().createInstance());
         driver.manage().window().maximize();
         DriverManager.setDriver(driver);
-        System.out.println("Driver in TestContext: " + getDriver());
+        Log.info("Driver in TestContext: " + getDriver());
     }
 
     public Object getContext(String key) {
@@ -37,7 +38,7 @@ public class TestContext {
     }
 
     public enum Context {
-        PRODUCT_NAME;
+
     }
 
 }

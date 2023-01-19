@@ -4,7 +4,7 @@ import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
 import org.openqa.selenium.By;
 
 public class CommonPage {

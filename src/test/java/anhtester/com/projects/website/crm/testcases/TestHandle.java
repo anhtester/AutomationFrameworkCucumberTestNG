@@ -9,7 +9,7 @@ import anhtester.com.common.BaseTest;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.helpers.Helpers;
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
 import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
 import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
 import anhtester.com.projects.website.crm.pages.SignIn.SignInPage;
@@ -33,32 +33,46 @@ import java.util.Set;
 
 public class TestHandle {
 
-    WebDriver driver;
-    SignInPage signInPage;
-    DashboardPage dashboardPage;
-    ProjectPage projectPage;
+    private WebDriver driver;
+    private SignInPage signInPage;
+    private DashboardPage dashboardPage;
+    private ProjectPage projectPage;
 
     @BeforeMethod
-    public void Setup() {
+    public void setupDriver() {
         driver = new BaseTest().createBrowser("chrome"); //Initialization method 1
         // new BaseTest().createDriver("chrome"); //Initialization method 2
-        // driver = DriverManager.getDriver(); //Get WebDriver from global in ThreadLocal
+
+        driver.manage().window().maximize();
+    }
+
+    @AfterMethod
+    public void closeDriver() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Test
     public void testDownloadFileWithJS() {
-        WebUI.getURL("https://www.onlinedatagenerator.com/");
+        WebUI.getURL("https://www.onlinedatagenerator.com/home/demo");
+        WebUI.waitForPageLoaded();
         WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
-        WebUI.sleep(3);
-        Assert.assertTrue(WebUI.verifyFileDownloadedWithJS("ExportCSV (5).csv"), "Download failed. File not match.");
+        WebUI.waitForPageLoaded();
+        WebUI.waitForJQueryLoad();
+        WebUI.sleep(2);
+        Assert.assertTrue(WebUI.verifyFileDownloadedWithJS("ExportCSV.csv"), "Download failed. File not match.");
     }
 
     @Test
     public void testDownloadFileWithJava() {
         Log.info(WebUI.countFilesInDownloadDirectory());
-        WebUI.getURL("https://www.onlinedatagenerator.com/");
+        WebUI.getURL("https://www.onlinedatagenerator.com/home/demo");
+        WebUI.waitForPageLoaded();
         WebUI.clickElementWithJs(By.xpath("//button[normalize-space()='Export']"));
-        WebUI.sleep(3);
+        WebUI.waitForPageLoaded();
+        WebUI.waitForJQueryLoad();
+        WebUI.sleep(2);
         Log.info(WebUI.countFilesInDownloadDirectory());
         //File name is ExportCSV.csv
         Assert.assertTrue(WebUI.verifyDownloadFileEqualsNameCompletedWaitTimeout("ExportCSV.csv", 5), "Download failed. File not found.");
@@ -67,6 +81,7 @@ public class TestHandle {
     @Test
     public void testConvertWebElementToBy() {
         WebUI.getURL(FrameworkConstants.URL_CRM);
+        WebUI.waitForPageLoaded();
         SignInPage signInPage = new SignInPage();
 
         //WebElement
@@ -75,10 +90,10 @@ public class TestHandle {
         //Convert WebElement to By
         By emailBy = ObjectUtils.getByFromWebElement(emailElement);
 
-        WebUI.setText(emailBy, "admin@mailinator.com");
-
-        WebUI.setText(signInPage.inputPassword, "123456");
+        WebUI.clearAndFillText(emailBy, "admin@demo.com");
+        WebUI.clearAndFillText(signInPage.inputPassword, "riseDemo");
         WebUI.clickElement(signInPage.buttonSignIn);
+
         WebUI.waitForElementVisible(new DashboardPage().menuDashboard);
     }
 
@@ -88,22 +103,30 @@ public class TestHandle {
         WebUI.sleep(1);
 
         //Set key=value in Sign in page
-        LocalStorageUtils.setItem("email", "admin@mailinator.com");
-        LocalStorageUtils.setItem("password", "123456");
+        LocalStorageUtils.setItem("email", "admin@demo.com");
+        LocalStorageUtils.setItem("password", "riseDemo");
 
-        WebUI.setText(ObjectUtils.getByLocatorFromConfig("inputEmail"), LocalStorageUtils.getItem("email"));
-        WebUI.setText(ObjectUtils.getByLocatorFromConfig("inputPassword"), LocalStorageUtils.getItem("password"));
-        WebUI.clickElement(ObjectUtils.getByLocatorFromConfig("buttonSignIn"));
+        By inputEmail = By.xpath("//input[@id='email']");
+        By inputPassword = By.xpath("//input[@id='password']");
+        By buttonSignIn = By.xpath("//button[normalize-space()='Sign in']");
+        By menuClients = By.xpath("//span[normalize-space()='Clients']");
+        By menuProjects = By.xpath("//span[normalize-space()='Projects']");
+
+        //Get data from Local Storage was set above
+        WebUI.clearAndFillText(inputEmail, LocalStorageUtils.getItem("email"));
+        WebUI.clearAndFillText(inputPassword, LocalStorageUtils.getItem("password"));
+        WebUI.clickElement(buttonSignIn);
         WebUI.waitForPageLoaded();
 
-        //Get value in Project page
-        WebUI.clickElement(ObjectUtils.getByLocatorFromConfig("menuProjects"));
+        //Get value from Local Storage in Clients page
+        WebUI.clickElement(menuClients);
+        WebUI.waitForPageLoaded();
+        WebUI.logConsole(LocalStorageUtils.getItem("password"));
+
+        //Get value from Local Storage in Projects page
+        WebUI.clickElement(menuProjects);
         WebUI.logConsole(LocalStorageUtils.getItem("email"));
         WebUI.waitForPageLoaded();
-        WebUI.sleep(1);
-        //Get value in ClientModel page
-        WebUI.clickElement(ObjectUtils.getByLocatorFromConfig("menuClients"));
-        WebUI.logConsole(LocalStorageUtils.getItem("password"));
 
         //=> You can get value by key everywhere before closing the browser
     }
@@ -112,7 +135,6 @@ public class TestHandle {
     public void handleHTML5ValidationMessage() {
         WebUI.getURL("https://anhtester.com/login");
         WebUI.waitForPageLoaded();
-        WebUI.sleep(1);
 
         By button_Login = By.id("login");
         By input_Email = By.xpath("//input[@placeholder='Email']");
@@ -121,17 +143,17 @@ public class TestHandle {
 
         WebUI.logConsole("Verify required field: " + WebUI.verifyHTML5RequiredField(input_Email));
 
-        WebUI.sleep(1);
+        WebUI.sleep(2);
 
         WebUI.logConsole("Message from field: " + WebUI.getHTML5MessageField(input_Email));
         Assert.assertEquals("Please fill out this field.", WebUI.getHTML5MessageField(input_Email));
 
         WebUI.setText(input_Email, "abc@ ");
-        WebUI.sleep(1);
+        WebUI.sleep(2);
         WebUI.logConsole("Verify valid value: " + WebUI.verifyHTML5ValidValueField(input_Email));
         WebUI.logConsole("Message from field: " + WebUI.getHTML5MessageField(input_Email));
 
-        WebUI.sleep(1);
+        WebUI.sleep(2);
     }
 
     @Test
@@ -149,20 +171,6 @@ public class TestHandle {
         WebUI.getURL("https://anhtester.com");
         WebUI.waitForPageLoaded();
         WebUI.screenshotElement(By.xpath("//div[@class='col-lg-5']//div[@class='row']//div[1]//div[1]"), "Website_Testing_Module");
-    }
-
-    @Test
-    public void testUploadFileSendKeys() {
-        WebUI.getURL("https://www.file.io/");
-        WebUI.waitForPageLoaded();
-
-        By inputFileUpload = By.xpath("//div[@class='actions']/input");
-
-        String filePath = Helpers.getCurrentDir() + "src\\test\\resources\\testdata\\TxtFileData.txt";
-
-        WebUI.uploadFileWithSendKeys(inputFileUpload, filePath);
-
-        WebUI.sleep(4);
     }
 
     @Test
@@ -222,7 +230,7 @@ public class TestHandle {
         //VD: 6 trang thì nó chỉ click 5 lần thôi chứ hả =))
         for (int i = 1; i <= pageTotalInt; i++) {
             WebUI.scrollToElement(title_H1);
-            //Gọi hàm Check data in table by column từ keyword WebUI
+            //Gọi hàm Check data in table by column từ keywords WebUI
             WebUI.checkContainsValueOnTableByColumn(1, "", "//div[@id='example_wrapper']//tbody/tr");
             WebUI.sleep(1);
             //Click Next
@@ -259,25 +267,12 @@ public class TestHandle {
 
     @Test
     public void handleNotificationsBrowser() {
-        driver = new ChromeDriver(WebUI.notificationsBlock()); //
+        WebDriver driver = new ChromeDriver(WebUI.notificationsBlock()); //
         driver.manage().window().maximize();
         WebUI.getURL("https://oto.com.vn/mua-ban-xe");
         WebUI.sleep(4);
-    }
 
-    @Test
-    public void handleDragAndDropJS() {
-        DriverManager.getDriver().get("https://bestvpn.org/html5demos/drag/");
-        WebUI.moveToElement(By.cssSelector("#five"));
-
-        By from1 = By.cssSelector("#one");
-        By to1 = By.cssSelector("#bin");
-        By from2 = By.cssSelector("#two");
-        WebUI.sleep(1);
-        WebUI.dragAndDropJS(WebUI.getWebElement(from1), WebUI.getWebElement(to1));
-        WebUI.sleep(1);
-        WebUI.dragAndDropJS(WebUI.getWebElement(from2), WebUI.getWebElement(to1));
-        WebUI.sleep(2);
+        driver.quit();
     }
 
     @Test
@@ -338,7 +333,7 @@ public class TestHandle {
 
         //Cách 1 sendKeys link từ source
         WebUI.uploadFileWithSendKeys(By.xpath("//input[@id='uploadFile']"), path1);
-        WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "DOCX_File_01ABC.docx");
+        WebUI.verifyElementTextContains(By.xpath("//p[@id='uploadedFilePath']"), "DOCX_File_01.docx");
         WebUI.sleep(1);
         WebUI.reloadPage();
         WebUI.waitForPageLoaded();
@@ -413,14 +408,6 @@ public class TestHandle {
 
         String successFullyLoggedInText = DriverManager.getDriver().findElement(By.xpath("//p")).getText();
         Assert.assertEquals(successFullyLoggedInText, "Congratulations! You must have the proper credentials.");
-    }
-
-    @AfterMethod
-    public void closeDriver() {
-        DriverManager.quit();
-        if (driver != null) {
-            driver.quit();
-        }
     }
 
 }

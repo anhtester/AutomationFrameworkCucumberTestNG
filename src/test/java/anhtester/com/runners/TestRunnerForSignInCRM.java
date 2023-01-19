@@ -1,6 +1,6 @@
 package anhtester.com.runners;
 
-import anhtester.com.cucumberHooks.CucumberListener;
+import anhtester.com.hooks.CucumberListener;
 import anhtester.com.utils.EmailSendUtils;
 import anhtester.com.utils.ZipUtils;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
@@ -12,8 +12,9 @@ import org.testng.annotations.Test;
 @Test
 @CucumberOptions(
         features = "src/test/resources/features/SignIn.feature",
-        glue = {"anhtester.com.projects.website.crm.stepdefinitions", "anhtester.com.cucumberHooks"},
-        plugin = {"anhtester.com.cucumberHooks.CucumberListener",
+        glue = {"anhtester.com.projects.website.crm.stepdefinitions",
+                "anhtester.com.hooks"},
+        plugin = {"anhtester.com.hooks.CucumberListener",
                 "pretty",
                 "html:target/cucumber-reports/cucumber-reports.html",
                 "json:target/cucumber-reports/cucumber-reports.json",

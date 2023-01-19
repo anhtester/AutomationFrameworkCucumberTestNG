@@ -1,10 +1,7 @@
-package anhtester.com.cucumberHooks;
+package anhtester.com.hooks;
 
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.CaptureHelpers;
-import anhtester.com.keyword.WebUI;
-import anhtester.com.utils.EmailSendUtils;
-import anhtester.com.utils.ZipUtils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
@@ -16,7 +13,6 @@ import io.cucumber.plugin.EventListener;
 import io.cucumber.plugin.event.*;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

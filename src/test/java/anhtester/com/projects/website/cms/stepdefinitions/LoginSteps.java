@@ -1,6 +1,6 @@
 package anhtester.com.projects.website.cms.stepdefinitions;
 
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
 import anhtester.com.projects.website.cms.pages.CommonPage;
 import anhtester.com.projects.website.cms.pages.LoginPage;
 import io.cucumber.java.en.Given;

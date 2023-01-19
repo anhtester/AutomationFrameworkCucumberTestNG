@@ -1,15 +1,12 @@
-package anhtester.com.cucumberHooks;
+package anhtester.com.hooks;
 
 import anhtester.com.driver.DriverManager;
 import anhtester.com.helpers.PropertiesHelpers;
-import anhtester.com.keyword.WebUI;
+import anhtester.com.keywords.WebUI;
 import anhtester.com.report.AllureManager;
-import anhtester.com.utils.ZipUtils;
 import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
 
 public class Hooks {
 
