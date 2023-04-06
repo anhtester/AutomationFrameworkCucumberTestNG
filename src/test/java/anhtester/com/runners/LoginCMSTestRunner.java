@@ -11,22 +11,22 @@ import org.testng.annotations.Test;
 
 @Test
 @CucumberOptions(
-        features = "src/test/resources/features/SignIn.feature",
-        glue = {"anhtester.com.projects.website.crm.stepdefinitions",
+        features = "src/test/resources/features/LoginCMS.feature",
+        glue = {"anhtester.com.projects.website.cms.stepdefinitions",
                 "anhtester.com.hooks"},
         plugin = {"anhtester.com.hooks.CucumberListener",
                 "pretty",
-                "html:target/cucumber-reports/cucumber-reports.html",
-                "json:target/cucumber-reports/cucumber-reports.json",
+                "html:target/cucumber-reports/LoginCMSTestRunner.html",
+                "json:target/cucumber-reports/LoginCMSTestRunner.json",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
         , monochrome = true,
         tags = "@Regression or @Smoke"
 )
 
-public class TestRunnerForSignInCRM extends AbstractTestNGCucumberTests {
+public class LoginCMSTestRunner extends AbstractTestNGCucumberTests {
     @Override
-    @DataProvider(parallel = true)
+    @DataProvider(parallel = false)
     public Object[][] scenarios() {
         return super.scenarios();
     }
@@ -34,7 +34,7 @@ public class TestRunnerForSignInCRM extends AbstractTestNGCucumberTests {
     @AfterSuite
     public void afterSuite() {
         System.out.println("================ AFTER SUITE ================");
-        ZipUtils.zip();
+        ZipUtils.zipReportFolder();
         EmailSendUtils.sendEmail(CucumberListener.count_totalTCs
                 , CucumberListener.count_passedTCs
                 , CucumberListener.count_failedTCs

@@ -1,8 +1,10 @@
 package anhtester.com.listeners;
 
 import anhtester.com.annotations.FrameworkAnnotation;
+import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.driver.DriverManager;
 import anhtester.com.enums.AuthorType;
+import anhtester.com.enums.Browser;
 import anhtester.com.enums.CategoryType;
 import anhtester.com.helpers.CaptureHelpers;
 import anhtester.com.helpers.PropertiesHelpers;
@@ -11,11 +13,18 @@ import anhtester.com.keywords.WebUI;
 import anhtester.com.report.AllureManager;
 import anhtester.com.report.ExtentReportManager;
 import anhtester.com.report.TelegramManager;
-import anhtester.com.utils.*;
+import anhtester.com.utils.BrowserInfoUtils;
+import anhtester.com.utils.EmailSendUtils;
+import anhtester.com.utils.LogUtils;
+import anhtester.com.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
+import com.github.automatedowl.tools.AllureEnvironmentWriter;
+import com.google.common.collect.ImmutableMap;
+import org.apache.commons.io.FileUtils;
 import org.testng.*;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 import static anhtester.com.constants.FrameworkConstants.*;
@@ -38,8 +47,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
     }
 
     public String getTestName(ITestResult result) {
-        return result.getTestName() != null ? result.getTestName()
-                : result.getMethod().getConstructorOrMethod().getName();
+        return result.getTestName() != null ? result.getTestName() : result.getMethod().getConstructorOrMethod().getName();
     }
 
     public String getTestDescription(ITestResult result) {
@@ -58,62 +66,76 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         //System.out.println(method.getTestMethod().getMethodName());
     }
 
+
     @Override
     public void onStart(ISuite iSuite) {
-        System.out.println(" ");
         System.out.println("========= INSTALLING CONFIGURATION DATA =========");
+//        try {
+//            FileUtils.deleteDirectory(new File("target/allure-results"));
+//            System.out.println("Deleted Directory target/allure-results");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
         PropertiesHelpers.loadAllFiles();
         AllureManager.setAllureEnvironmentInformation();
         ExtentReportManager.initReports();
         System.out.println("========= INSTALLED CONFIGURATION DATA =========");
-        System.out.println(" ");
-        Log.info("Start suite: " + iSuite.getName());
-        iSuite.setAttribute("WebDriver", DriverManager.getDriver());
-//        //Gọi hàm startRecord video trong CaptureHelpers class
-//        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
-//            CaptureHelpers.startRecord(iSuite.getName());
-//        }
+        System.out.println("");
+        LogUtils.info("Starting Suite: " + iSuite.getName());
     }
 
     @Override
     public void onFinish(ISuite iSuite) {
-        Log.info("End suite testing " + iSuite.getName());
+        LogUtils.info("End Suite: " + iSuite.getName());
         WebUI.stopSoftAssertAll();
-        //Kết thúc Suite và thực thi Extents Report, đóng gói Folder report và send mail
+        //End Suite and execute Extents Report
         ExtentReportManager.flushReports();
-        ZipUtils.zip();
+        //Zip Folder report
+        ZipUtils.zipReportFolder();
+        //Send notification to Telegram
         TelegramManager.sendReportPath();
+        //Send mail
         EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
 
-        //Gọi hàm stopRecord video trong CaptureHelpers class
-//        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
-//            CaptureHelpers.stopRecord();
-//        }
+        //Write information in Allure Report
+        AllureEnvironmentWriter.allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder().
+                        put("Test URL", FrameworkConstants.URL_CRM).
+                        put("Target Execution", FrameworkConstants.TARGET).
+                        put("Global Timeout", String.valueOf(FrameworkConstants.WAIT_DEFAULT)).
+                        put("Page Load Timeout", String.valueOf(FrameworkConstants.WAIT_PAGE_LOADED)).
+                        put("Headless Mode", FrameworkConstants.HEADLESS).
+                        put("Local Browser", String.valueOf(Browser.CHROME)).
+                        put("Remote URL", FrameworkConstants.REMOTE_URL).
+                        put("Remote Port", FrameworkConstants.REMOTE_PORT).
+                        put("TCs Total", String.valueOf(count_totalTCs)).
+                        put("TCs Passed", String.valueOf(count_passedTCs)).
+                        put("TCs Skipped", String.valueOf(count_skippedTCs)).
+                        put("TCs Failed", String.valueOf(count_failedTCs)).
+                        build());
+        
+
     }
 
     public AuthorType[] getAuthorType(ITestResult iTestResult) {
-        if (iTestResult.getMethod().getConstructorOrMethod().getMethod()
-                .getAnnotation(FrameworkAnnotation.class) == null) {
+        if (iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class) == null) {
             return null;
         }
-        AuthorType authorType[] = iTestResult.getMethod().getConstructorOrMethod().getMethod()
-                .getAnnotation(FrameworkAnnotation.class).author();
+        AuthorType authorType[] = iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class).author();
         return authorType;
     }
 
     public CategoryType[] getCategoryType(ITestResult iTestResult) {
-        if (iTestResult.getMethod().getConstructorOrMethod().getMethod()
-                .getAnnotation(FrameworkAnnotation.class) == null) {
+        if (iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class) == null) {
             return null;
         }
-        CategoryType categoryType[] = iTestResult.getMethod().getConstructorOrMethod().getMethod()
-                .getAnnotation(FrameworkAnnotation.class).category();
+        CategoryType categoryType[] = iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(FrameworkAnnotation.class).category();
         return categoryType;
     }
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        Log.info("Test case: " + getTestName(iTestResult) + " test is starting...");
+        LogUtils.info("Test case: " + getTestDescription(iTestResult) + " is starting...");
         count_totalTCs = count_totalTCs + 1;
 
         ExtentReportManager.createTest(iTestResult.getName());
@@ -121,8 +143,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         ExtentReportManager.addCategories(getCategoryType(iTestResult));
         ExtentReportManager.addDevices();
 
-        ExtentReportManager.info(BOLD_START + IconUtils.getOSIcon() + " "
-                + BrowserInfoUtils.getOSInfo() + BOLD_END);
+        ExtentReportManager.info(BrowserInfoUtils.getOSInfo());
 
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.startRecording(getTestName(iTestResult));
@@ -132,7 +153,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        Log.info("Test case: " + getTestName(iTestResult) + " is passed.");
+        LogUtils.info("Test case: " + getTestDescription(iTestResult) + " is passed.");
         count_passedTCs = count_passedTCs + 1;
 
         if (SCREENSHOT_PASSED_STEPS.equals(YES)) {
@@ -150,7 +171,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        Log.error("Test case: " + getTestName(iTestResult) + " is failed.");
+        LogUtils.error("Test case: " + getTestDescription(iTestResult) + " is failed.");
         count_failedTCs = count_failedTCs + 1;
 
         if (SCREENSHOT_FAILED_STEPS.equals(YES)) {
@@ -158,15 +179,15 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         }
 
         //Allure report screenshot file and log
-        Log.error("FAILED !! Screenshot for test case: " + getTestName(iTestResult));
-        Log.error(iTestResult.getThrowable());
+        LogUtils.error("FAILED !! Screenshot for test case: " + getTestName(iTestResult));
+        LogUtils.error(iTestResult.getThrowable());
 
         AllureManager.takeScreenshotToAttachOnAllureReport();
+        AllureManager.saveTextLog(iTestResult.getThrowable().toString());
 
         //Extent report screenshot file and log
         ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
-        ExtentReportManager.logMessage(Status.FAIL, "Test case: " + getTestName(iTestResult) + " is failed.");
-        ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable());
+        ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable().toString());
 
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.stopRecording(true);
@@ -176,7 +197,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        Log.warn("Test case: " + getTestName(iTestResult) + " is skipped.");
+        LogUtils.warn("Test case: " + getTestDescription(iTestResult) + " is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
 
         if (SCREENSHOT_SKIPPED_STEPS.equals(YES)) {
@@ -188,12 +209,12 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             screenRecorder.stopRecording(true);
         }
-
     }
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-        Log.error("Test failed but it is in defined success ratio " + getTestName(iTestResult));
-        ExtentReportManager.logMessage("Test failed but it is in defined success ratio " + getTestName(iTestResult));
+        LogUtils.error("Test failed but it is in defined success ratio: " + getTestDescription(iTestResult));
+        ExtentReportManager.logMessage("Test failed but it is in defined success ratio: " + getTestDescription(iTestResult));
     }
+
 }

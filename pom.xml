@@ -7,7 +7,7 @@
     <groupId>anhtester.com</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
     <version>1.2.0</version>
-    <name>AutomationFrameworkCucumberTestNG</name>
+    <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
     <properties>
@@ -15,40 +15,40 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>11</java-compiler.version>
-        <maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
 
-        <cucumber.java.version>7.10.1</cucumber.java.version>
-        <gherkin.version>26.0.1</gherkin.version>
-        <cucumber-reporting.version>5.7.0</cucumber-reporting.version>
-        <selenium.version>4.7.2</selenium.version>
-        <testng.version>7.4.0</testng.version>
-        <webdrivermanager.version>5.3.1</webdrivermanager.version>
+        <cucumber.java.version>7.11.2</cucumber.java.version>
+        <gherkin.version>26.1.0</gherkin.version>
+        <cucumber-reporting.version>5.7.5</cucumber-reporting.version>
+        <selenium.version>4.8.3</selenium.version>
+        <testng.version>7.7.1</testng.version>
+        <webdrivermanager.version>5.3.2</webdrivermanager.version>
         <aspectjweaver.version>1.9.19</aspectjweaver.version>
-        <ashot.version>1.5.4</ashot.version>
-        <log4j.version>2.19.0</log4j.version>
-        <allure-testng.version>2.20.1</allure-testng.version>
-        <allure-maven.version>2.10.0</allure-maven.version>
+        <log4j.version>2.20.0</log4j.version>
+        <allure-testng.version>2.21.0</allure-testng.version>
+        <allure-maven.version>2.12.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
         <extentreports.version>5.0.9</extentreports.version>
-        <apache-poi.version>5.2.2</apache-poi.version>
-        <apache-poi-xml.version>5.2.2</apache-poi-xml.version>
+        <apache-poi.version>5.2.3</apache-poi.version>
+        <apache-poi-xml.version>5.2.3</apache-poi-xml.version>
         <commons-io.version>2.11.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
-        <javafaker.version>1.0.2</javafaker.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
-        <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.32</mysql-connector-java.version>
         <google.zxing.version>3.5.1</google.zxing.version>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.26</lombok.version>
         <google.guava.version>31.1-jre</google.guava.version>
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.15</zip.version>
         <jackson.version>2.14.0</jackson.version>
+        <datafaker.version>1.8.1</datafaker.version>
+        <telegram.bot.version>6.5.0</telegram.bot.version>
 
 
         <!-- Suite XML path -->
@@ -62,12 +62,19 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>${datafaker.version}</version>
+        </dependency>
+
         <!-- telegram_bot -->
         <!-- https://mvnrepository.com/artifact/com.github.pengrad/java-telegram-bot-api -->
         <dependency>
             <groupId>com.github.pengrad</groupId>
             <artifactId>java-telegram-bot-api</artifactId>
-            <version>6.3.0</version>
+            <version>${telegram.bot.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
@@ -208,27 +215,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>${javafaker.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot -->
-        <dependency>
-            <groupId>ru.yandex.qatools.ashot</groupId>
-            <artifactId>ashot</artifactId>
-            <version>${ashot.version}</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -327,6 +313,13 @@
             <version>${mysql-connector-java.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql-connector-java.version}</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -351,77 +344,6 @@
 
     <!-- This profile execute the TestNG suite inside the suites folder on test/resources/suites -->
     <profiles>
-        <profile>
-            <id>clients-simple</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suite.client.simple}</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>clients-parallel</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suite.client.parallel}</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>signin-parallel</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suite.signin.parallel}</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>signin-simple</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suite.signin.simple}</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
 
         <profile>
             <id>feature-gherkin</id>
@@ -463,7 +385,7 @@
                 <configuration>
                     <suiteXmlFiles>
                         <!-- Call Suite name global set up above -->
-                        <suiteXmlFile>${suite.feature.login.cms}</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/suites/SuiteFeatureAll.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
                     <rerunFailingTestsCount>1</rerunFailingTestsCount>
@@ -515,6 +437,25 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>tech.grasshopper</groupId>
+                <artifactId>cucumber-pdf-plugin</artifactId>
+                <version>1.12.0</version>
+                <executions>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>pdfreport</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <cucumberJsonReportDirectory>target/cucumber-reports</cucumberJsonReportDirectory>
+                    <cucumberPdfReportDirectory>reports/CucumberReports/cucumber-reports</cucumberPdfReportDirectory>
+                </configuration>
             </plugin>
 
         </plugins>

@@ -6,8 +6,7 @@
 package anhtester.com.helpers;
 
 import anhtester.com.utils.LanguageUtils;
-import anhtester.com.utils.Log;
-import io.qameta.allure.Step;
+import anhtester.com.utils.LogUtils;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,7 +22,6 @@ public class PropertiesHelpers {
     private static FileOutputStream out;
     private static String relPropertiesFilePathDefault = "src/test/resources/config/config.properties";
 
-    @Step("Loaded all properties files")
     public static Properties loadAllFiles() {
         LinkedList<String> files = new LinkedList<>();
         // Add tất cả file Properties vào đây theo mẫu
@@ -41,11 +39,18 @@ public class PropertiesHelpers {
                 tempProp.load(file);
                 properties.putAll(tempProp);
             }
-            Log.info("Loaded all properties files.");
+            file.close();
+            LogUtils.info("Loaded all properties files.");
+            LogUtils.info(properties);
             return properties;
-        } catch (IOException ioe) {
+        } catch (IOException e) {
+            LogUtils.info("Warning !! Can not Load All File.");
             return new Properties();
         }
+    }
+
+    public static Properties getProperties() {
+        return properties;
     }
 
     public static void setFile(String relPropertiesFilePath) {
@@ -73,9 +78,9 @@ public class PropertiesHelpers {
     }
 
     public static String getValue(String key) {
-        String keyval = null;
+        String keyValue = null;
         try {
-            if (file == null) {
+            if (file == null && properties == null) {
                 properties = new Properties();
                 linkFile = Helpers.getCurrentDir() + relPropertiesFilePathDefault;
                 file = new FileInputStream(linkFile);
@@ -83,12 +88,12 @@ public class PropertiesHelpers {
                 file.close();
             }
             // Lấy giá trị từ file đã Set
-            keyval = properties.getProperty(key);
-            return LanguageUtils.convertCharset_ISO_8859_1_To_UTF8(keyval);
+            keyValue = properties.getProperty(key);
+            return LanguageUtils.convertCharset_ISO_8859_1_To_UTF8(keyValue);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return keyValue;
         }
-        return keyval;
     }
 
     public static void setValue(String key, String keyValue) {
@@ -104,7 +109,7 @@ public class PropertiesHelpers {
             out = new FileOutputStream(linkFile);
             System.out.println(linkFile);
             properties.setProperty(key, keyValue);
-            properties.store(out, null);
+            properties.store(out, "Set value to properties file success.");
             out.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());

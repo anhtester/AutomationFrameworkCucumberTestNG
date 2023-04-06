@@ -2,7 +2,7 @@ package anhtester.com.hooks;
 
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
-import anhtester.com.utils.Log;
+import anhtester.com.utils.LogUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 
@@ -18,7 +18,7 @@ public class TestContext {
         driver = ThreadGuard.protect(new TargetFactory().createInstance());
         driver.manage().window().maximize();
         DriverManager.setDriver(driver);
-        Log.info("Driver in TestContext: " + getDriver());
+        LogUtils.info("Driver in TestContext: " + getDriver());
     }
 
     public Object getContext(String key) {

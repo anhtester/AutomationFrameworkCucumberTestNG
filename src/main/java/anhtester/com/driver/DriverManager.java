@@ -10,6 +10,7 @@ public class DriverManager {
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     private DriverManager() {
+        super();
     }
 
     public static WebDriver getDriver() {
@@ -21,8 +22,9 @@ public class DriverManager {
     }
 
     public static void quit() {
-        DriverManager.getDriver().quit();
-        DriverManager.driver.remove();
+        if (DriverManager.getDriver() != null){
+            DriverManager.getDriver().quit();
+        }
     }
 
 //    public static String getInfo() {

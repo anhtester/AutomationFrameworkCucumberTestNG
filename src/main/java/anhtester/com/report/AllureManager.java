@@ -18,7 +18,7 @@ import static org.openqa.selenium.OutputType.BYTES;
 
 public class AllureManager {
 
-    public AllureManager() {
+    private AllureManager() {
     }
 
     public static void setAllureEnvironmentInformation() {
@@ -33,7 +33,9 @@ public class AllureManager {
                         put("Remote URL", FrameworkConstants.REMOTE_URL).
                         put("Remote Port", FrameworkConstants.REMOTE_PORT).
                         build());
-        
+
+        System.out.println("Allure Reports is installed.");
+
     }
 
     @Attachment(value = "Failed test screenshot", type = "image/png")

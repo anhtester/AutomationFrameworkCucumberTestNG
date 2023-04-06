@@ -11,6 +11,10 @@ import java.util.List;
 
 public class FileHelpers {
 
+    public FileHelpers() {
+        super();
+    }
+
     public static void writeTxtFile(String filepath, String text) {
         try {
             File file = new File(filepath);

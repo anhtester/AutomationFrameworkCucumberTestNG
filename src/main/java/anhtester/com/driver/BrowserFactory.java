@@ -20,6 +20,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static java.lang.Boolean.TRUE;
 
 public enum BrowserFactory {
@@ -34,12 +37,21 @@ public enum BrowserFactory {
 
         @Override
         public ChromeOptions getOptions() {
-            ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.addArguments("--disable-infobars");
-            chromeOptions.addArguments("--disable-notifications");
-            chromeOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
+            ChromeOptions options = new ChromeOptions();
+            Map<String, Object> prefs = new HashMap<String, Object>();
+            prefs.put("profile.default_content_setting_values.notifications", 2);
+            prefs.put("credentials_enable_service", false);
+            prefs.put("profile.password_manager_enabled", false);
+            options.setExperimentalOption("prefs", prefs);
+            options.addArguments("--disable-extensions");
+            options.addArguments("--disable-infobars");
+            options.addArguments("--disable-notifications");
+            options.addArguments("--remote-allow-origins=*");
+            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+                options.addArguments("--headless=new");
+            }
 
-            return chromeOptions;
+            return options;
         }
     }, FIREFOX {
         @Override
@@ -51,10 +63,12 @@ public enum BrowserFactory {
 
         @Override
         public FirefoxOptions getOptions() {
-            FirefoxOptions firefoxOptions = new FirefoxOptions();
-            firefoxOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
+            FirefoxOptions options = new FirefoxOptions();
+            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+                options.addArguments("--headless");
+            }
 
-            return firefoxOptions;
+            return options;
         }
     }, EDGE {
         @Override
@@ -66,10 +80,23 @@ public enum BrowserFactory {
 
         @Override
         public EdgeOptions getOptions() {
-            EdgeOptions edgeOptions = new EdgeOptions();
-            edgeOptions.setHeadless(Boolean.valueOf(FrameworkConstants.HEADLESS));
+            EdgeOptions options = new EdgeOptions();
+            Map<String, Object> prefs = new HashMap<String, Object>();
+            prefs.put("profile.default_content_setting_values.notifications", 2);
+            prefs.put("credentials_enable_service", false);
+            prefs.put("profile.password_manager_enabled", false);
+            prefs.put("autofill.profile_enabled", false);
+            options.setExperimentalOption("prefs", prefs);
+            options.addArguments("--disable-extensions");
+            options.addArguments("--disable-infobars");
+            options.addArguments("--disable-notifications");
+            options.addArguments("--remote-allow-origins=*");
 
-            return edgeOptions;
+            if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
+                options.addArguments("--headless=new");
+            }
+
+            return options;
         }
     }, SAFARI {
         @Override
@@ -81,13 +108,13 @@ public enum BrowserFactory {
 
         @Override
         public SafariOptions getOptions() {
-            SafariOptions safariOptions = new SafariOptions();
-            safariOptions.setAutomaticInspection(false);
+            SafariOptions options = new SafariOptions();
+            options.setAutomaticInspection(false);
 
             if (TRUE.equals(Boolean.valueOf(FrameworkConstants.HEADLESS)))
-                throw new HeadlessNotSupportedException(safariOptions.getBrowserName());
+                throw new HeadlessNotSupportedException(options.getBrowserName());
 
-            return safariOptions;
+            return options;
         }
     };
 

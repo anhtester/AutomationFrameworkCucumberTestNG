@@ -6,7 +6,7 @@
 package anhtester.com.helpers;
 
 import anhtester.com.exceptions.InvalidPathForExcelException;
-import anhtester.com.utils.Log;
+import anhtester.com.utils.LogUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -31,20 +31,19 @@ public class ExcelHelpers {
     private Map<String, Integer> columns = new HashMap<>();
 
     public ExcelHelpers() {
-        PropertiesHelpers.loadAllFiles();
     }
 
-    //    Set Excel file
+    //Set Excel File
     public void setExcelFile(String excelPath, String sheetName) {
-        Log.info("Set Excel file " + excelPath);
-        Log.info("Selected Sheet: " + sheetName);
+        LogUtils.info("Set Excel File: " + excelPath);
+        LogUtils.info("Sheet Name: " + sheetName);
 
         try {
             File f = new File(excelPath);
 
             if (!f.exists()) {
                 try {
-                    Log.info("File Excel path not found.");
+                    LogUtils.info("File Excel path not found.");
                     throw new InvalidPathForExcelException("File Excel path not found.");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -52,7 +51,7 @@ public class ExcelHelpers {
             }
             if (sheetName.isEmpty()) {
                 try {
-                    Log.info("The Sheet Name is empty.");
+                    LogUtils.info("The Sheet Name is empty.");
                     throw new InvalidPathForExcelException("The Sheet Name is empty.");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -64,9 +63,9 @@ public class ExcelHelpers {
             sheet = workbook.getSheet(sheetName);
             //sh = wb.getSheetAt(0); //0 - index of 1st sheet
             if (sheet == null) {
-//                sh = wb.createSheet(sheetName);
+                //sh = wb.createSheet(sheetName);
                 try {
-                    Log.info("Sheet name not found.");
+                    LogUtils.info("Sheet name not found.");
                     throw new InvalidPathForExcelException("Sheet name not found.");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -82,7 +81,7 @@ public class ExcelHelpers {
 
         } catch (Exception e) {
             e.getMessage();
-            Log.error(e.getMessage());
+            LogUtils.error(e.getMessage());
         }
     }
 
@@ -97,8 +96,8 @@ public class ExcelHelpers {
         Object[][] data = null;
         Workbook workbook = null;
 
-        Log.info("Set Excel file " + excelPath);
-        Log.info("Selected Sheet: " + sheetName);
+        LogUtils.info("Set Excel file " + excelPath);
+        LogUtils.info("Selected Sheet: " + sheetName);
 
         try {
 
@@ -106,7 +105,7 @@ public class ExcelHelpers {
 
             if (!f.exists()) {
                 try {
-                    Log.info("File Excel path not found.");
+                    LogUtils.info("File Excel path not found.");
                     throw new InvalidPathForExcelException("File Excel path not found.");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -114,7 +113,7 @@ public class ExcelHelpers {
             }
             if (sheetName.isEmpty()) {
                 try {
-                    Log.info("The Sheet Name is empty.");
+                    LogUtils.info("The Sheet Name is empty.");
                     throw new InvalidPathForExcelException("The Sheet Name is empty.");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -170,8 +169,8 @@ public class ExcelHelpers {
     }
 
     public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
-        Log.info("Excel File: " + excelPath);
-        Log.info("Selected Sheet: " + sheetName);
+        LogUtils.info("Excel File: " + excelPath);
+        LogUtils.info("Sheet Name: " + sheetName);
 
         Object[][] data = null;
 
@@ -181,7 +180,7 @@ public class ExcelHelpers {
 
             if (!f.exists()) {
                 try {
-                    Log.info("File Excel path not found.");
+                    LogUtils.info("File Excel path not found.");
                     throw new InvalidPathForExcelException("File Excel path not found.");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -195,8 +194,8 @@ public class ExcelHelpers {
             int rows = getRows();
             int columns = getColumns();
 
-            Log.info("Row: " + rows + " - Column: " + columns);
-            Log.info("StartRow: " + startRow + " - EndRow: " + endRow);
+            LogUtils.info("Row: " + rows + " - Column: " + columns);
+            LogUtils.info("StartRow: " + startRow + " - EndRow: " + endRow);
 
             data = new Object[(endRow - startRow) + 1][1];
             Hashtable<String, String> table = null;
@@ -210,7 +209,7 @@ public class ExcelHelpers {
 
         } catch (IOException e) {
             e.printStackTrace();
-            Log.error(e.getMessage());
+            LogUtils.error(e.getMessage());
         }
 
         return data;
@@ -324,7 +323,7 @@ public class ExcelHelpers {
             fileOut.close();
         } catch (Exception e) {
             e.getMessage();
-            Log.error(e.getMessage());
+            LogUtils.error(e.getMessage());
         }
     }
 
@@ -362,7 +361,7 @@ public class ExcelHelpers {
             fileOut.close();
         } catch (Exception e) {
             e.getMessage();
-            Log.error(e.getMessage());
+            LogUtils.error(e.getMessage());
         }
     }
 

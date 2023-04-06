@@ -36,7 +36,7 @@ public class TestRunnerAllFeatureByTag extends AbstractTestNGCucumberTests {
     @AfterSuite
     public void afterSuite() {
         System.out.println("================ AFTER SUITE ================");
-        ZipUtils.zip();
+        ZipUtils.zipReportFolder();
         EmailSendUtils.sendEmail(CucumberListener.count_totalTCs
                 , CucumberListener.count_passedTCs
                 , CucumberListener.count_failedTCs

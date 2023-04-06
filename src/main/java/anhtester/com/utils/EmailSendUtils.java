@@ -10,12 +10,14 @@ import anhtester.com.mail.EmailAttachmentsSender;
 
 import javax.mail.MessagingException;
 
-import java.io.File;
-
 import static anhtester.com.constants.FrameworkConstants.REPORT_TITLE;
 import static anhtester.com.mail.EmailConfig.*;
 
 public class EmailSendUtils {
+
+    private EmailSendUtils() {
+        super();
+    }
 
     public static void sendEmail(int count_totalTCs, int count_passedTCs, int count_failedTCs, int count_skippedTCs) {
 
@@ -30,20 +32,11 @@ public class EmailSendUtils {
                     count_skippedTCs);
             //System.out.println(messageBody);
 
-            // attachments
-            String[] attachFiles = new String[4];
-            attachFiles[0] = FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + FrameworkConstants.EXTENT_REPORT_FILE_NAME;
-            attachFiles[1] = FrameworkConstants.ZIP_FOLDER_NAME;
-            attachFiles[2] = FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + FrameworkConstants.EXTENT_REPORT_PDF;
-            attachFiles[3] = "logs/applog.log";
-
-            System.out.println("File name: " + FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + FrameworkConstants.EXTENT_REPORT_FILE_NAME);
-            System.out.println("File name: " + FrameworkConstants.ZIP_FOLDER_NAME);
-            System.out.println("File name: " + FrameworkConstants.EXTENT_REPORT_FOLDER + File.separator + FrameworkConstants.EXTENT_REPORT_PDF);
-            System.out.println("File name: " + "logs/applog.log");
+            String attachmentFile_ExtentReport = FrameworkConstants.getExtentReportFilePath();
 
             try {
-                EmailAttachmentsSender.sendEmailWithAttachments(SERVER, PORT, FROM, PASSWORD, TO, SUBJECT, messageBody, attachFiles);
+                EmailAttachmentsSender.sendEmailWithAttachments(SERVER, PORT, FROM, PASSWORD, TO, SUBJECT, messageBody,
+                        attachmentFile_ExtentReport);
 
                 System.out.println("****************************************");
                 System.out.println("Email sent successfully.");

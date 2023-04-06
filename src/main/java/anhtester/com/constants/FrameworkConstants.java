@@ -9,11 +9,16 @@ import anhtester.com.helpers.Helpers;
 import anhtester.com.helpers.PropertiesHelpers;
 import anhtester.com.utils.ReportUtils;
 
-//final -> We do not want any class to extend this class
+import java.io.File;
+
 public final class FrameworkConstants {
 
-    //private -> We do not want anyone to create the object of this class
     private FrameworkConstants() {
+    }
+
+    static {
+        PropertiesHelpers.loadAllFiles();
+        System.out.println("Data From FrameworkConstants: " + PropertiesHelpers.getProperties());
     }
 
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
@@ -27,7 +32,6 @@ public final class FrameworkConstants {
     public static final String PROJECT_NAME = PropertiesHelpers.getValue("PROJECT_NAME");
     public static final String REPORT_TITLE = PropertiesHelpers.getValue("REPORT_TITLE");
     public static final String EXTENT_REPORT_NAME = PropertiesHelpers.getValue("EXTENT_REPORT_NAME");
-    public static final String EXTENT_REPORT_PDF = PropertiesHelpers.getValue("EXTENT_REPORT_PDF");
     public static final String EXTENT_REPORT_FOLDER = PropertiesHelpers.getValue("EXTENT_REPORT_FOLDER");
     public static final String EXPORT_VIDEO_PATH = PropertiesHelpers.getValue("EXPORT_VIDEO_PATH");
     public static final String EXPORT_CAPTURE_PATH = PropertiesHelpers.getValue("EXPORT_CAPTURE_PATH");
@@ -49,6 +53,8 @@ public final class FrameworkConstants {
     public static final String ZIP_FOLDER_NAME = PropertiesHelpers.getValue("ZIP_FOLDER_NAME");
     public static final String VIDEO_RECORD = PropertiesHelpers.getValue("VIDEO_RECORD");
 
+    public static final String LOCATE = PropertiesHelpers.getValue("LOCATE");
+
     public static final int WAIT_DEFAULT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_DEFAULT"));
     public static final int WAIT_IMPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_IMPLICIT"));
     public static final int WAIT_EXPLICIT = Integer.parseInt(PropertiesHelpers.getValue("WAIT_EXPLICIT"));
@@ -58,7 +64,7 @@ public final class FrameworkConstants {
 
     public static final String EXTENT_REPORT_FOLDER_PATH = PROJECT_PATH + EXTENT_REPORT_FOLDER;
     public static final String EXTENT_REPORT_FILE_NAME = EXTENT_REPORT_NAME + ".html";
-    public static String EXTENT_REPORT_FILE_PATH = EXTENT_REPORT_FOLDER_PATH + "/" + EXTENT_REPORT_FILE_NAME;
+    public static String EXTENT_REPORT_FILE_PATH = EXTENT_REPORT_FOLDER_PATH + File.separator + EXTENT_REPORT_FILE_NAME;
 
     //Zip file for Report folder
     public static final String ZIPPED_EXTENT_REPORTS_FOLDER = EXTENT_REPORT_FOLDER + ".zip";

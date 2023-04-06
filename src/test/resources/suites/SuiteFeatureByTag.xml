@@ -5,7 +5,6 @@
         <parameter name="BROWSER" value="chrome"/>
         <classes>
             <class name="anhtester.com.runners.TestRunnerAllFeatureByTag"/>
-<!--            <class name="anhtester.com.runners.TestRunnerForDashboardHRM"></class>-->
         </classes>
     </test>
 </suite>
