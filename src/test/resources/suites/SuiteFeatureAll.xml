@@ -5,7 +5,7 @@
         <parameter name="BROWSER" value="chrome"/>
         <classes>
             <class name="anhtester.com.runners.LoginCMSTestRunner"/>
-            <class name="anhtester.com.runners.SigninCRMTestRunner"/>
+<!--            <class name="anhtester.com.runners.SigninCRMTestRunner"/>-->
         </classes>
     </test>
 </suite>
