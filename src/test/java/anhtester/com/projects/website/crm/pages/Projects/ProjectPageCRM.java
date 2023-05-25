@@ -1,12 +1,12 @@
 package anhtester.com.projects.website.crm.pages.Projects;
 
-import anhtester.com.common.CommonPage;
+import anhtester.com.common.CommonPageCRM;
 import anhtester.com.keywords.WebUI;
 import org.openqa.selenium.By;
 
-public class ProjectPage extends CommonPage {
+public class ProjectPageCRM extends CommonPageCRM {
 
-    public ProjectPage() {
+    public ProjectPageCRM() {
     }
 
     private String pageText = "Projects";

@@ -1,21 +1,18 @@
 package anhtester.com.projects.website.crm.pages.SignIn;
 
+import anhtester.com.common.CommonPageCRM;
 import anhtester.com.constants.FrameworkConstants;
 import anhtester.com.helpers.ExcelHelpers;
-import anhtester.com.keywords.WebUI;
-
-import static anhtester.com.keywords.WebUI.*;
-
 import anhtester.com.projects.website.crm.models.SignInModel;
-import anhtester.com.common.CommonPage;
-import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPage;
+import anhtester.com.projects.website.crm.pages.Dashboard.DashboardPageCRM;
 import anhtester.com.utils.DecodeUtils;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import java.util.Hashtable;
 
-public class SignInPage extends CommonPage {
+import static anhtester.com.keywords.WebUI.*;
+
+public class SignInPageCRM extends CommonPageCRM {
 
     private String pageUrl = "/signin";
     private String pageTitle = "Sign in | RISE - Ultimate Project Manager and CRM";
@@ -32,12 +29,12 @@ public class SignInPage extends CommonPage {
 
     ExcelHelpers excelHelpers;
 
-    public SignInPage() {
+    public SignInPageCRM() {
         super();
         excelHelpers = new ExcelHelpers();
     }
 
-    public DashboardPage signInWithAdminRole() {
+    public DashboardPageCRM signInWithAdminRole() {
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
         getURL(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
@@ -48,10 +45,10 @@ public class SignInPage extends CommonPage {
         waitForPageLoaded();
         verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
 
-        return new DashboardPage();
+        return new DashboardPageCRM();
     }
 
-    public DashboardPage signInWithClientRole() {
+    public DashboardPageCRM signInWithClientRole() {
         excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
         getURL(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
@@ -62,10 +59,10 @@ public class SignInPage extends CommonPage {
         waitForPageLoaded();
         verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
 
-        return new DashboardPage();
+        return new DashboardPageCRM();
     }
 
-    public DashboardPage signIn(String email, String password) {
+    public DashboardPageCRM signIn(String email, String password) {
         getURL(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
         verifyEquals(getPageTitle(), pageTitle, "The title of sign in page not match.");
@@ -75,10 +72,10 @@ public class SignInPage extends CommonPage {
         waitForPageLoaded();
         verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
 
-        return new DashboardPage();
+        return new DashboardPageCRM();
     }
 
-    public DashboardPage signIn(Hashtable<String, String> data) {
+    public DashboardPageCRM signIn(Hashtable<String, String> data) {
         getURL(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
         verifyEquals(getPageTitle(), pageTitle, "The title of sign in page not match.");
@@ -88,7 +85,7 @@ public class SignInPage extends CommonPage {
         waitForPageLoaded();
         verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
 
-        return new DashboardPage();
+        return new DashboardPageCRM();
     }
 
 }

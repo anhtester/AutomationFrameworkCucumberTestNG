@@ -10,11 +10,11 @@ public class LoginPage {
     private By buttonLogin = By.xpath("//button[normalize-space()='Login']");
     private By buttonCopy = By.xpath("//button[normalize-space()='Copy']");
 
-    public CommonPage loginCMS(String email, String password){
+    public CommonPageCMS loginCMS(String email, String password) {
         WebUI.setText(inputEmail, email);
         WebUI.setText(inputPassword, password);
         WebUI.clickElement(buttonLogin);
 
-        return new CommonPage();
+        return new CommonPageCMS();
     }
 }

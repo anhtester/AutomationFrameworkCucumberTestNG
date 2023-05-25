@@ -1,6 +1,6 @@
 package anhtester.com.projects.website.crm.stepdefinitions;
 
-import anhtester.com.common.CommonPage;
+import anhtester.com.common.CommonPageCRM;
 import anhtester.com.keywords.WebUI;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 import static anhtester.com.keywords.WebUI.getCurrentUrl;
 import static anhtester.com.keywords.WebUI.verifyContains;
 
-public class DashboardSteps extends CommonPage {
+public class DashboardSteps extends CommonPageCRM {
 
     @Given("User logged in with email {string} and password {string}")
     public void userLoggedInWithEmailAndPassword(String email, String password) {

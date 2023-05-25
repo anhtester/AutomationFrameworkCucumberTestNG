@@ -1,16 +1,16 @@
 package anhtester.com.projects.website.crm.pages.Clients;
 
+import anhtester.com.common.CommonPageCRM;
 import anhtester.com.enums.FailureHandling;
-import anhtester.com.projects.website.crm.models.ClientModel;
-import anhtester.com.common.CommonPage;
 import anhtester.com.keywords.WebUI;
+import anhtester.com.projects.website.crm.models.ClientModel;
 import org.openqa.selenium.By;
 
 import java.util.Hashtable;
 
-public class ClientPage extends CommonPage {
+public class ClientPageCRM extends CommonPageCRM {
 
-    public ClientPage() {
+    public ClientPageCRM() {
 
     }
 

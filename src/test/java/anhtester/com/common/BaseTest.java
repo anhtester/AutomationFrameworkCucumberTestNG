@@ -11,8 +11,8 @@ import org.testng.annotations.*;
 import java.lang.reflect.Method;
 
 @Listeners({TestListener.class})
-public class BaseTest extends CommonPage {
-    
+public class BaseTest extends CommonPageCRM {
+
     @Parameters("BROWSER")
     @BeforeMethod(alwaysRun = true)
     public void createDriver(@Optional("chrome") String browser, Method method) {

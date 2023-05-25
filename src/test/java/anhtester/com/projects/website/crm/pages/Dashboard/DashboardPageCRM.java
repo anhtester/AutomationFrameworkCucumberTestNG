@@ -1,15 +1,15 @@
 package anhtester.com.projects.website.crm.pages.Dashboard;
 
-import anhtester.com.projects.website.crm.pages.Clients.ClientPage;
-import anhtester.com.common.CommonPage;
-import anhtester.com.projects.website.crm.pages.Projects.ProjectPage;
-import anhtester.com.projects.website.crm.pages.Tasks.TaskPage;
+import anhtester.com.common.CommonPageCRM;
 import anhtester.com.keywords.WebUI;
+import anhtester.com.projects.website.crm.pages.Clients.ClientPageCRM;
+import anhtester.com.projects.website.crm.pages.Projects.ProjectPageCRM;
+import anhtester.com.projects.website.crm.pages.Tasks.TaskPage;
 import org.openqa.selenium.By;
 
-public class DashboardPage extends CommonPage {
+public class DashboardPageCRM extends CommonPageCRM {
 
-    public DashboardPage() {
+    public DashboardPageCRM() {
     }
 
     public String pageText = "Dashboard";
@@ -20,19 +20,19 @@ public class DashboardPage extends CommonPage {
     public By menuProjects = By.xpath("//span[normalize-space()='Projects']");
     public By menuTasks = By.xpath("//span[normalize-space()='Tasks']");
 
-    public DashboardPage openDashboardPage() {
+    public DashboardPageCRM openDashboardPage() {
         WebUI.clickElement(menuDashboard);
         return this;
     }
 
-    public ClientPage openClientPage() {
+    public ClientPageCRM openClientPage() {
         WebUI.clickElement(menuClients);
-        return new ClientPage();
+        return new ClientPageCRM();
     }
 
-    public ProjectPage openProjectPage() {
+    public ProjectPageCRM openProjectPage() {
         WebUI.clickElement(menuProjects);
-        return new ProjectPage();
+        return new ProjectPageCRM();
     }
 
     public TaskPage openTaskPage() {

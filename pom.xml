@@ -22,11 +22,11 @@
         <gherkin.version>26.2.0</gherkin.version>
         <cucumber-reporting.version>5.7.5</cucumber-reporting.version>
         <selenium.version>4.9.1</selenium.version>
-        <testng.version>7.7.1</testng.version>
+        <testng.version>7.8.0</testng.version>
         <webdrivermanager.version>5.3.3</webdrivermanager.version>
         <aspectjweaver.version>1.9.19</aspectjweaver.version>
         <log4j.version>2.20.0</log4j.version>
-        <allure-testng.version>2.22.0</allure-testng.version>
+        <allure-testng.version>2.22.1</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
@@ -41,7 +41,7 @@
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.1</google.zxing.version>
-        <lombok.version>1.18.26</lombok.version>
+        <lombok.version>1.18.28</lombok.version>
         <google.guava.version>31.1-jre</google.guava.version>
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
@@ -157,6 +157,13 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-http-jdk-client -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-http-jdk-client</artifactId>
             <version>${selenium.version}</version>
         </dependency>
 

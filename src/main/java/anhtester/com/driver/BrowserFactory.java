@@ -49,6 +49,7 @@ public enum BrowserFactory {
             options.addArguments("--remote-allow-origins=*");
             if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("--headless=new");
+                options.addArguments("window-size=1800,900");
             }
 
             return options;
@@ -66,6 +67,7 @@ public enum BrowserFactory {
             FirefoxOptions options = new FirefoxOptions();
             if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("--headless");
+                options.addArguments("window-size=1800,900");
             }
 
             return options;
@@ -94,6 +96,7 @@ public enum BrowserFactory {
 
             if (Boolean.valueOf(FrameworkConstants.HEADLESS) == true) {
                 options.addArguments("--headless=new");
+                options.addArguments("window-size=1800,900");
             }
 
             return options;

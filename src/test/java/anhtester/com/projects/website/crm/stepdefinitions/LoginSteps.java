@@ -1,17 +1,16 @@
 package anhtester.com.projects.website.crm.stepdefinitions;
 
-import anhtester.com.common.CommonPage;
+import anhtester.com.common.CommonPageCRM;
 import anhtester.com.keywords.WebUI;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.testng.Assert;
 
 import static anhtester.com.keywords.WebUI.getCurrentUrl;
 import static anhtester.com.keywords.WebUI.verifyContains;
 
-public class LoginSteps extends CommonPage {
+public class LoginSteps extends CommonPageCRM {
 
     @Given("User navigate to url {string}")
     public void userNavigateToUrl(String url) {

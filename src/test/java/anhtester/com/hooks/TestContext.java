@@ -2,43 +2,43 @@ package anhtester.com.hooks;
 
 import anhtester.com.driver.DriverManager;
 import anhtester.com.driver.TargetFactory;
+import anhtester.com.projects.website.cms.pages.CommonPageCMS;
+import anhtester.com.projects.website.cms.pages.LoginPage;
 import anhtester.com.utils.LogUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class TestContext {
 
     private WebDriver driver;
-    private final Map<String, Object> contextList = new HashMap<>();
 
     public TestContext() {
+        System.setProperty("webdriver.http.factory", "jdk-http-client");
         driver = ThreadGuard.protect(new TargetFactory().createInstance());
         driver.manage().window().maximize();
         DriverManager.setDriver(driver);
         LogUtils.info("Driver in TestContext: " + getDriver());
     }
 
-    public Object getContext(String key) {
-        return contextList.get(key);
+    private LoginPage loginPage;
+    private CommonPageCMS commonPageCMS;
+
+    public LoginPage getLoginPage() {
+        if (loginPage == null) {
+            loginPage = new LoginPage();
+        }
+        return loginPage;
     }
 
-    public void setContext(Context key, Object value) {
-        contextList.put(key.toString(), value);
-    }
-
-    public Boolean isContains(Context key) {
-        return contextList.containsKey(key.toString());
+    public CommonPageCMS getCommonPage() {
+        if (commonPageCMS == null) {
+            commonPageCMS = new CommonPageCMS();
+        }
+        return commonPageCMS;
     }
 
     public WebDriver getDriver() {
         return DriverManager.getDriver();
-    }
-
-    public enum Context {
-
     }
 
 }
