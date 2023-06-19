@@ -1,0 +1,40 @@
+v1.3.0
+======
+Jun 19, 2023
+* Update Cucumber Java 7.12.1
+* Update Selenium 4.10.0
+* Update TestNG 7.8.0
+* Update latest version of all dependencies in pom.xml
+* Update functions in WebUI keyword
+* Edit function "clearText" in WebUI keyword
+
+v1.2.0
+======
+Apr 13, 2023
+* Update Selenium 4.8.3
+* Update function in WebUI keyword
+* Update version of all dependencies in pom.xml
+* Add test cases Gherkin sample
+
+v1.1.0
+======
+Oct 7, 2022
+* Add Cucumber Listener
+* Update Send mail with multiple files
+
+v1.0.0
+======
+Oct 7, 2022
+SOME FEATURES IN THE FRAMEWORK
+* Run the parallel Scenario on the feature file
+* Cucumber Report
+* Extent Report - Pdf Report
+* Allure Report
+* Send Mail after the run test (Report information and HTML file attachment)
+* Write Log to file
+* Record video and Screenshot test case
+* Read data test from Excel file (XLSX, CSV, JSON,...)
+* Base function in the package: utils, helpers
+* Read data test from the JSON file
+* Main keyword is WebUI
+* Sample test feature
