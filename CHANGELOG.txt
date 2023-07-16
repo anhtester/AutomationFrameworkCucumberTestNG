@@ -1,7 +1,7 @@
 v1.3.0
 ======
 Jun 19, 2023
-* Update Cucumber Java 7.12.1
+* Update Cucumber Java 7.13.0
 * Update Selenium 4.10.0
 * Update TestNG 7.8.0
 * Update latest version of all dependencies in pom.xml
