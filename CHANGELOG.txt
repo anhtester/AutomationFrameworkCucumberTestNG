@@ -1,3 +1,10 @@
+v1.3.1
+======
+Aug 1, 2023
+* Update Selelnium Java 4.11.0
+* Support Chrome browser 115
+* Remove WebDriverManager in BrowserFactory enum
+
 v1.3.0
 ======
 Jun 19, 2023

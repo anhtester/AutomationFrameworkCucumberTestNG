@@ -30,7 +30,7 @@ public enum BrowserFactory {
     CHROME {
         @Override
         public WebDriver createDriver() {
-            WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
+            //WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
 
             return new ChromeDriver(getOptions());
         }
@@ -57,7 +57,7 @@ public enum BrowserFactory {
     }, FIREFOX {
         @Override
         public WebDriver createDriver() {
-            WebDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
+            //WebDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
 
             return new FirefoxDriver(getOptions());
         }
@@ -75,7 +75,7 @@ public enum BrowserFactory {
     }, EDGE {
         @Override
         public WebDriver createDriver() {
-            WebDriverManager.getInstance(DriverManagerType.EDGE).setup();
+            //WebDriverManager.getInstance(DriverManagerType.EDGE).setup();
 
             return new EdgeDriver(getOptions());
         }
@@ -104,7 +104,7 @@ public enum BrowserFactory {
     }, SAFARI {
         @Override
         public WebDriver createDriver() {
-            WebDriverManager.getInstance(DriverManagerType.SAFARI).setup();
+            //WebDriverManager.getInstance(DriverManagerType.SAFARI).setup();
 
             return new SafariDriver(getOptions());
         }
