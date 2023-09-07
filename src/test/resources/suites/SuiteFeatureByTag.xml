@@ -4,7 +4,7 @@
     <test name="Test Cucumber TestRunnerAllFeatureByTag">
         <parameter name="BROWSER" value="chrome"/>
         <classes>
-            <class name="anhtester.com.runners.TestRunnerAllFeatureByTag"/>
+            <class name="com.anhtester.runners.TestRunnerAllFeatureByTag"/>
         </classes>
     </test>
 </suite>

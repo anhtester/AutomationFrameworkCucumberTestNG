@@ -4,7 +4,7 @@
     <test name="Test Cucumber Login CMS">
         <parameter name="BROWSER" value="chrome"/>
         <classes>
-            <class name="anhtester.com.runners.LoginCMSTestRunner"/>
+            <class name="com.anhtester.runners.LoginCMSTestRunner"/>
         </classes>
     </test>
 </suite>

@@ -1,7 +1,16 @@
+v1.4.0
+======
+Sep 7, 2023
+* Update Selenium Java 4.12.1
+* Support CDP 116
+* Change package anhtester.com to com.anhtester
+* Update version latest for all dependency
+* Require use JDK from 17 or newest
+
 v1.3.1
 ======
 Aug 1, 2023
-* Update Selelnium Java 4.11.0
+* Update Selenium Java 4.11.0
 * Support Chrome browser 115
 * Remove WebDriverManager in BrowserFactory enum
 
