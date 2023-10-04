@@ -6,7 +6,7 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -18,10 +18,10 @@
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
 
-        <cucumber.java.version>7.13.0</cucumber.java.version>
-        <gherkin.version>26.2.0</gherkin.version>
+        <cucumber.java.version>7.14.0</cucumber.java.version>
+        <gherkin.version>27.0.0</gherkin.version>
         <cucumber-reporting.version>5.7.5</cucumber-reporting.version>
-        <selenium.version>4.12.1</selenium.version>
+        <selenium.version>4.13.0</selenium.version>
         <testng.version>7.8.0</testng.version>
         <webdrivermanager.version>5.5.3</webdrivermanager.version>
         <aspectjweaver.version>1.9.20.1</aspectjweaver.version>
@@ -32,23 +32,23 @@
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
-        <extentreports.version>5.1.0</extentreports.version>
-        <apache-poi.version>5.2.3</apache-poi.version>
-        <apache-poi-xml.version>5.2.3</apache-poi-xml.version>
-        <commons-io.version>2.13.0</commons-io.version>
+        <extentreports.version>5.1.1</extentreports.version>
+        <apache-poi.version>5.2.4</apache-poi.version>
+        <apache-poi-xml.version>5.2.4</apache-poi-xml.version>
+        <commons-io.version>2.14.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.2</google.zxing.version>
-        <lombok.version>1.18.28</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <google.guava.version>32.1.2-jre</google.guava.version>
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.16</zip.version>
         <jackson.version>2.15.2</jackson.version>
-        <datafaker.version>2.0.1</datafaker.version>
-        <telegram.bot.version>6.8.0</telegram.bot.version>
+        <datafaker.version>2.0.2</datafaker.version>
+        <telegram.bot.version>6.9.0</telegram.bot.version>
 
 
         <!-- Suite XML path -->
@@ -462,6 +462,16 @@
                 <configuration>
                     <cucumberJsonReportDirectory>target/cucumber-reports</cucumberJsonReportDirectory>
                     <cucumberPdfReportDirectory>reports/CucumberReports/cucumber-reports</cucumberPdfReportDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <source>${java-compiler.version}</source>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 

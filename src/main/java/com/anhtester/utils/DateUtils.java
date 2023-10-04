@@ -24,7 +24,7 @@ public final class DateUtils {
     }
 
     /**
-     * @return lấy ra ngày tháng năm và giờ phút giây hiện tại của máy theo cấu trúc dd/MM/yyyy HH:mm:ss
+     * @return Get the current date, month, year, hour, minute, second of the device according to the structure dd/MM/yyyy HH:mm:ss
      */
     public static String getCurrentDateTime() {
         Date now = new Date();

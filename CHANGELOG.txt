@@ -1,3 +1,11 @@
+v1.5.0
+======
+Oct 4, 2023
+* Update Selenium Java 4.13.0 support CDP 117
+* Update Cucumber Java 7.14.0
+* Upgrade all dependency version in pom.xml
+* Update WebUI keyword
+
 v1.4.0
 ======
 Sep 7, 2023

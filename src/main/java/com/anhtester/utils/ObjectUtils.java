@@ -130,8 +130,8 @@ public class ObjectUtils {
 
         LogUtils.info("Retrieving object of type '" + locatorType + "' and locator '" + locatorValue + "' from the object repository");
 
-        // Trả về một thể hiện của lớp By dựa trên loại định vị (id, name, xpath, css,...)
-        // Đối tượng By có thể được sử dụng bởi driver.findElement (WebElement)
+        // Returns an instance of the By class based on the locator type (id, name, xpath, css,...)
+        // By object can be used by driver.findElement (WebElement)
         switch (locatorType.toLowerCase().trim()) {
             case "id":
                 return By.id(locatorValue);
@@ -182,7 +182,7 @@ public class ObjectUtils {
             if (locator.split("&&").length != 2) {
                 throw new IllegalStateException(String.format("Locator definition does not had 2 elements for %s locator", elementName));
             }
-            
+
             // extract the locator type and value from the object
             String locatorType = locator.split("&&")[0];
             String locatorValue = locator.split("&&")[1];

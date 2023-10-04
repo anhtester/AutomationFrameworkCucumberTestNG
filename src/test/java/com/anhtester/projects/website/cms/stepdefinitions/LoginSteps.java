@@ -21,7 +21,7 @@ public class LoginSteps {
 
     @Given("User navigate to Login Page for Admin {string}")
     public void userNavigateToLoginPageForAdmin(String url) {
-        WebUI.getURL(url);
+        WebUI.openWebsite(url);
     }
 
     @When("user enter email {string} password {string}")

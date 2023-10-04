@@ -14,7 +14,7 @@ public class DashboardSteps extends CommonPageCRM {
 
     @Given("User logged in with email {string} and password {string}")
     public void userLoggedInWithEmailAndPassword(String email, String password) {
-        WebUI.getURL("https://app.hrsale.com/");
+        WebUI.openWebsite("https://app.hrsale.com/");
         WebUI.setText(By.xpath("//input[@id='iusername']"), email);
         WebUI.setText(By.xpath("//input[@id='ipassword']"), password);
         WebUI.clickElement(By.xpath("//button[@type='submit']"));
