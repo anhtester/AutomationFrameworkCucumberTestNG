@@ -13,7 +13,6 @@ public class TestContext {
     private WebDriver driver;
 
     public TestContext() {
-        System.setProperty("webdriver.http.factory", "jdk-http-client");
         driver = ThreadGuard.protect(new TargetFactory().createInstance());
         driver.manage().window().maximize();
         DriverManager.setDriver(driver);
