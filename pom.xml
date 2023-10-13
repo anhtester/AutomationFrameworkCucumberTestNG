@@ -21,7 +21,7 @@
         <cucumber.java.version>7.14.0</cucumber.java.version>
         <gherkin.version>27.0.0</gherkin.version>
         <cucumber-reporting.version>5.7.5</cucumber-reporting.version>
-        <selenium.version>4.14.0</selenium.version>
+        <selenium.version>4.14.1</selenium.version>
         <testng.version>7.8.0</testng.version>
         <webdrivermanager.version>5.5.3</webdrivermanager.version>
         <aspectjweaver.version>1.9.20.1</aspectjweaver.version>
@@ -46,7 +46,7 @@
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.16</zip.version>
-        <jackson.version>2.15.2</jackson.version>
+        <jackson.version>2.15.3</jackson.version>
         <datafaker.version>2.0.2</datafaker.version>
         <telegram.bot.version>6.9.1</telegram.bot.version>
 
