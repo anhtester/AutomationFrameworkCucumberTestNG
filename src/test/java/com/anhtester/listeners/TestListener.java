@@ -158,7 +158,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
-        AllureManager.saveTextLog("Test case: " + getTestName(iTestResult) + " is passed.");
+        //AllureManager.saveTextLog("Test case: " + getTestName(iTestResult) + " is passed.");
         //ExtentReports log operation for passed tests.
         ExtentReportManager.logMessage(Status.PASS, "Test case: " + getTestName(iTestResult) + " is passed.");
 
@@ -181,7 +181,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         LogUtils.error(iTestResult.getThrowable());
 
         AllureManager.takeScreenshotToAttachOnAllureReport();
-        AllureManager.saveTextLog(iTestResult.getThrowable().toString());
+        //AllureManager.saveTextLog(iTestResult.getThrowable().toString());
 
         //Extent report screenshot file and log
         ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
