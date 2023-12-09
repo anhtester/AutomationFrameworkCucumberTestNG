@@ -6,7 +6,7 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.5.1</version>
+    <version>1.6.0</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -15,27 +15,27 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
-        <maven-surefire-plugin.version>3.2.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
 
-        <cucumber.java.version>7.14.0</cucumber.java.version>
+        <cucumber.java.version>7.14.1</cucumber.java.version>
         <gherkin.version>27.0.0</gherkin.version>
         <cucumber-reporting.version>5.7.5</cucumber-reporting.version>
-        <selenium.version>4.15.0</selenium.version>
+        <selenium.version>4.16.1</selenium.version>
         <testng.version>7.8.0</testng.version>
-        <webdrivermanager.version>5.6.1</webdrivermanager.version>
-        <aspectjweaver.version>1.9.20.1</aspectjweaver.version>
+        <webdrivermanager.version>5.6.2</webdrivermanager.version>
+        <aspectjweaver.version>1.9.21.RC1</aspectjweaver.version>
         <log4j.version>3.0.0-alpha1</log4j.version>
-        <allure-testng.version>2.24.0</allure-testng.version>
+        <allure-testng.version>2.25.0</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
         <extentreports.version>5.1.1</extentreports.version>
-        <apache-poi.version>5.2.4</apache-poi.version>
-        <apache-poi-xml.version>5.2.4</apache-poi-xml.version>
-        <commons-io.version>2.15.0</commons-io.version>
+        <apache-poi.version>5.2.5</apache-poi.version>
+        <apache-poi-xml.version>5.2.5</apache-poi-xml.version>
+        <commons-io.version>2.15.1</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
@@ -46,7 +46,7 @@
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.16</zip.version>
-        <jackson.version>2.16.0-rc1</jackson.version>
+        <jackson.version>2.16.0</jackson.version>
         <datafaker.version>2.0.2</datafaker.version>
         <telegram.bot.version>6.9.1</telegram.bot.version>
 
@@ -461,7 +461,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.3</version>
                 <configuration>
                     <source>${java-compiler.version}</source>
                     <encoding>UTF-8</encoding>
