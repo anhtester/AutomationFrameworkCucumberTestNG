@@ -7,6 +7,7 @@ import com.anhtester.projects.website.crm.models.SignInModel;
 import com.anhtester.projects.website.crm.pages.Dashboard.DashboardPageCRM;
 import com.anhtester.utils.DecodeUtils;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import java.util.Hashtable;
 
@@ -70,7 +71,6 @@ public class SignInPageCRM extends CommonPageCRM {
         clearAndFillText(inputPassword, password);
         clickElement(buttonSignIn);
         waitForPageLoaded();
-        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPageCRM();
     }
@@ -86,6 +86,17 @@ public class SignInPageCRM extends CommonPageCRM {
         verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "Sign in failed. Can not redirect to Dashboard page.");
 
         return new DashboardPageCRM();
+    }
+
+    public void verifySignInSuccess(){
+        waitForPageLoaded();
+        Assert.assertTrue(checkElementExists(getDashboardPage().menuDashboard), "The Dashboard page not display.");
+    }
+
+    public void verifySignInFail(){
+        waitForPageLoaded();
+        Assert.assertTrue(checkElementExists(alertErrorMessage), "The Dashboard page not display.");
+        Assert.assertEquals(getTextElement(alertErrorMessage), "Authentication failed!", "The error message content not match.");
     }
 
 }

@@ -6,15 +6,15 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
-import static com.anhtester.keywords.WebUI.getCurrentUrl;
-import static com.anhtester.keywords.WebUI.verifyContains;
+import static com.anhtester.keywords.WebUI.*;
 
 public class DashboardSteps extends CommonPageCRM {
 
     @Given("User logged in with email {string} and password {string}")
     public void userLoggedInWithEmailAndPassword(String email, String password) {
-        WebUI.openWebsite("https://app.hrsale.com/");
+        WebUI.openWebsite("https://hrm.anhtester.com/");
         WebUI.setText(By.xpath("//input[@id='iusername']"), email);
         WebUI.setText(By.xpath("//input[@id='ipassword']"), password);
         WebUI.clickElement(By.xpath("//button[@type='submit']"));
@@ -22,7 +22,9 @@ public class DashboardSteps extends CommonPageCRM {
 
     @Given("User navigate to dashboard")
     public void userNavigateToDashboard() {
-        verifyContains(getCurrentUrl(), getDashboardPage().pageUrl, "The url of sign in page not match.");
+        waitForPageLoaded();
+        verifyElementVisible(By.xpath("//span[normalize-space()='Home']"), 10);
+        //Assert.assertTrue(checkElementExists(By.xpath("//span[normalize-space()='Home']")),"The Home page not display.");
 
     }
 

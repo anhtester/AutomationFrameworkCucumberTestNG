@@ -1,12 +1,16 @@
 package com.anhtester.hooks;
 
 import com.anhtester.driver.DriverManager;
+import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.keywords.WebUI;
 import com.anhtester.report.AllureManager;
 import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+
+import static com.anhtester.constants.FrameworkConstants.VIDEO_RECORD;
+import static com.anhtester.constants.FrameworkConstants.YES;
 
 public class Hooks {
 
@@ -30,14 +34,22 @@ public class Hooks {
     }
 
     @Before
-    public void beforeScenario() {
+    public void beforeScenario(Scenario scenario) {
         //System.out.println("Starting Driver in Hooks: " + DriverManager.getDriver());
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
+            CaptureHelpers.startRecord(scenario.getName());
+        }
     }
 
     @After
     public void afterScenario(Scenario scenario) {
         //System.out.println("Stop Driver in Hooks: " + DriverManager.getDriver());
         WebUI.sleep(1);
+
+        if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
+            CaptureHelpers.stopRecord();
+        }
+
         DriverManager.quit();
         WebUI.stopSoftAssertAll();
     }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite Cucumber All Feature">
-    <test name="Test Cucumber All Feature">
+<suite name="Suite Cucumber">
+    <test name="Test Cucumber Login CMS">
         <parameter name="BROWSER" value="chrome"/>
         <classes>
-            <class name="com.anhtester.runners.TestRunnerLoginCMS"/>
-            <class name="com.anhtester.runners.TestRunnerSigninCRM"/>
             <class name="com.anhtester.runners.TestRunnerDashboardHRM"/>
         </classes>
     </test>

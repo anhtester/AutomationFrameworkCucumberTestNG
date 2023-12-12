@@ -16,15 +16,15 @@ import org.testng.annotations.Test;
                 "com.anhtester.hooks"},
         plugin = {"com.anhtester.hooks.CucumberListener",
                 "pretty",
-                "html:target/cucumber-reports/LoginCMSTestRunner.html",
-                "json:target/cucumber-reports/LoginCMSTestRunner.json",
+                "html:target/cucumber-reports/TestRunnerLoginCMS.html",
+                "json:target/cucumber-reports/TestRunnerLoginCMS.json",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
         , monochrome = true,
         tags = "@Regression or @Smoke"
 )
 
-public class LoginCMSTestRunner extends AbstractTestNGCucumberTests {
+public class TestRunnerLoginCMS extends AbstractTestNGCucumberTests {
     @Override
     @DataProvider(parallel = false)
     public Object[][] scenarios() {

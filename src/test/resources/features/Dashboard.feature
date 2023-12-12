@@ -1,7 +1,7 @@
 Feature: HRM dashboard page
 
   Background: User is logged to the HRM system
-    Given User logged in with email "frances.burns" and password "frances.burns"
+    Given User logged in with email "admin_example" and password "123456"
 
   @Regression
   Scenario Outline: Open menu

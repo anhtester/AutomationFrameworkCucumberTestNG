@@ -1,3 +1,11 @@
+v1.6.1
+======
+Dec 13, 2023
+* Update Cucumber 7.15.0
+* Update Test cases
+* Add Video Records
+* Upgrade dependency version
+
 v1.6.0
 ======
 Dec 10, 2023

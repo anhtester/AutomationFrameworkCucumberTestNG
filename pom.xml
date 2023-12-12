@@ -6,7 +6,7 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -18,13 +18,13 @@
         <maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
 
-        <cucumber.java.version>7.14.1</cucumber.java.version>
+        <cucumber.java.version>7.15.0</cucumber.java.version>
         <gherkin.version>27.0.0</gherkin.version>
         <cucumber-reporting.version>5.7.5</cucumber-reporting.version>
         <selenium.version>4.16.1</selenium.version>
         <testng.version>7.8.0</testng.version>
         <webdrivermanager.version>5.6.2</webdrivermanager.version>
-        <aspectjweaver.version>1.9.21.RC1</aspectjweaver.version>
+        <aspectjweaver.version>1.9.21</aspectjweaver.version>
         <log4j.version>3.0.0-alpha1</log4j.version>
         <allure-testng.version>2.25.0</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
@@ -362,6 +362,7 @@
                 </plugins>
             </build>
         </profile>
+
     </profiles>
 
     <build>
@@ -383,10 +384,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <suiteXmlFiles>
-                        <!-- Call Suite name global set up above -->
-                        <suiteXmlFile>src/test/resources/suites/SuiteFeatureAll.xml</suiteXmlFile>
-                    </suiteXmlFiles>
+<!--                    <suiteXmlFiles>-->
+<!--                        &lt;!&ndash; Call Suite name global set up above &ndash;&gt;-->
+<!--                        <suiteXmlFile>src/test/resources/suites/SuiteFeatureLoginCMS.xml</suiteXmlFile>-->
+<!--                    </suiteXmlFiles>-->
 
                     <rerunFailingTestsCount>1</rerunFailingTestsCount>
                     <argLine>
@@ -422,13 +423,10 @@
                 <executions>
                     <execution>
                         <id>execution</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
+                        <phase>compile</phase>
                         <configuration>
                             <projectName>AutomationFrameworkCucumberTestNG</projectName>
-                            <skip>false</skip>
+                            <skip>true</skip>
                             <outputDirectory>reports/CucumberReports/cucumber-reports</outputDirectory>
                             <inputDirectory>target/cucumber-reports</inputDirectory>
                             <jsonFiles>
@@ -446,10 +444,7 @@
                 <executions>
                     <execution>
                         <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>pdfreport</goal>
-                        </goals>
+                        <phase>compile</phase>
                     </execution>
                 </executions>
                 <configuration>

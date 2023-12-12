@@ -11,20 +11,20 @@ import org.testng.annotations.Test;
 
 @Test
 @CucumberOptions(
-        features = "src/test/resources/features/SigninCRM.feature",
+        features = "src/test/resources/features/Dashboard.feature",
         glue = {"com.anhtester.projects.website.crm.stepdefinitions",
                 "com.anhtester.hooks"},
         plugin = {"com.anhtester.hooks.CucumberListener",
                 "pretty",
-                "html:target/cucumber-reports/SigninCRMTestRunner.html",
-                "json:target/cucumber-reports/SigninCRMTestRunner.json",
+                "html:target/cucumber-reports/cucumber-reports.html",
+                "json:target/cucumber-reports/cucumber-reports.json",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
         , monochrome = true,
         tags = "@Regression or @Smoke"
 )
 
-public class SigninCRMTestRunner extends AbstractTestNGCucumberTests {
+public class TestRunnerDashboardHRM extends AbstractTestNGCucumberTests {
     @Override
     @DataProvider(parallel = false)
     public Object[][] scenarios() {

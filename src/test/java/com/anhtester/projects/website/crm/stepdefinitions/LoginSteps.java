@@ -20,11 +20,13 @@ public class LoginSteps extends CommonPageCRM {
     @When("User login with username {string} and password {string} valid")
     public void userLoginWithUsernameAndPasswordValid(String email, String password) {
         getSignInPage().signIn(email, password);
+        getSignInPage().verifySignInSuccess();
     }
 
     @When("User login with username {string} and password {string} invalid")
     public void userLoginWithUsernameAndPasswordInvalid(String email, String password) {
         getSignInPage().signIn(email, password);
+        getSignInPage().verifySignInFail();
     }
 
     @Then("The user redirect to Dashboard page")

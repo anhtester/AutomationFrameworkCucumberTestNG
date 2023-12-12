@@ -61,7 +61,7 @@ public class CaptureHelpers extends ScreenRecorder {
     // Hàm Start record video
     public static void startRecord(String methodName) {
         //Tạo thư mục để lưu file video vào
-        File file = new File("./" + FrameworkConstants.EXPORT_VIDEO_PATH + "/" + methodName + "/");
+        File file = new File("./" + FrameworkConstants.EXPORT_VIDEO_PATH + File.separator + methodName + File.separator);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
@@ -106,7 +106,7 @@ public class CaptureHelpers extends ScreenRecorder {
             // Call the capture screenshot function - getScreenshotAs
             File source = ts.getScreenshotAs(OutputType.FILE);
             // result.getName() Get the name of the test case and assign it to the screenshot file name
-            FileUtils.copyFile(source, new File(path + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png"));
+            FileUtils.copyFile(source, new File(path + File.separator + screenName + "_" + dateFormat.format(new Date()) + ".png"));
             LogUtils.info("Screenshot taken: " + screenName);
             LogUtils.info("Screenshot taken current URL: " + driver.getCurrentUrl());
         } catch (Exception e) {

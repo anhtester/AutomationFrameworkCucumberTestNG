@@ -1330,7 +1330,7 @@ public class WebUI {
      * @return true/false
      */
     @Step("Verify element exists {0}")
-    public static boolean verifyElementExists(By by) {
+    public static boolean checkElementExists(By by) {
         smartWait();
 
         boolean res;
