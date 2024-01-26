@@ -6,7 +6,7 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.6.1</version>
+    <version>1.7.0</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -15,17 +15,17 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
-        <maven-surefire-plugin.version>3.2.2</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
 
         <cucumber.java.version>7.15.0</cucumber.java.version>
         <gherkin.version>27.0.0</gherkin.version>
         <cucumber-reporting.version>5.7.5</cucumber-reporting.version>
-        <selenium.version>4.16.1</selenium.version>
-        <testng.version>7.8.0</testng.version>
-        <webdrivermanager.version>5.6.2</webdrivermanager.version>
+        <selenium.version>4.17.0</selenium.version>
+        <testng.version>7.9.0</testng.version>
+        <webdrivermanager.version>5.6.3</webdrivermanager.version>
         <aspectjweaver.version>1.9.21</aspectjweaver.version>
-        <log4j.version>3.0.0-alpha1</log4j.version>
+        <log4j.version>3.0.0-beta1</log4j.version>
         <allure-testng.version>2.25.0</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
@@ -42,13 +42,13 @@
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.2</google.zxing.version>
         <lombok.version>1.18.30</lombok.version>
-        <google.guava.version>32.1.3-jre</google.guava.version>
+        <google.guava.version>33.0.0-jre</google.guava.version>
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.16</zip.version>
-        <jackson.version>2.16.0</jackson.version>
-        <datafaker.version>2.0.2</datafaker.version>
-        <telegram.bot.version>6.9.1</telegram.bot.version>
+        <jackson.version>2.16.1</jackson.version>
+        <datafaker.version>2.1.0</datafaker.version>
+        <telegram.bot.version>7.0.1</telegram.bot.version>
 
 
         <!-- Suite XML path -->
@@ -61,6 +61,13 @@
     </properties>
 
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
         <dependency>
@@ -119,32 +126,12 @@
             <version>${extentreports.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>tech.grasshopper</groupId>
-            <artifactId>pdfextentreporter</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter -->
         <dependency>
             <groupId>tech.grasshopper</groupId>
             <artifactId>extentreports-cucumber7-adapter</artifactId>
             <version>1.14.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/tech.grasshopper/extent-pdf-report -->
-        <dependency>
-            <groupId>tech.grasshopper</groupId>
-            <artifactId>extent-pdf-report</artifactId>
-            <version>2.12.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/tech.grasshopper/cucumber-pdf-report -->
-        <!--        <dependency>-->
-        <!--            <groupId>tech.grasshopper</groupId>-->
-        <!--            <artifactId>cucumber-pdf-report</artifactId>-->
-        <!--            <version>2.10.0</version>-->
-        <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-cucumber7-jvm -->
         <dependency>
@@ -234,14 +221,6 @@
             <version>${allure-environment-writer.version}</version>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${webdrivermanager.version}</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -310,7 +289,7 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <version>8.2.0</version>
+            <version>8.3.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->

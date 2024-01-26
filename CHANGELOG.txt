@@ -1,3 +1,10 @@
+v1.7.0
+======
+Jan 26, 2024
+* Update Selenium 4.17.0
+* Update support CDP 121 (Chromium)
+* Update Dependencies in pom.xml
+
 v1.6.1
 ======
 Dec 13, 2023
