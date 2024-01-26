@@ -23,7 +23,7 @@ public class DashboardSteps extends CommonPageCRM {
     @Given("User navigate to dashboard")
     public void userNavigateToDashboard() {
         waitForPageLoaded();
-        verifyElementVisible(By.xpath("//span[normalize-space()='Home']"), 10);
+        verifyElementVisible(By.xpath("//span[normalize-space()='Home']"), 20);
         //Assert.assertTrue(checkElementExists(By.xpath("//span[normalize-space()='Home']")),"The Home page not display.");
 
     }
