@@ -16,8 +16,8 @@ import org.testng.annotations.Test;
                 "com.anhtester.hooks"},
         plugin = {"com.anhtester.hooks.CucumberListener",
                 "pretty",
-                "html:target/cucumber-reports/cucumber-reports.html",
-                "json:target/cucumber-reports/cucumber-reports.json",
+                "html:target/cucumber-reports/TestRunnerDashboardHRM.html",
+                "json:target/cucumber-reports/TestRunnerDashboardHRM.json",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
         , monochrome = true,

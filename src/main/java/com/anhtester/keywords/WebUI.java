@@ -2008,11 +2008,10 @@ public class WebUI {
     @Step("Verify element visible {0}")
     public static boolean verifyElementVisible(By by) {
         smartWait();
-
+        LogUtils.info("Verify element visible " + by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            LogUtils.info("Verify element visible " + by);
             return true;
         } catch (Exception e) {
             Assert.fail("The element is NOT visible. " + by);
@@ -2030,11 +2029,10 @@ public class WebUI {
     @Step("Verify element visible {0} with timeout {1} second")
     public static boolean verifyElementVisible(By by, int timeout) {
         smartWait();
-
+        LogUtils.info("Verify element visible " + by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            LogUtils.info("Verify element visible " + by);
             return true;
         } catch (Exception e) {
             LogUtils.error("The element is not visible. " + e.getMessage());
@@ -2053,14 +2051,13 @@ public class WebUI {
     @Step("Verify element visible {0}")
     public static boolean verifyElementVisible(By by, String message) {
         smartWait();
-
+        LogUtils.info("Verify element visible " + by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            LogUtils.info("Verify element visible " + by);
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("The element is not visible. " + by);
                 Assert.fail("The element is NOT visible. " + by);
             } else {
@@ -2082,14 +2079,13 @@ public class WebUI {
     @Step("Verify element visible {0} with timeout {1} second")
     public static boolean verifyElementVisible(By by, int timeout, String message) {
         smartWait();
-
+        LogUtils.info("Verify element visible " + by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            LogUtils.info("Verify element visible " + by);
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("The element is not visible. " + by);
                 Assert.fail("The element is NOT visible. " + by);
             } else {
@@ -2110,7 +2106,7 @@ public class WebUI {
     @Step("Verify element NOT visible {0}")
     public static boolean verifyElementNotVisible(By by) {
         smartWait();
-
+        LogUtils.info("Verify element NOT visible " + by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
@@ -2132,7 +2128,7 @@ public class WebUI {
     @Step("Verify element NOT visible {0} with timeout {1} second")
     public static boolean verifyElementNotVisible(By by, int timeout) {
         smartWait();
-
+        LogUtils.info("Verify element NOT visible " + by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
@@ -2154,13 +2150,13 @@ public class WebUI {
     @Step("Verify element NOT visible {0}")
     public static boolean verifyElementNotVisible(By by, String message) {
         smartWait();
-
+        LogUtils.info("Verify element NOT visible " + by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(FrameworkConstants.WAIT_EXPLICIT), Duration.ofMillis(500));
             wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("FAILED. The element is visible " + by);
                 Assert.fail("FAILED. The element is visible " + by);
             } else {
@@ -2182,13 +2178,13 @@ public class WebUI {
     @Step("Verify element NOT visible {0} with timeout {1} second")
     public static boolean verifyElementNotVisible(By by, int timeout, String message) {
         smartWait();
-
+        LogUtils.info("Verify element NOT visible " + by);
         try {
             WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(timeout));
             wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
             return true;
         } catch (Exception e) {
-            if (message.isEmpty() || message == null) {
+            if (message.isEmpty()) {
                 LogUtils.error("FAILED. The element is visible " + by);
                 Assert.fail("FAILED. The element is visible " + by);
             } else {

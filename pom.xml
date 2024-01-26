@@ -133,6 +133,19 @@
             <version>1.14.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>pdfextentreporter</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/tech.grasshopper/extent-pdf-report -->
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extent-pdf-report</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-cucumber7-jvm -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -363,10 +376,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-<!--                    <suiteXmlFiles>-->
-<!--                        &lt;!&ndash; Call Suite name global set up above &ndash;&gt;-->
-<!--                        <suiteXmlFile>src/test/resources/suites/SuiteFeatureLoginCMS.xml</suiteXmlFile>-->
-<!--                    </suiteXmlFiles>-->
+                    <suiteXmlFiles>
+                        <!-- Call Suite name global set up above -->
+                        <suiteXmlFile>src/test/resources/suites/SuiteFeatureLoginCMS.xml</suiteXmlFile>
+                    </suiteXmlFiles>
 
                     <rerunFailingTestsCount>1</rerunFailingTestsCount>
                     <argLine>
@@ -402,10 +415,13 @@
                 <executions>
                     <execution>
                         <id>execution</id>
-                        <phase>compile</phase>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
                         <configuration>
                             <projectName>AutomationFrameworkCucumberTestNG</projectName>
-                            <skip>true</skip>
+                            <skip>false</skip>
                             <outputDirectory>reports/CucumberReports/cucumber-reports</outputDirectory>
                             <inputDirectory>target/cucumber-reports</inputDirectory>
                             <jsonFiles>
@@ -423,7 +439,10 @@
                 <executions>
                     <execution>
                         <id>report</id>
-                        <phase>compile</phase>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>pdfreport</goal>
+                        </goals>
                     </execution>
                 </executions>
                 <configuration>
