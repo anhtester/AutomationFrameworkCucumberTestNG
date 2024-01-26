@@ -5,10 +5,7 @@ import com.anhtester.driver.DriverManager;
 import com.anhtester.enums.AuthorType;
 import com.anhtester.enums.CategoryType;
 import com.anhtester.helpers.CaptureHelpers;
-import com.anhtester.utils.BrowserInfoUtils;
-import com.anhtester.utils.DateUtils;
-import com.anhtester.utils.IconUtils;
-import com.anhtester.utils.ReportUtils;
+import com.anhtester.utils.*;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
@@ -37,11 +34,11 @@ public class ExtentReportManager {
             if (OVERRIDE_REPORTS.trim().equals(NO)) {
                 System.out.println("OVERRIDE EXTENT REPORTS = " + OVERRIDE_REPORTS);
                 link = EXTENT_REPORT_FOLDER_PATH + File.separator + DateUtils.getCurrentDateTimeCustom("_") + "_" + EXTENT_REPORT_FILE_NAME;
-                System.out.println("Link Extent Report: " + link);
+                LogUtils.info("Link Extent Report: " + link);
             } else {
                 System.out.println("OVERRIDE EXTENT REPORTS = " + OVERRIDE_REPORTS);
                 link = EXTENT_REPORT_FILE_PATH;
-                System.out.println("Link Extent Report: " + link);
+                LogUtils.info("Link Extent Report: " + link);
             }
 
 //            ExtentPDFReporter pdf = new ExtentPDFReporter("reports/ExtentReports/PdfReport.pdf");
