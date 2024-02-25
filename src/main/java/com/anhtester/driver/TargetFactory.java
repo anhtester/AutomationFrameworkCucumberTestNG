@@ -8,6 +8,7 @@ package com.anhtester.driver;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.enums.Target;
 import com.anhtester.exceptions.TargetNotValidException;
+import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.utils.LogUtils;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
@@ -21,10 +22,13 @@ public class TargetFactory {
         Target target = Target.valueOf(FrameworkConstants.TARGET.toUpperCase());
         WebDriver webdriver;
 
+        String browserName = System.getProperty("browser") != null ? System.getProperty("browser")
+                : FrameworkConstants.BROWSER;
+
         switch (target) {
             case LOCAL:
                 //Create new driver from Enum setup in BrowserFactory class
-                webdriver = BrowserFactory.valueOf(FrameworkConstants.BROWSER.toUpperCase()).createDriver();
+                webdriver = BrowserFactory.valueOf(browserName.toUpperCase()).createDriver();
                 break;
             case REMOTE:
                 //Create new driver on Cloud (Selenium Grid, Docker) from method below

@@ -44,7 +44,7 @@ public class PropertiesHelpers {
             LogUtils.info(properties);
             return properties;
         } catch (IOException e) {
-            LogUtils.info("Warning !! Can not Load All File.");
+            LogUtils.warn("Warning !! Can not Load All File.");
             return new Properties();
         }
     }
@@ -61,6 +61,7 @@ public class PropertiesHelpers {
             properties.load(file);
             file.close();
         } catch (Exception e) {
+            LogUtils.warn("Warning !! Can not set Properties file.");
             e.printStackTrace();
         }
     }
@@ -73,6 +74,7 @@ public class PropertiesHelpers {
             properties.load(file);
             file.close();
         } catch (Exception e) {
+            LogUtils.warn("Warning !! Can not set Default Properties file.");
             e.printStackTrace();
         }
     }
@@ -81,13 +83,9 @@ public class PropertiesHelpers {
         String keyValue = null;
         try {
             if (file == null && properties == null) {
-                properties = new Properties();
-                linkFile = Helpers.getCurrentDir() + relPropertiesFilePathDefault;
-                file = new FileInputStream(linkFile);
-                properties.load(file);
-                file.close();
+                setDefaultFile();
             }
-            // Lấy giá trị từ file đã Set
+
             keyValue = properties.getProperty(key);
             return LanguageUtils.convertCharset_ISO_8859_1_To_UTF8(keyValue);
         } catch (Exception e) {
@@ -105,7 +103,7 @@ public class PropertiesHelpers {
                 file.close();
                 out = new FileOutputStream(Helpers.getCurrentDir() + relPropertiesFilePathDefault);
             }
-            //Ghi vào cùng file Prop với file lấy ra
+
             out = new FileOutputStream(linkFile);
             System.out.println(linkFile);
             properties.setProperty(key, keyValue);
