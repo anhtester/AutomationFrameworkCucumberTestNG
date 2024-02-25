@@ -32,7 +32,7 @@ public class TargetFactory {
                 break;
             case REMOTE:
                 //Create new driver on Cloud (Selenium Grid, Docker) from method below
-                webdriver = createRemoteInstance(BrowserFactory.valueOf(FrameworkConstants.BROWSER.toUpperCase()).getOptions());
+                webdriver = createRemoteInstance(BrowserFactory.valueOf(browserName.toUpperCase()).getOptions());
                 break;
             default:
                 throw new TargetNotValidException(target.toString());
