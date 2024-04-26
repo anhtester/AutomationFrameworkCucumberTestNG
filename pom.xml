@@ -6,7 +6,7 @@
 
     <groupId>anhtester.com</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.7.1</version>
+    <version>1.7.3</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -18,15 +18,15 @@
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
 
-        <cucumber.java.version>7.16.1</cucumber.java.version>
+        <cucumber.java.version>7.17.0</cucumber.java.version>
         <gherkin.version>28.0.0</gherkin.version>
         <cucumber-reporting.version>5.7.5</cucumber-reporting.version>
-        <selenium.version>4.19.1</selenium.version>
-        <testng.version>7.9.0</testng.version>
+        <selenium.version>4.20.0</selenium.version>
+        <testng.version>7.10.1</testng.version>
         <webdrivermanager.version>5.6.3</webdrivermanager.version>
         <aspectjweaver.version>1.9.22</aspectjweaver.version>
-        <log4j.version>2.23.0</log4j.version>
-        <allure-testng.version>2.26.0</allure-testng.version>
+        <log4j.version>2.23.1</log4j.version>
+        <allure-testng.version>2.27.0</allure-testng.version>
         <allure-maven.version>2.12.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
@@ -35,7 +35,7 @@
         <extentreports.version>5.1.1</extentreports.version>
         <apache-poi.version>5.2.5</apache-poi.version>
         <apache-poi-xml.version>5.2.5</apache-poi-xml.version>
-        <commons-io.version>2.16.0</commons-io.version>
+        <commons-io.version>2.16.1</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
@@ -47,9 +47,12 @@
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
         <jackson.version>2.17.0</jackson.version>
-        <datafaker.version>2.1.0</datafaker.version>
-        <telegram.bot.version>7.1.1</telegram.bot.version>
-
+        <datafaker.version>2.2.2</datafaker.version>
+        <telegram.bot.version>7.2.1</telegram.bot.version>
+        <slf4j.version>2.0.13</slf4j.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <extentreports-cucumber7-adapter.version>1.14.0</extentreports-cucumber7-adapter.version>
+        <mysql-connector-j.version>8.3.0</mysql-connector-j.version>
 
         <!-- Suite XML path -->
         <suite.signin.parallel>src/test/resources/suites/SignIn-parallel-methods.xml</suite.signin.parallel>
@@ -66,7 +69,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.14.0</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
@@ -76,7 +79,6 @@
             <version>${datafaker.version}</version>
         </dependency>
 
-        <!-- telegram_bot -->
         <!-- https://mvnrepository.com/artifact/com.github.pengrad/java-telegram-bot-api -->
         <dependency>
             <groupId>com.github.pengrad</groupId>
@@ -118,7 +120,6 @@
             <version>${gherkin.version}</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
         <dependency>
             <groupId>com.aventstack</groupId>
@@ -130,21 +131,21 @@
         <dependency>
             <groupId>tech.grasshopper</groupId>
             <artifactId>extentreports-cucumber7-adapter</artifactId>
-            <version>1.14.0</version>
+            <version>${extentreports-cucumber7-adapter.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>tech.grasshopper</groupId>-->
-<!--            <artifactId>pdfextentreporter</artifactId>-->
-<!--            <version>1.3.2</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>tech.grasshopper</groupId>-->
+        <!--            <artifactId>pdfextentreporter</artifactId>-->
+        <!--            <version>1.3.2</version>-->
+        <!--        </dependency>-->
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/tech.grasshopper/extent-pdf-report &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>tech.grasshopper</groupId>-->
-<!--            <artifactId>extent-pdf-report</artifactId>-->
-<!--            <version>2.12.0</version>-->
-<!--        </dependency>-->
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/tech.grasshopper/extent-pdf-report &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>tech.grasshopper</groupId>-->
+        <!--            <artifactId>extent-pdf-report</artifactId>-->
+        <!--            <version>2.12.0</version>-->
+        <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-cucumber7-jvm -->
         <dependency>
@@ -212,13 +213,13 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.12</version>
+            <version>${slf4j.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>2.0.12</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
@@ -308,7 +309,7 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <version>8.3.0</version>
+            <version>${mysql-connector-j.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
