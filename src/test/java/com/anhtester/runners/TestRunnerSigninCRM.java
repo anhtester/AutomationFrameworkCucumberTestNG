@@ -12,15 +12,19 @@ import org.testng.annotations.Test;
 @Test
 @CucumberOptions(
         features = "src/test/resources/features/SigninCRM.feature",
-        glue = {"com.anhtester.projects.website.crm.stepdefinitions",
-                "com.anhtester.hooks"},
-        plugin = {"com.anhtester.hooks.CucumberListener",
+        glue = {
+                "com.anhtester.projects.website.crm.stepdefinitions",
+                "com.anhtester.hooks"
+        },
+        plugin = {
+                "com.anhtester.hooks.CucumberListener",
                 "pretty",
                 "html:target/cucumber-reports/TestRunnerSigninCRM.html",
                 "json:target/cucumber-reports/TestRunnerSigninCRM.json",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
-                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
-        , monochrome = true,
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
+        },
+        monochrome = true,
         tags = "@Regression or @Smoke"
 )
 
@@ -29,15 +33,5 @@ public class TestRunnerSigninCRM extends AbstractTestNGCucumberTests {
     @DataProvider(parallel = false)
     public Object[][] scenarios() {
         return super.scenarios();
-    }
-
-    @AfterSuite
-    public void afterSuite() {
-        System.out.println("================ AFTER SUITE ================");
-        ZipUtils.zipReportFolder();
-        EmailSendUtils.sendEmail(CucumberListener.count_totalTCs
-                , CucumberListener.count_passedTCs
-                , CucumberListener.count_failedTCs
-                , CucumberListener.count_skippedTCs);
     }
 }

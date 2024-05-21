@@ -10,7 +10,7 @@ public class CommonPageCMS {
 
     public void verifyDashboardPageDisplays() {
         waitForPageLoaded();
-        verifyContains(getCurrentUrl(), "/anhtester", "The URL not match.");
+        verifyContains(getCurrentUrl(), "/admin", "The URL not match.");
         verifyElementPresent(menuProducts, 5, "Login failed. The Dashboard page not displays.");
     }
 
