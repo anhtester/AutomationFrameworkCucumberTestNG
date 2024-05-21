@@ -1,3 +1,8 @@
+v1.7.6
+======
+May 21, 2024
+* Fix screenshot step passed and all steps in report
+
 v1.7.5
 ======
 May 17, 2024

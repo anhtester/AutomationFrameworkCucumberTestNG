@@ -16,10 +16,9 @@ public final class FrameworkConstants {
     private FrameworkConstants() {
     }
 
-    static {
-        PropertiesHelpers.loadAllFiles();
-        System.out.println("Data From FrameworkConstants: " + PropertiesHelpers.getProperties());
-    }
+    public static String SCENARIO_NAME_CURRENT = "";
+    public static String FEATURE_NAME_CURRENT = "";
+    public static final String DELETE_TEMP_FOLDER = PropertiesHelpers.getValue("DELETE_TEMP_FOLDER");
 
     public static final String PROJECT_PATH = Helpers.getCurrentDir();
     public static final String EXCEL_DATA_FILE_PATH = PropertiesHelpers.getValue("EXCEL_DATA_FILE_PATH");
@@ -46,7 +45,6 @@ public final class FrameworkConstants {
     public static final String SEND_EMAIL_TO_USERS = PropertiesHelpers.getValue("SEND_EMAIL_TO_USERS");
     public static final String SCREENSHOT_PASSED_STEPS = PropertiesHelpers.getValue("SCREENSHOT_PASSED_STEPS");
     public static final String SCREENSHOT_FAILED_STEPS = PropertiesHelpers.getValue("SCREENSHOT_FAILED_STEPS");
-    public static final String SCREENSHOT_SKIPPED_STEPS = PropertiesHelpers.getValue("SCREENSHOT_SKIPPED_STEPS");
     public static final String SCREENSHOT_ALL_STEPS = PropertiesHelpers.getValue("SCREENSHOT_ALL_STEPS");
     public static final String ZIP_FOLDER = PropertiesHelpers.getValue("ZIP_FOLDER");
     public static final String ZIP_FOLDER_PATH = PropertiesHelpers.getValue("ZIP_FOLDER_PATH");

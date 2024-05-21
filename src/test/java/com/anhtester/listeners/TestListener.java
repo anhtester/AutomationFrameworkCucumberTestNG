@@ -198,10 +198,6 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         LogUtils.warn("Test case: " + getTestDescription(iTestResult) + " is skipped.");
         count_skippedTCs = count_skippedTCs + 1;
 
-        if (SCREENSHOT_SKIPPED_STEPS.equals(YES)) {
-            CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
-        }
-
         ExtentReportManager.logMessage(Status.SKIP, "Test case: " + getTestName(iTestResult) + " is skipped.");
 
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {

@@ -16,7 +16,6 @@ public class TestContext {
         driver = ThreadGuard.protect(new TargetFactory().createInstance());
         driver.manage().window().maximize();
         DriverManager.setDriver(driver);
-        LogUtils.info("Driver in TestContext: " + getDriver());
     }
 
     private LoginPage loginPage;

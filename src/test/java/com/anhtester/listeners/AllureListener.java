@@ -38,11 +38,10 @@ public class AllureListener implements TestLifecycleListener {
 
     @Override
     public void beforeTestStop(TestResult result) {
-        if (result.getStatus() == Status.FAILED || result.getStatus() == Status.SKIPPED || result.getStatus() == Status.BROKEN) {
-            if (DriverManager.getDriver() != null) {
-                System.out.println("DriverManager: " + DriverManager.getDriver());
-                Allure.addAttachment(result.getName(), new ByteArrayInputStream(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES)));
-            }
+        if (result.getStatus() == Status.FAILED || result.getStatus() == Status.BROKEN) {
+//            if (DriverManager.getDriver() != null) {
+//                Allure.addAttachment(result.getName(), new ByteArrayInputStream(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES)));
+//            }
         }
     }
 

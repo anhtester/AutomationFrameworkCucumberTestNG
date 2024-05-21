@@ -1,7 +1,19 @@
 package com.anhtester.hooks;
 
+import com.anhtester.driver.DriverManager;
+import com.anhtester.keywords.WebUI;
+import com.anhtester.utils.EmailSendUtils;
+import com.anhtester.utils.LogUtils;
+import com.anhtester.utils.ZipUtils;
 import io.cucumber.plugin.EventListener;
 import io.cucumber.plugin.event.*;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+
+import static com.anhtester.constants.FrameworkConstants.DELETE_TEMP_FOLDER;
+import static com.anhtester.constants.FrameworkConstants.YES;
 
 public class CucumberListener implements EventListener {
 
@@ -10,10 +22,9 @@ public class CucumberListener implements EventListener {
     public static int count_passedTCs;
     public static int count_skippedTCs;
     public static int count_failedTCs;
-    
+
     @Override
     public void setEventPublisher(EventPublisher publisher) {
-
         //Set all events that need use (public). Override from EventListener
         publisher.registerHandlerFor(TestRunStarted.class, this::runStarted);
         publisher.registerHandlerFor(TestRunFinished.class, this::runFinished);
@@ -22,57 +33,53 @@ public class CucumberListener implements EventListener {
         publisher.registerHandlerFor(TestCaseFinished.class, this::ScenarioFinished);
         publisher.registerHandlerFor(TestStepStarted.class, this::stepStarted);
         publisher.registerHandlerFor(TestStepFinished.class, this::stepFinished);
-
     }
 
-    /*
-     * Khai báo các hàm đã set events bên trên để lắng nghe từng event
-     */
-
-    // Here we create the reporter. Execute before run feature file
+    // Execute after @After in hook
     private void runStarted(TestRunStarted event) {
-
+        LogUtils.info("********* RUN STARTED *********");
     }
 
-    // runFinished event is triggered when all feature file executions are completed
+    // Execute after @After in hook
     private void runFinished(TestRunFinished event) {
-
+        LogUtils.info("********* RUN FINISHED *********");
     }
 
     // This event is triggered when feature file is read
     // here we create the feature node
     private void featureRead(TestSourceRead event) {
-        String featureSource = event.getUri().toString();
-        String featureName = featureSource.split(".*/")[1];
-        System.out.println("Feature Source: " + featureSource);
-        System.out.println("Feature Name: " + featureName);
+        String featurePath = event.getUri().toString();
+        String featureName = featurePath.split(".*/")[1];
+        LogUtils.info("Feature Path: " + featurePath);
+        LogUtils.info("Feature Name: " + featureName);
     }
 
     private void ScenarioStarted(TestCaseStarted event) {
-        String featureName = event.getTestCase().getUri().toString();
-        System.out.println("Feature Name: " + featureName);
-
+        LogUtils.info("Scenario Path: " + event.getTestCase().getUri().toString());
+        LogUtils.info("Scenario Name: " + event.getTestCase().getName());
         count_totalTCs = count_totalTCs + 1;
     }
 
     private void ScenarioFinished(TestCaseFinished event) {
-        String featureName = event.getTestCase().getUri().toString();
+        Result result = event.getResult();
 
-        //Tại đây thì chúng ta thống kê các Scenario. Vì trong Cucumber thì một test cases là một Scenario
-        if (event.getResult().getStatus().toString().equals("PASSED")) {
+        if (Status.PASSED.equals(result.getStatus())) {
             count_passedTCs = count_passedTCs + 1;
         }
-        if (event.getResult().getStatus().toString().equals("FAILED")) {
+        if (Status.FAILED.equals(result.getStatus())) {
             count_failedTCs = count_failedTCs + 1;
         }
-        if (event.getResult().getStatus().toString().equals("SKIPPED")) {
+        if (Status.SKIPPED.equals(result.getStatus())) {
             count_skippedTCs = count_skippedTCs + 1;
         }
+
+        //Quit driver in thread local
+        DriverManager.quit();
+        WebUI.stopSoftAssertAll();
     }
 
     // Step started event
     private void stepStarted(TestStepStarted event) {
-
         String stepName = "";
         String keyword = "";
 
@@ -84,25 +91,24 @@ public class CucumberListener implements EventListener {
             PickleStepTestStep steps = (PickleStepTestStep) event.getTestStep();
             stepName = steps.getStep().getText();
             keyword = steps.getStep().getKeyword();
-
         } else {
             // Same with HookTestStep
             HookTestStep hoo = (HookTestStep) event.getTestStep();
             stepName = hoo.getHookType().name();
         }
-
     }
 
     // This is triggered when test Step is finished
     private void stepFinished(TestStepFinished event) {
-        //Các bạn có thể screenshot hay như thế nào đó tuỳ ý cho mỗi step với trạng thái tương ứng
-        if (event.getResult().getStatus().toString().equals("PASSED")) {
+        Result result = event.getResult();
+
+        if (Status.PASSED.equals(result.getStatus())) {
 
         }
-        if (event.getResult().getStatus().toString().equals("FAILED")) {
+        if (Status.FAILED.equals(result.getStatus())) {
 
         }
-        if (event.getResult().getStatus().toString().equals("SKIPPED")) {
+        if (Status.SKIPPED.equals(result.getStatus())) {
 
         }
     }
