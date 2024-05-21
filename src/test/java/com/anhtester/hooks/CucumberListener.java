@@ -18,10 +18,10 @@ import static com.anhtester.constants.FrameworkConstants.YES;
 public class CucumberListener implements EventListener {
 
     //Khai báo các biến để thống kê tổng số test cases sau khi kết thúc test
-    public static int count_totalTCs;
-    public static int count_passedTCs;
-    public static int count_skippedTCs;
-    public static int count_failedTCs;
+    public static int count_totalTCs = 0;
+    public static int count_passedTCs = 0;
+    public static int count_skippedTCs = 0;
+    public static int count_failedTCs = 0;
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
@@ -48,15 +48,15 @@ public class CucumberListener implements EventListener {
     // This event is triggered when feature file is read
     // here we create the feature node
     private void featureRead(TestSourceRead event) {
-        String featurePath = event.getUri().toString();
-        String featureName = featurePath.split(".*/")[1];
-        LogUtils.info("Feature Path: " + featurePath);
-        LogUtils.info("Feature Name: " + featureName);
+//        String featurePath = event.getUri().toString();
+//        String featureName = featurePath.split(".*/")[1];
+//        LogUtils.info("Feature Path: " + featurePath);
+//        LogUtils.info("Feature Name: " + featureName);
     }
 
     private void ScenarioStarted(TestCaseStarted event) {
-        LogUtils.info("Scenario Path: " + event.getTestCase().getUri().toString());
-        LogUtils.info("Scenario Name: " + event.getTestCase().getName());
+//        LogUtils.info("Scenario Path: " + event.getTestCase().getUri().toString());
+//        LogUtils.info("Scenario Name: " + event.getTestCase().getName());
         count_totalTCs = count_totalTCs + 1;
     }
 
@@ -72,10 +72,6 @@ public class CucumberListener implements EventListener {
         if (Status.SKIPPED.equals(result.getStatus())) {
             count_skippedTCs = count_skippedTCs + 1;
         }
-
-        //Quit driver in thread local
-        DriverManager.quit();
-        WebUI.stopSoftAssertAll();
     }
 
     // Step started event
