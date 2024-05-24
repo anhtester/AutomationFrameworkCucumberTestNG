@@ -6,7 +6,9 @@
 package com.anhtester.helpers;
 
 import com.anhtester.constants.FrameworkConstants;
+import com.anhtester.driver.DriverManager;
 import com.anhtester.utils.LogUtils;
+import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
 import org.monte.media.Format;
 import org.monte.media.FormatKeys.MediaType;
@@ -40,13 +42,11 @@ public class CaptureHelpers extends ScreenRecorder {
     private static String name;
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
 
-    //Hàm xây dựng
     public CaptureHelpers(GraphicsConfiguration cfg, Rectangle captureArea, Format fileFormat, Format screenFormat, Format mouseFormat, Format audioFormat, File movieFolder, String name) throws IOException, AWTException {
         super(cfg, captureArea, fileFormat, screenFormat, mouseFormat, audioFormat, movieFolder);
         this.name = name;
     }
-
-    //Hàm này bắt buộc để ghi đè custom lại hàm trong thư viên viết sẵn
+    
     @Override
     protected File createMovieFile(Format fileFormat) throws IOException {
 
@@ -57,17 +57,15 @@ public class CaptureHelpers extends ScreenRecorder {
         }
         return new File(movieFolder, name + "_" + dateFormat.format(new Date()) + "." + Registry.getInstance().getExtension(fileFormat));
     }
-
-    // Hàm Start record video
+    
     public static void startRecord(String methodName) {
-        //Tạo thư mục để lưu file video vào
         File file = new File("./" + FrameworkConstants.EXPORT_VIDEO_PATH + File.separator + methodName + File.separator);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
 
-        System.out.println("width" + width);
-        System.out.println("height" + height);
+        LogUtils.info("width: " + width);
+        LogUtils.info("height: " + height);
 
         Rectangle captureSize = new Rectangle(0, 0, width, height);
 
@@ -80,8 +78,7 @@ public class CaptureHelpers extends ScreenRecorder {
             e.printStackTrace();
         }
     }
-
-    // Stop record video
+    
     public static void stopRecord() {
         try {
             screenRecorder.stop();
@@ -110,7 +107,7 @@ public class CaptureHelpers extends ScreenRecorder {
             LogUtils.info("Screenshot taken: " + screenName);
             LogUtils.info("Screenshot taken current URL: " + driver.getCurrentUrl());
         } catch (Exception e) {
-            System.out.println("Exception while taking screenshot: " + e.getMessage());
+            LogUtils.info("Exception while taking screenshot: " + e.getMessage());
         }
     }
 
@@ -141,5 +138,15 @@ public class CaptureHelpers extends ScreenRecorder {
         return file;
     }
 
+    public static void takeScreenshotScenario(Scenario scenario, String screenshotName) {
+        try {
+            TakesScreenshot ts = (TakesScreenshot) DriverManager.getDriver();
+            byte[] src = ts.getScreenshotAs(OutputType.BYTES);
+            scenario.attach(src, "image/png", screenshotName);
+        } catch (Exception e) {
+            LogUtils.error("Unable to take screenshot");
+            LogUtils.error(e);
+        }
+    }
 
 }

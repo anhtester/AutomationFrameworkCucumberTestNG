@@ -12,7 +12,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-import static com.anhtester.constants.FrameworkConstants.DELETE_TEMP_FOLDER;
 import static com.anhtester.constants.FrameworkConstants.YES;
 
 public class CucumberListener implements EventListener {

@@ -1330,20 +1330,17 @@ public class WebUI {
      * @return true/false
      */
     @Step("Verify element exists {0}")
-    public static boolean checkElementExists(By by) {
-        smartWait();
-
-        boolean res;
+    public static Boolean checkElementExists(By by) {
+        boolean result;
         List<WebElement> elementList = getWebElements(by);
         if (elementList.size() > 0) {
-            res = true;
+            result = true;
             LogUtils.info("Element existing");
         } else {
-            res = false;
+            result = false;
             LogUtils.error("Element not exists");
-
         }
-        return res;
+        return result;
     }
 
 

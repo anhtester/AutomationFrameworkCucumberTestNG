@@ -43,10 +43,9 @@ public class Hooks {
                 LogUtils.info("Deleted directory target/allure-results");
                 FileUtils.deleteDirectory(new File("ExportData"));
                 LogUtils.info("Deleted directory ExportData");
-                FileUtils.deleteDirectory(new File("reports"));
-                LogUtils.info("Deleted directory reports");
             }
         } catch (IOException e) {
+            LogUtils.error(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -103,21 +102,15 @@ public class Hooks {
     public void afterStep(Scenario scenario) {
         if (scenario.getStatus().equals(Status.PASSED) && SCREENSHOT_PASSED_STEPS.equals(YES)) {
             WebUI.waitForPageLoaded();
-
-            byte[] screenshot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "Screenshot passed step");
+            CaptureHelpers.takeScreenshotScenario(scenario,"Screenshot passed step");
         }
         if (scenario.getStatus().equals(Status.FAILED) && SCREENSHOT_FAILED_STEPS.equals(YES)) {
             WebUI.waitForPageLoaded();
-
-            byte[] screenshot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "Screenshot failed step");
+            CaptureHelpers.takeScreenshotScenario(scenario,"Screenshot failed step");
         }
         if (SCREENSHOT_ALL_STEPS.equals(YES)) {
             WebUI.waitForPageLoaded();
-
-            byte[] screenshot = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "Screenshot step");
+            CaptureHelpers.takeScreenshotScenario(scenario,"Screenshot step");
         }
     }
 
