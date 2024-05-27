@@ -7,7 +7,9 @@ package com.anhtester.keywords;
 
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
+import com.anhtester.driver.ScenarioManager;
 import com.anhtester.enums.FailureHandling;
+import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.report.AllureManager;
 import com.anhtester.report.ExtentReportManager;
@@ -91,11 +93,12 @@ public class WebUI {
      * @param screenName Screenshot name
      */
     public static void addScreenshotToReport(String screenName) {
-        if (FrameworkConstants.SCREENSHOT_ALL_STEPS.equals(FrameworkConstants.YES)) {
-            if (ExtentTestManager.getExtentTest() != null) {
-                ExtentReportManager.addScreenShot(SystemHelpers.makeSlug(screenName));
-            }
-            AllureManager.takeScreenshotStep();
+        if (FrameworkConstants.SCREENSHOT_ALL_STEPS_DETAIL.equals(FrameworkConstants.YES)) {
+//            if (ExtentTestManager.getExtentTest() != null) {
+//                ExtentReportManager.addScreenShot(SystemHelpers.makeSlug(screenName));
+//            }
+//            AllureManager.takeScreenshotStep();
+            CaptureHelpers.takeScreenshotScenario(ScenarioManager.getScenario(), SystemHelpers.makeSlug(screenName));
         }
     }
 

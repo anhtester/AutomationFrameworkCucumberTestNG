@@ -46,6 +46,7 @@ public final class FrameworkConstants {
     public static final String SCREENSHOT_PASSED_STEPS = PropertiesHelpers.getValue("SCREENSHOT_PASSED_STEPS");
     public static final String SCREENSHOT_FAILED_STEPS = PropertiesHelpers.getValue("SCREENSHOT_FAILED_STEPS");
     public static final String SCREENSHOT_ALL_STEPS = PropertiesHelpers.getValue("SCREENSHOT_ALL_STEPS");
+    public static final String SCREENSHOT_ALL_STEPS_DETAIL = PropertiesHelpers.getValue("SCREENSHOT_ALL_STEPS_DETAIL");
     public static final String ZIP_FOLDER = PropertiesHelpers.getValue("ZIP_FOLDER");
     public static final String ZIP_FOLDER_PATH = PropertiesHelpers.getValue("ZIP_FOLDER_PATH");
     public static final String ZIP_FOLDER_NAME = PropertiesHelpers.getValue("ZIP_FOLDER_NAME");
