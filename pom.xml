@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.7.6</version>
+    <version>1.7.7</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -54,10 +54,6 @@
         <mysql-connector-j.version>8.4.0</mysql-connector-j.version>
 
         <!-- Suite XML path -->
-        <suite.signin.parallel>src/test/resources/suites/SignIn-parallel-methods.xml</suite.signin.parallel>
-        <suite.signin.simple>src/test/resources/suites/SignIn-simple.xml</suite.signin.simple>
-        <suite.client.parallel>src/test/resources/suites/Clients-parallel.xml</suite.client.parallel>
-        <suite.client.simple>src/test/resources/suites/Clients-simple.xml</suite.client.simple>
         <suite.feature>src/test/resources/suites/SuiteFeatureByTag.xml</suite.feature>
         <suite.feature.login.cms>src/test/resources/suites/SuiteFeatureLoginCMS.xml</suite.feature.login.cms>
     </properties>
@@ -371,7 +367,7 @@
                 <configuration>
                     <suiteXmlFiles>
                         <!-- Call Suite name global set up above -->
-                        <suiteXmlFile>src/test/resources/suites/SuiteFeatureLoginCMS.xml</suiteXmlFile>
+                        <suiteXmlFile>${suite.feature.login.cms}</suiteXmlFile>
                     </suiteXmlFiles>
 
                     <rerunFailingTestsCount>1</rerunFailingTestsCount>
