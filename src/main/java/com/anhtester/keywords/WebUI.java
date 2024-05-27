@@ -8,7 +8,7 @@ package com.anhtester.keywords;
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
 import com.anhtester.enums.FailureHandling;
-import com.anhtester.helpers.Helpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.report.AllureManager;
 import com.anhtester.report.ExtentReportManager;
 import com.anhtester.report.ExtentTestManager;
@@ -93,9 +93,8 @@ public class WebUI {
     public static void addScreenshotToReport(String screenName) {
         if (FrameworkConstants.SCREENSHOT_ALL_STEPS.equals(FrameworkConstants.YES)) {
             if (ExtentTestManager.getExtentTest() != null) {
-                ExtentReportManager.addScreenShot(Helpers.makeSlug(screenName));
+                ExtentReportManager.addScreenShot(SystemHelpers.makeSlug(screenName));
             }
-            //CaptureHelpers.captureScreenshot(DriverManager.getDriver(), Helpers.makeSlug(screenshotName));
             AllureManager.takeScreenshotStep();
         }
     }
@@ -108,7 +107,7 @@ public class WebUI {
     public static void takeElementScreenshot(By by, String screenName) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         try {
-            String path = Helpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
+            String path = SystemHelpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
             File file = new File(path);
             if (!file.exists()) {
                 LogUtils.info("No Folder: " + path);
@@ -135,7 +134,7 @@ public class WebUI {
     public static void takeFullPageScreenshot(String screenName) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
         try {
-            String path = Helpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
+            String path = SystemHelpers.getCurrentDir() + FrameworkConstants.EXPORT_CAPTURE_PATH;
             File file = new File(path);
             if (!file.exists()) {
                 LogUtils.info("No Folder: " + path);

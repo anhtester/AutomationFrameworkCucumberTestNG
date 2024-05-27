@@ -6,7 +6,7 @@
 package com.anhtester.utils;
 
 import com.anhtester.constants.FrameworkConstants;
-import com.anhtester.helpers.Helpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,7 +33,7 @@ public class JsonUtils {
     //Nó được thực thi trước phương thức main tại lúc tải lớp.
     static {
         try {
-            CONFIGMAP = new ObjectMapper().readValue(new File(Helpers.getCurrentDir() + FrameworkConstants.JSON_DATA_FILE_PATH),
+            CONFIGMAP = new ObjectMapper().readValue(new File(SystemHelpers.getCurrentDir() + FrameworkConstants.JSON_DATA_FILE_PATH),
                     new TypeReference<HashMap<String, String>>() {
                     });
 

@@ -1,22 +1,14 @@
 package com.anhtester.hooks;
 
-import com.anhtester.driver.DriverManager;
-import com.anhtester.keywords.WebUI;
-import com.anhtester.utils.EmailSendUtils;
+import com.anhtester.helpers.PropertiesHelpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.utils.LogUtils;
-import com.anhtester.utils.ZipUtils;
+import com.anhtester.utils.ReportUtils;
 import io.cucumber.plugin.EventListener;
 import io.cucumber.plugin.event.*;
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-
-import static com.anhtester.constants.FrameworkConstants.YES;
 
 public class CucumberListener implements EventListener {
 
-    //Khai báo các biến để thống kê tổng số test cases sau khi kết thúc test
     public static int count_totalTCs = 0;
     public static int count_passedTCs = 0;
     public static int count_skippedTCs = 0;
@@ -42,6 +34,7 @@ public class CucumberListener implements EventListener {
     // Execute after @After in hook
     private void runFinished(TestRunFinished event) {
         LogUtils.info("********* RUN FINISHED *********");
+        ReportUtils.openReports(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("extent.reporter.spark.out"));
     }
 
     // This event is triggered when feature file is read

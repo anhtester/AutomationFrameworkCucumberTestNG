@@ -1,6 +1,7 @@
 package com.anhtester.hooks;
 
 import com.anhtester.driver.DriverManager;
+import com.anhtester.driver.ScenarioManager;
 import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.keywords.WebUI;
@@ -69,6 +70,7 @@ public class Hooks {
     public void beforeScenario(Scenario scenario) {
         LogUtils.info("Scenario Name: " + scenario.getName());
         count_totalTCs = count_totalTCs + 1;
+        ScenarioManager.setScenario(scenario);
 
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
             CaptureHelpers.startRecord(scenario.getName());

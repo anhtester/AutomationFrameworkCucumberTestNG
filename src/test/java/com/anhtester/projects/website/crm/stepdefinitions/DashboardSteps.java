@@ -1,6 +1,8 @@
 package com.anhtester.projects.website.crm.stepdefinitions;
 
 import com.anhtester.common.CommonPageCRM;
+import com.anhtester.driver.ScenarioManager;
+import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.keywords.WebUI;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,6 +18,7 @@ public class DashboardSteps extends CommonPageCRM {
     public void userLoggedInWithEmailAndPassword(String email, String password) {
         WebUI.openWebsite("https://hrm.anhtester.com/");
         WebUI.setText(By.xpath("//input[@id='iusername']"), email);
+        CaptureHelpers.takeScreenshotScenario(ScenarioManager.getScenario(), "Screenshot Email");
         WebUI.setText(By.xpath("//input[@id='ipassword']"), password);
         WebUI.clickElement(By.xpath("//button[@type='submit']"));
     }
