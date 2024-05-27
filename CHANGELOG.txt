@@ -2,6 +2,7 @@ v1.7.7
 ======
 May 28, 2024
 * Add: Take a screenshot of a specific step anywhere
+* Add: SCREENSHOT_ALL_STEPS_DETAIL to config.properties
 * Fix: Open Extent Report after run test
 
 v1.7.6
