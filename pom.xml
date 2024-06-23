@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.7.7</version>
+    <version>1.7.8</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
