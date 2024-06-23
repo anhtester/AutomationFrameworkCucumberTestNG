@@ -32,8 +32,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v125.network.Network;
-import org.openqa.selenium.devtools.v125.network.model.Headers;
+import org.openqa.selenium.devtools.v126.network.Network;
+import org.openqa.selenium.devtools.v126.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -2670,7 +2670,7 @@ public class WebUI {
      */
     @Step("Click on the element {0}")
     public static void clickElement(By by) {
-        waitForElementVisible(by).click();
+        waitForElementClickable(by).click();
         LogUtils.info("Clicked on the element " + by.toString());
 
         if (ExtentTestManager.getExtentTest() != null) {
@@ -2689,7 +2689,7 @@ public class WebUI {
      */
     @Step("Click on the element {0} with timeout {1}s")
     public static void clickElement(By by, int timeout) {
-        waitForElementVisible(by, timeout).click();
+        waitForElementClickable(by, timeout).click();
         LogUtils.info("Clicked on the element " + by.toString());
 
         if (ExtentTestManager.getExtentTest() != null) {
@@ -2753,7 +2753,7 @@ public class WebUI {
     @Step("Right click on element {0}")
     public static void rightClickElement(By by) {
         Actions action = new Actions(DriverManager.getDriver());
-        action.contextClick(waitForElementVisible(by)).build().perform();
+        action.contextClick(waitForElementClickable(by)).build().perform();
         LogUtils.info("Right click on element " + by);
         if (ExtentTestManager.getExtentTest() != null) {
             ExtentReportManager.pass("Right click on element " + by);

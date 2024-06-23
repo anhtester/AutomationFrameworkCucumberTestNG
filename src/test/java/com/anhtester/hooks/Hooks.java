@@ -4,10 +4,12 @@ import com.anhtester.driver.DriverManager;
 import com.anhtester.driver.ScenarioManager;
 import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
+import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.WebUI;
 import com.anhtester.report.AllureManager;
 import com.anhtester.utils.EmailSendUtils;
 import com.anhtester.utils.LogUtils;
+import com.anhtester.utils.ReportUtils;
 import com.anhtester.utils.ZipUtils;
 import io.cucumber.java.*;
 import org.apache.commons.io.FileUtils;
@@ -55,6 +57,7 @@ public class Hooks {
     public static void after_all() {
         LogUtils.info("================ AFTER ALL ================");
         ZipUtils.zipReportFolder();
+        ReportUtils.openReports(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("extent.reporter.spark.out"));
         EmailSendUtils.sendEmail(count_totalTCs
                 , count_passedTCs
                 , count_failedTCs
@@ -68,7 +71,7 @@ public class Hooks {
 
     @Before
     public void beforeScenario(Scenario scenario) {
-        LogUtils.info("Scenario Name: " + scenario.getName());
+        LogUtils.info("Running Scenario Name: " + scenario.getName());
         count_totalTCs = count_totalTCs + 1;
         ScenarioManager.setScenario(scenario);
 
