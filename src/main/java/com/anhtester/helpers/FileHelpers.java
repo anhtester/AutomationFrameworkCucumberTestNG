@@ -5,9 +5,16 @@
 
 package com.anhtester.helpers;
 
+import com.anhtester.utils.LogUtils;
+
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class FileHelpers {
 
@@ -60,5 +67,50 @@ public class FileHelpers {
         }
     }
 
+    public static void moveFileToFolder(String filePath, String folderPath) {
+        Path sourcePath = Paths.get(filePath);
+        Path targetDirectory = Paths.get(folderPath);
+
+        // Ensure the target directory exists
+        try {
+            Files.createDirectories(targetDirectory);
+        } catch (Exception e) {
+            LogUtils.error("Failed to create target directory: " + e.getMessage());
+            return;
+        }
+
+        Path targetPath = targetDirectory.resolve(sourcePath.getFileName());
+
+        try {
+            Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+            LogUtils.info("File moved successfully!");
+        } catch (Exception e) {
+            LogUtils.error("Failed to move file: " + e.getMessage());
+        }
+    }
+
+    public static void copyFile(String source_FilePath, String target_FilePath) {
+        try {
+            Files.copy(Paths.get(source_FilePath), Paths.get(target_FilePath), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static File getFileLastModified(String folderPath) {
+        File dir = new File(folderPath);
+        if (dir.isDirectory()) {
+            Optional<File> opFile = Arrays.stream(dir.listFiles(File::isFile)).max((f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()));
+            if (opFile.isPresent()) {
+                LogUtils.info("getFileLastModified: " + opFile.get().getPath());
+                return opFile.get();
+            } else {
+                LogUtils.info("getFileLastModified: " + opFile.get().getPath());
+                return null;
+            }
+        }
+
+        return null;
+    }
 
 }

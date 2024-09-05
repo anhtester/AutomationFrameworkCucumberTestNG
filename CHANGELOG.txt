@@ -1,3 +1,17 @@
+v1.8.0
+======
+Sep 05, 2024
+* Update Selenium 4.24.0
+* Update support CDP 128 (Chromium)
+* Update method in WebUI keyword
+* Add read JSON file
+
+v1.7.9
+======
+Jul 26, 2024
+* Update Selenium 4.23.0
+* Update support CDP 127 (Chromium)
+
 v1.7.8
 ======
 Jun 24, 2024

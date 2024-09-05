@@ -1,0 +1,10 @@
+{
+   "name": "GitLab",
+   "type": "gitlab",
+   "url": "https://gitlab.com/anhtester/e2e_test/-/pipelines",
+   "buildOrder": 1,
+   "buildName": "e2e_test",
+   "buildUrl": "https://gitlab.com/anhtester/e2e_test/-/jobs",
+   "reportUrl": "https://gitlab.com/anhtester/e2e_test/-/jobs",
+   "reportName": "Report: Test Automation with Selenium Java Cucumber"
+}

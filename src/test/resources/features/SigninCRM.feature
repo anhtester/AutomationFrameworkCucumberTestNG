@@ -1,6 +1,6 @@
 Feature: Sign in page CRM
 
-   @Regression @device_Window_10 @author_AnVo
+   @regression @device_Window_10 @author_AnVo
    Scenario Outline: Sign in CRM with an email valid
       Given User navigate to url "<url>"
       When User login with username "<username>" and password "<password>" valid
@@ -9,7 +9,7 @@ Feature: Sign in page CRM
          | url                               | username          | password |
          | https://rise.anhtester.com/signin | admin@example.com | 123456   |
 
-   @Smoke @device_Window_10 @author_AnVo
+   @smoke @device_Window_10 @author_AnVo
    Scenario Outline: Sign in CRM with an email invalid
       Given User navigate to url "<url>"
       When User login with username "<username>" and password "<password>" invalid

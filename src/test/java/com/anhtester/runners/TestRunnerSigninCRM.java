@@ -1,11 +1,7 @@
 package com.anhtester.runners;
 
-import com.anhtester.hooks.CucumberListener;
-import com.anhtester.utils.EmailSendUtils;
-import com.anhtester.utils.ZipUtils;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -25,7 +21,7 @@ import org.testng.annotations.Test;
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
         },
         monochrome = true,
-        tags = "@Regression or @Smoke"
+        tags = "@regression or @smoke"
 )
 
 public class TestRunnerSigninCRM extends AbstractTestNGCucumberTests {

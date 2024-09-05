@@ -14,7 +14,7 @@ import com.anhtester.report.AllureManager;
 import com.anhtester.report.ExtentReportManager;
 import com.anhtester.report.TelegramManager;
 import com.anhtester.utils.BrowserInfoUtils;
-import com.anhtester.utils.EmailSendUtils;
+import com.anhtester.mail.EmailManager;
 import com.anhtester.utils.LogUtils;
 import com.anhtester.utils.ZipUtils;
 import com.aventstack.extentreports.Status;
@@ -93,7 +93,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         //Send notification to Telegram
         TelegramManager.sendReportPath();
         //Send mail
-        EmailSendUtils.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
+        EmailManager.sendEmail(count_totalTCs, count_passedTCs, count_failedTCs, count_skippedTCs);
 
         //Write information in Allure Report
         AllureEnvironmentWriter.allureEnvironmentWriter(

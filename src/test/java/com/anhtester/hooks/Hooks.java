@@ -1,32 +1,29 @@
 package com.anhtester.hooks;
 
+import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
 import com.anhtester.driver.ScenarioManager;
 import com.anhtester.helpers.CaptureHelpers;
+import com.anhtester.helpers.FileHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.helpers.SystemHelpers;
 import com.anhtester.keywords.WebUI;
 import com.anhtester.report.AllureManager;
-import com.anhtester.utils.EmailSendUtils;
+import com.anhtester.mail.EmailManager;
 import com.anhtester.utils.LogUtils;
 import com.anhtester.utils.ReportUtils;
 import com.anhtester.utils.ZipUtils;
 import io.cucumber.java.*;
+import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
 import java.io.IOException;
 
 import static com.anhtester.constants.FrameworkConstants.*;
+import static com.anhtester.keywords.WebUI.sleep;
 
 public class Hooks {
-
-    public static int count_totalTCs = 0;
-    public static int count_passedTCs = 0;
-    public static int count_skippedTCs = 0;
-    public static int count_failedTCs = 0;
 
     TestContext testContext;
 
@@ -58,7 +55,15 @@ public class Hooks {
         LogUtils.info("================ AFTER ALL ================");
         ZipUtils.zipReportFolder();
         ReportUtils.openReports(SystemHelpers.getCurrentDir() + PropertiesHelpers.getValue("extent.reporter.spark.out"));
-        EmailSendUtils.sendEmail(count_totalTCs
+        //FileHelpers.copyFile("src/test/resources/config/allure/environment.xml", "target/allure-results/environment.xml");
+        FileHelpers.copyFile("src/test/resources/config/allure/categories.json", "target/allure-results/categories.json");
+        FileHelpers.copyFile("src/test/resources/config/allure/executor.json", "target/allure-results/executor.json");
+
+        ZipUtils.zipFolder(SystemHelpers.getCurrentDir() + "target" + File.separator + "allure-results", "allure-results");
+
+        sleep(2);
+
+        EmailManager.sendEmail(count_totalTCs
                 , count_passedTCs
                 , count_failedTCs
                 , count_skippedTCs);
@@ -73,6 +78,11 @@ public class Hooks {
     public void beforeScenario(Scenario scenario) {
         LogUtils.info("Running Scenario Name: " + scenario.getName());
         count_totalTCs = count_totalTCs + 1;
+
+        String browserName = (System.getProperty("browser") != null && !System.getProperty("browser").isEmpty()) ? System.getProperty("browser")
+                : FrameworkConstants.BROWSER;
+        Allure.step("\uD83E\uDD16 Run test on " + browserName.toUpperCase() + " browser.");
+
         ScenarioManager.setScenario(scenario);
 
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
@@ -94,7 +104,7 @@ public class Hooks {
         }
 
         if (VIDEO_RECORD.toLowerCase().trim().equals(YES)) {
-            WebUI.sleep(1);
+            sleep(1);
             CaptureHelpers.stopRecord();
         }
 

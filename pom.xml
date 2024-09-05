@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.7.9</version>
+    <version>1.8.0</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -15,18 +15,19 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
-        <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
 
         <cucumber.java.version>7.18.1</cucumber.java.version>
-        <gherkin.version>28.0.0</gherkin.version>
-        <cucumber-reporting.version>5.8.1</cucumber-reporting.version>
-        <selenium.version>4.23.0</selenium.version>
+        <gherkin.version>29.0.0</gherkin.version>
+        <cucumber-reporting.version>5.8.2</cucumber-reporting.version>
+        <selenium.version>4.24.0</selenium.version>
         <testng.version>7.10.2</testng.version>
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
         <log4j.version>2.23.1</log4j.version>
-        <allure-testng.version>2.28.0</allure-testng.version>
-        <allure-maven.version>2.12.0</allure-maven.version>
+        <slf4j.version>2.0.16</slf4j.version>
+        <allure-testng.version>2.29.0</allure-testng.version>
+        <allure-maven.version>2.14.0</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
@@ -41,15 +42,16 @@
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <google.zxing.version>3.5.3</google.zxing.version>
         <lombok.version>1.18.34</lombok.version>
-        <google.guava.version>33.2.1-jre</google.guava.version>
+        <google.guava.version>33.3.0-jre</google.guava.version>
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
-        <jackson.version>2.17.2</jackson.version>
+        <rest-assured.version>5.5.0</rest-assured.version>
+        <gson.version>2.11.0</gson.version>
+        <jackson-databind.version>2.17.2</jackson-databind.version>
         <datafaker.version>2.3.1</datafaker.version>
-        <telegram.bot.version>7.7.0</telegram.bot.version>
-        <slf4j.version>2.0.13</slf4j.version>
-        <commons-lang3.version>3.15.0</commons-lang3.version>
+        <telegram.bot.version>7.9.1</telegram.bot.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
         <extentreports-cucumber7-adapter.version>1.14.0</extentreports-cucumber7-adapter.version>
         <mysql-connector-j.version>9.0.0</mysql-connector-j.version>
 
@@ -59,6 +61,39 @@
     </properties>
 
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${rest-assured.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
@@ -148,20 +183,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
 
         <!--https://mvnrepository.com/artifact/com.sun.mail/javax.mail/		 -->

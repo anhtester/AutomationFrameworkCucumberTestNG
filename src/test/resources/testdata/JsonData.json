@@ -1,0 +1,21 @@
+{
+   "license": {},
+   "vehicle": {
+      "oto": {
+         "hyundai": "Accent 2023",
+         "honda": "City RS",
+         "year": 2024,
+         "number": 12.5
+      },
+      "moto": {
+         "yamaha": "Janus 125",
+         "honda": "SH 150"
+      }
+   },
+   "users": {
+      "inbox_id_default": "d134fba3-276e-4554-9210-0a8a6aefff79",
+      "inbox_id": "123456789",
+      "old_email": "xc00i9nlhstcmii5jxkl@mailslurp.net",
+      "new_email": "xc00i9nlhstcmii5jxkl@mailslurp.net"
+   }
+}

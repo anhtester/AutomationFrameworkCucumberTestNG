@@ -3,18 +3,18 @@
  * Automation Framework Selenium
  */
 
-package com.anhtester.utils;
+package com.anhtester.mail;
 
 import com.anhtester.constants.FrameworkConstants;
-import com.anhtester.mail.EmailAttachmentsSender;
+import com.anhtester.utils.LogUtils;
 
 import javax.mail.MessagingException;
 
 import static com.anhtester.mail.EmailConfig.*;
 
-public class EmailSendUtils {
+public class EmailManager {
 
-    private EmailSendUtils() {
+    private EmailManager() {
         super();
     }
 
