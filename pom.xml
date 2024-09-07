@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.8.0</version>
+    <version>1.8.1</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -40,7 +40,6 @@
         <assertj.version>3.24.2</assertj.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
-        <google.zxing.version>3.5.3</google.zxing.version>
         <lombok.version>1.18.34</lombok.version>
         <google.guava.version>33.3.0-jre</google.guava.version>
         <data.supplier.version>1.9.7</data.supplier.version>
@@ -320,19 +319,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>javase</artifactId>
-            <version>${google.zxing.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>${google.zxing.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->

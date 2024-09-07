@@ -18,12 +18,6 @@ import com.anhtester.utils.BrowserInfoUtils;
 import com.anhtester.utils.DateUtils;
 import com.anhtester.utils.LogUtils;
 import com.google.common.util.concurrent.Uninterruptibles;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.LuminanceSource;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.Result;
-import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
-import com.google.zxing.common.HybridBinarizer;
 import io.qameta.allure.Step;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
@@ -69,6 +63,10 @@ public class WebUI {
      * The SoftAssert object is created
      */
     private static SoftAssert softAssert = new SoftAssert();
+
+    public static SoftAssert getSoftAssert() {
+        return softAssert;
+    }
 
     /**
      * Stop the Soft Assert of TestNG
