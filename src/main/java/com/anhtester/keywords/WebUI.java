@@ -17,7 +17,6 @@ import com.anhtester.report.ExtentTestManager;
 import com.anhtester.utils.BrowserInfoUtils;
 import com.anhtester.utils.DateUtils;
 import com.anhtester.utils.LogUtils;
-import com.google.common.util.concurrent.Uninterruptibles;
 import io.qameta.allure.Step;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
@@ -26,8 +25,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v128.network.Network;
-import org.openqa.selenium.devtools.v128.network.model.Headers;
+import org.openqa.selenium.devtools.v129.network.Network;
+import org.openqa.selenium.devtools.v129.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -380,7 +379,7 @@ public class WebUI {
         devTools.createSession();
 
         // Enable the Network domain of devtools
-        devTools.send(org.openqa.selenium.devtools.v126.network.Network.enable(Optional.of(100000), Optional.of(100000), Optional.of(100000)));
+        devTools.send(Network.enable(Optional.of(100000), Optional.of(100000), Optional.of(100000)));
         String auth = username + ":" + password;
 
         // Encoding the username and password using Base64 (java.util)
@@ -396,7 +395,7 @@ public class WebUI {
         LogUtils.info("getToUrlAuthentication with Password: " + password);
         // Load the application url
         openWebsite(url);
-        Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(3));
+        sleep(3);
     }
 
     //Handle HTML5 validation message and valid value

@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.8.1</version>
+    <version>1.8.2</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -18,10 +18,10 @@
         <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
 
-        <cucumber.java.version>7.18.1</cucumber.java.version>
+        <cucumber.java.version>7.19.0</cucumber.java.version>
         <gherkin.version>29.0.0</gherkin.version>
         <cucumber-reporting.version>5.8.2</cucumber-reporting.version>
-        <selenium.version>4.24.0</selenium.version>
+        <selenium.version>4.25.0</selenium.version>
         <testng.version>7.10.2</testng.version>
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
         <log4j.version>2.23.1</log4j.version>
@@ -35,13 +35,12 @@
         <extentreports.version>5.1.2</extentreports.version>
         <apache-poi.version>5.3.0</apache-poi.version>
         <apache-poi-xml.version>5.2.5</apache-poi-xml.version>
-        <commons-io.version>2.16.1</commons-io.version>
+        <commons-io.version>2.17.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
         <lombok.version>1.18.34</lombok.version>
-        <google.guava.version>33.3.0-jre</google.guava.version>
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
@@ -241,13 +240,6 @@
             <groupId>com.github.automatedowl</groupId>
             <artifactId>allure-environment-writer</artifactId>
             <version>${allure-environment-writer.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${google.guava.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
