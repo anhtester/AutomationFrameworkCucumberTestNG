@@ -1,7 +1,9 @@
 v1.8.2
 ======
-Sep 26, 2024
+Oct 29, 2024
 * Update Selenium 4.25.0
+* Fix issue headless mode on Jenkins Server Linux
+* Update dependency version latest
 
 v1.8.1
 ======

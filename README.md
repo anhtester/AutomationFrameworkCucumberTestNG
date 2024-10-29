@@ -21,9 +21,9 @@
 
 ### **SYSTEM REQUIREMENTS**
 
-- **JDK All version**
-- Chrome Browser, Edge Browser
-- Setup **Allure**:
+- **JDK version >= 17**
+- Chrome, Edge, Firefox browser
+- Setup **Allure environment**:
   https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
   or
   https://anhtester.com/blog/selenium-java/selenium-java-tai-nguyen-cai-dat-moi-truong)
@@ -31,7 +31,7 @@
 
   ![image](https://user-images.githubusercontent.com/87883620/161661705-b8706957-5a26-4faf-8ddf-2f9aef78418e.png)
 
-- **IntelliJ** is the best choice (to change JDK version)
+- **IntelliJ IDEA** is the best choice (easy to change JDK version)
 
 ![image](https://user-images.githubusercontent.com/87883620/161707184-7ad558f2-0d7d-4851-bfd6-2796d4e46593.png)
 
@@ -43,7 +43,11 @@
 - Run Feature file (**src/test/resources/features/**)
 - Run Feature in suite XML (**src/test/resources/suites/**)
 - Run Feature from Maven pom.xml file
-  (**mvn clean test**)
+  (**```mvn clean test```**)
+- ```mvn clean test -Dbrowser=chrome```
+- ```mvn clean test -Dbrowser=edge```
+- ```mvn clean test -Dbrowser=firefox```
+
 
   ![image](https://user-images.githubusercontent.com/87883620/161658761-5040e527-b410-46b3-8697-3298523e201d.png)
 
@@ -67,6 +71,8 @@
 **4. Allure Report**
 
 - Open Terminal: **_allure serve target/allure-results_**
+or
+- ```allure generate --single-file target/allure-results -o allure-report --clean```
 
 ![image](https://user-images.githubusercontent.com/87883620/161662507-9e4dc698-e452-4b43-a4f5-9808c81419a2.png)
 
@@ -443,9 +449,7 @@
  ┗ 📜README.md
 ```
 
-### I shall write document for my Framework. Coming soon...
-
-## Copyright 2022 Anh Tester
+## Copyright 2022-2024 Anh Tester
 
 > Anh Tester Blog: https://anhtester.com/
 

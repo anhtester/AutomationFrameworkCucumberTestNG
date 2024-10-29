@@ -15,16 +15,16 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
-        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
 
-        <cucumber.java.version>7.19.0</cucumber.java.version>
-        <gherkin.version>29.0.0</gherkin.version>
+        <cucumber.java.version>7.20.1</cucumber.java.version>
+        <gherkin.version>30.0.0</gherkin.version>
         <cucumber-reporting.version>5.8.2</cucumber-reporting.version>
         <selenium.version>4.25.0</selenium.version>
         <testng.version>7.10.2</testng.version>
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
-        <log4j.version>2.23.1</log4j.version>
+        <log4j.version>2.24.1</log4j.version>
         <slf4j.version>2.0.16</slf4j.version>
         <allure-testng.version>2.29.0</allure-testng.version>
         <allure-maven.version>2.14.0</allure-maven.version>
@@ -46,12 +46,12 @@
         <zip.version>1.17</zip.version>
         <rest-assured.version>5.5.0</rest-assured.version>
         <gson.version>2.11.0</gson.version>
-        <jackson-databind.version>2.17.2</jackson-databind.version>
-        <datafaker.version>2.3.1</datafaker.version>
+        <jackson-databind.version>2.18.1</jackson-databind.version>
+        <datafaker.version>2.4.1</datafaker.version>
         <telegram.bot.version>7.9.1</telegram.bot.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <extentreports-cucumber7-adapter.version>1.14.0</extentreports-cucumber7-adapter.version>
-        <mysql-connector-j.version>9.0.0</mysql-connector-j.version>
+        <mysql-connector-j.version>9.1.0</mysql-connector-j.version>
 
         <!-- Suite XML path -->
         <suite.feature>src/test/resources/suites/SuiteFeatureByTag.xml</suite.feature>
