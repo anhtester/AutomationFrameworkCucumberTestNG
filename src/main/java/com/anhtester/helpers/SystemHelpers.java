@@ -93,4 +93,12 @@ public final class SystemHelpers {
         return arrayListString;
     }
 
+    public static String removeAccent(String s) {
+        // Chuẩn hóa chuỗi thành dạng Unicode tổ hợp (NFD)
+        String normalized = Normalizer.normalize(s, Normalizer.Form.NFD);
+        // Loại bỏ các ký tự dấu (dấu thanh, dấu móc, ...)
+        String accentRemoved = normalized.replaceAll("\\p{M}", "");
+        return accentRemoved;
+    }
+
 }

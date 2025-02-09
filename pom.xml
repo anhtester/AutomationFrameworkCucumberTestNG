@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.8.3</version>
+    <version>1.8.4</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -15,43 +15,42 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
-        <maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
 
-        <cucumber.java.version>7.20.1</cucumber.java.version>
-        <gherkin.version>30.0.0</gherkin.version>
-        <cucumber-reporting.version>5.8.2</cucumber-reporting.version>
-        <selenium.version>4.26.0</selenium.version>
+        <cucumber.java.version>7.21.1</cucumber.java.version>
+        <gherkin.version>31.0.0</gherkin.version>
+        <cucumber-reporting.version>5.8.4</cucumber-reporting.version>
+        <selenium.version>4.28.1</selenium.version>
         <testng.version>7.10.2</testng.version>
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
-        <log4j.version>2.24.1</log4j.version>
+        <log4j.version>2.24.3</log4j.version>
         <slf4j.version>2.0.16</slf4j.version>
-        <allure-testng.version>2.29.0</allure-testng.version>
-        <allure-maven.version>2.14.0</allure-maven.version>
+        <allure-testng.version>2.29.1</allure-testng.version>
+        <allure-maven.version>2.15.2</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
         <extentreports.version>5.1.2</extentreports.version>
-        <apache-poi.version>5.3.0</apache-poi.version>
+        <apache-poi.version>5.4.0</apache-poi.version>
         <apache-poi-xml.version>5.2.5</apache-poi-xml.version>
-        <commons-io.version>2.17.0</commons-io.version>
+        <commons-io.version>2.18.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
-        <lombok.version>1.18.34</lombok.version>
+        <lombok.version>1.18.36</lombok.version>
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
         <rest-assured.version>5.5.0</rest-assured.version>
-        <gson.version>2.11.0</gson.version>
-        <jackson-databind.version>2.18.1</jackson-databind.version>
-        <datafaker.version>2.4.1</datafaker.version>
-        <telegram.bot.version>7.9.1</telegram.bot.version>
+        <gson.version>2.12.1</gson.version>
+        <jackson-databind.version>2.18.2</jackson-databind.version>
+        <datafaker.version>2.4.2</datafaker.version>
+        <telegram.bot.version>8.1.0</telegram.bot.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <extentreports-cucumber7-adapter.version>1.14.0</extentreports-cucumber7-adapter.version>
-        <mysql-connector-j.version>9.1.0</mysql-connector-j.version>
+        <mysql-connector-j.version>9.2.0</mysql-connector-j.version>
 
         <!-- Suite XML path -->
         <suite.feature>src/test/resources/suites/SuiteFeatureByTag.xml</suite.feature>
@@ -201,26 +200,26 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>${log4j.version}</version>
+            <version>2.24.3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
+            <version>2.24.3</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <version>2.0.16</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
+            <version>2.0.16</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
@@ -246,7 +245,7 @@
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>${maven-compiler-plugin.version}</version>
+            <version>3.13.0</version>
             <type>maven-plugin</type>
         </dependency>
 
@@ -352,7 +351,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
+                <version>3.13.0</version>
                 <configuration>
                     <source>${java-compiler.version}</source>
                     <target>${java-compiler.version}</target>
@@ -399,10 +398,10 @@
                 <!--https://mvnrepository.com/artifact/net.masterthought/maven-cucumber-reporting-->
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>${cucumber-reporting.version}</version>
+                <version>5.8.5</version>
                 <executions>
                     <execution>
-                        <id>execution</id>
+                        <id>generate-cucumber-report</id>
                         <phase>test</phase>
                         <goals>
                             <goal>generate</goal>
@@ -410,7 +409,8 @@
                         <configuration>
                             <projectName>AutomationFrameworkCucumberTestNG</projectName>
                             <skip>false</skip>
-                            <outputDirectory>reports/CucumberReports/cucumber-reports</outputDirectory>
+                            <outputDirectory>reports/CucumberReports/cucumber-reports
+                            </outputDirectory>
                             <inputDirectory>target/cucumber-reports</inputDirectory>
                             <jsonFiles>
                                 <param>**/*.json</param>
