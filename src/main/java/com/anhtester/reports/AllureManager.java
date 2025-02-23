@@ -3,7 +3,7 @@
  * Automation Framework Selenium
  */
 
-package com.anhtester.report;
+package com.anhtester.reports;
 
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;

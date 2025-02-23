@@ -9,7 +9,6 @@ ExtentReports.zip
 logs/
 target/
 test-output/
-reports/
 CucumberReports/
 HDSD.txt
 *.png
@@ -19,3 +18,4 @@ HDSD.txt
 *.iml
 screenshots/
 allure-report/
+exports/

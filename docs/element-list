@@ -20,6 +20,6 @@ com.anhtester.projects.website.crm.pages.Projects
 com.anhtester.projects.website.crm.pages.SignIn
 com.anhtester.projects.website.crm.pages.Tasks
 com.anhtester.projects.website.crm.stepdefinitions
-com.anhtester.report
+com.anhtester.reports
 com.anhtester.runners
 com.anhtester.utils

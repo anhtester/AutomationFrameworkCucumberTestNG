@@ -11,9 +11,9 @@ import com.anhtester.driver.ScenarioManager;
 import com.anhtester.enums.FailureHandling;
 import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.SystemHelpers;
-import com.anhtester.report.AllureManager;
-import com.anhtester.report.ExtentReportManager;
-import com.anhtester.report.ExtentTestManager;
+import com.anhtester.reports.AllureManager;
+import com.anhtester.reports.ExtentReportManager;
+import com.anhtester.reports.ExtentTestManager;
 import com.anhtester.utils.BrowserInfoUtils;
 import com.anhtester.utils.DateUtils;
 import com.anhtester.utils.LogUtils;
@@ -25,8 +25,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v132.network.Network;
-import org.openqa.selenium.devtools.v132.network.model.Headers;
+import org.openqa.selenium.devtools.v133.network.Network;
+import org.openqa.selenium.devtools.v133.network.model.Headers;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -37,16 +37,12 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import javax.annotation.Nullable;
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.List;
@@ -87,7 +83,7 @@ public class WebUI {
     }
 
     /**
-     * Take entire-page screenshot and add to Extent report and Allure report
+     * Take entire-page screenshot and add to Extent reports and Allure reports
      *
      * @param screenName Screenshot name
      */

@@ -10,9 +10,9 @@ import com.anhtester.helpers.CaptureHelpers;
 import com.anhtester.helpers.PropertiesHelpers;
 import com.anhtester.helpers.ScreenRecoderHelpers;
 import com.anhtester.keywords.WebUI;
-import com.anhtester.report.AllureManager;
-import com.anhtester.report.ExtentReportManager;
-import com.anhtester.report.TelegramManager;
+import com.anhtester.reports.AllureManager;
+import com.anhtester.reports.ExtentReportManager;
+import com.anhtester.reports.TelegramManager;
 import com.anhtester.utils.BrowserInfoUtils;
 import com.anhtester.mail.EmailManager;
 import com.anhtester.utils.LogUtils;
@@ -88,7 +88,7 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
         WebUI.stopSoftAssertAll();
         //End Suite and execute Extents Report
         ExtentReportManager.flushReports();
-        //Zip Folder report
+        //Zip Folder reports
         ZipUtils.zipReportFolder();
         //Send notification to Telegram
         TelegramManager.sendReportPath();
@@ -176,14 +176,14 @@ public class TestListener implements ITestListener, ISuiteListener, IInvokedMeth
             CaptureHelpers.captureScreenshot(DriverManager.getDriver(), getTestName(iTestResult));
         }
 
-        //Allure report screenshot file and log
+        //Allure reports screenshot file and log
         LogUtils.error("FAILED !! Screenshot for test case: " + getTestName(iTestResult));
         LogUtils.error(iTestResult.getThrowable());
 
         AllureManager.takeScreenshotToAttachOnAllureReport();
         //AllureManager.saveTextLog(iTestResult.getThrowable().toString());
 
-        //Extent report screenshot file and log
+        //Extent reports screenshot file and log
         ExtentReportManager.addScreenShot(Status.FAIL, getTestName(iTestResult));
         ExtentReportManager.logMessage(Status.FAIL, iTestResult.getThrowable().toString());
 

@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.8.4</version>
+    <version>1.8.5</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -18,10 +18,10 @@
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
 
         <cucumber.java.version>7.21.1</cucumber.java.version>
-        <gherkin.version>31.0.0</gherkin.version>
+        <gherkin.version>32.0.0</gherkin.version>
         <cucumber-reporting.version>5.8.4</cucumber-reporting.version>
-        <selenium.version>4.28.1</selenium.version>
-        <testng.version>7.10.2</testng.version>
+        <selenium.version>4.29.0</selenium.version>
+        <testng.version>7.11.0</testng.version>
         <aspectjweaver.version>1.9.22.1</aspectjweaver.version>
         <log4j.version>2.24.3</log4j.version>
         <slf4j.version>2.0.16</slf4j.version>
@@ -43,11 +43,11 @@
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
-        <rest-assured.version>5.5.0</rest-assured.version>
+        <rest-assured.version>5.5.1</rest-assured.version>
         <gson.version>2.12.1</gson.version>
         <jackson-databind.version>2.18.2</jackson-databind.version>
         <datafaker.version>2.4.2</datafaker.version>
-        <telegram.bot.version>8.1.0</telegram.bot.version>
+        <telegram.bot.version>8.3.0</telegram.bot.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <extentreports-cucumber7-adapter.version>1.14.0</extentreports-cucumber7-adapter.version>
         <mysql-connector-j.version>9.2.0</mysql-connector-j.version>
@@ -245,7 +245,7 @@
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.13.0</version>
+            <version>3.14.0</version>
             <type>maven-plugin</type>
         </dependency>
 
@@ -409,7 +409,7 @@
                         <configuration>
                             <projectName>AutomationFrameworkCucumberTestNG</projectName>
                             <skip>false</skip>
-                            <outputDirectory>reports/CucumberReports/cucumber-reports
+                            <outputDirectory>exports/reports/CucumberReports/cucumber-reports
                             </outputDirectory>
                             <inputDirectory>target/cucumber-reports</inputDirectory>
                             <jsonFiles>

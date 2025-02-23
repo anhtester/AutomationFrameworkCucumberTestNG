@@ -1,4 +1,4 @@
-package com.anhtester.report;
+package com.anhtester.reports;
 
 import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.driver.DriverManager;
@@ -17,7 +17,6 @@ import org.openqa.selenium.TakesScreenshot;
 //import tech.grasshopper.reporter.ExtentPDFReporter;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 import static com.anhtester.constants.FrameworkConstants.*;

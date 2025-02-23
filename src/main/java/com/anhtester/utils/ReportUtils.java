@@ -26,12 +26,12 @@ public class ReportUtils {
             System.out.println("OVERRIDE_REPORTS = " + FrameworkConstants.OVERRIDE_REPORTS);
             link = FrameworkConstants.EXTENT_REPORT_FOLDER_PATH + File.separator + DateUtils.getCurrentDate() + "_"
                     + FrameworkConstants.EXTENT_REPORT_FILE_NAME;
-            System.out.println("Created link report: " + link);
+            System.out.println("Created link reports: " + link);
             return link;
         } else {
             System.out.println("OVERRIDE_REPORTS = " + FrameworkConstants.OVERRIDE_REPORTS);
             link = FrameworkConstants.EXTENT_REPORT_FOLDER_PATH + File.separator + FrameworkConstants.EXTENT_REPORT_FILE_NAME;
-            LogUtils.info("Created link report: " + link);
+            LogUtils.info("Created link reports: " + link);
             return link;
         }
     }
