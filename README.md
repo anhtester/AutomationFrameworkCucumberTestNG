@@ -6,7 +6,7 @@
 
 ### 💥Important: when clone this repo, you should select 'Recursive' to get all submodules
 
-**SOME FEATURES IN FRAMEWORK**
+**🌟SOME FEATURES IN FRAMEWORK**
 
 1. Run the parallel Scenario on feature file
 2. Cucumber Report
@@ -23,7 +23,7 @@
 13. Use DataFaker and JavaFaker to generate data 
 14. Javadoc for this source
 
-### **SYSTEM REQUIREMENTS**
+### **⚙️SYSTEM REQUIREMENTS**
 
 - Install Java JDK (recommend JDK >= 17)
 - Install Chrome Browser, Edge Browser, Firefox Browser
@@ -39,7 +39,7 @@
 
 ![image](https://user-images.githubusercontent.com/87883620/161707184-7ad558f2-0d7d-4851-bfd6-2796d4e46593.png)
 
-### **HOW TO USE**
+### **✳️HOW TO USE**
 
 **1. Run parallel the test case**
 
@@ -152,7 +152,7 @@ or
 + TestSimpleCode
 ```
 
-### Project structure
+### 📙Project structure
 
 ```
 📦AutomationFrameworkCucumberTestNG
@@ -300,131 +300,6 @@ or
  ┃ ┃ ┃ ┣ 📜cucumber.properties
  ┃ ┃ ┃ ┣ 📜extent.properties
  ┃ ┃ ┃ ┗ 📜pdf-config.yaml
- ┣ 📂target
- ┃ ┣ 📂classes
- ┃ ┃ ┣ 📂anhtester
- ┃ ┃ ┃ ┗ 📂com
- ┃ ┃ ┃ ┃ ┣ 📂annotations
- ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkAnnotation.class
- ┃ ┃ ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ConfigFactory.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜Configuration.class
- ┃ ┃ ┃ ┃ ┣ 📂constants
- ┃ ┃ ┃ ┃ ┃ ┗ 📜FrameworkConstants.class
- ┃ ┃ ┃ ┃ ┣ 📂driver
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$1.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$2.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$3.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory$4.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserFactory.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DriverManager.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetFactory.class
- ┃ ┃ ┃ ┃ ┣ 📂enums
- ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthorType.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜Browser.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryType.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FailureHandling.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜Platform.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜Project.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜Target.class
- ┃ ┃ ┃ ┃ ┣ 📂exceptions
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FrameworkException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜HeadlessNotSupportedException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExcelException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForExtentReportFileException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidPathForFilesException.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜InvalidRemoteWebDriverURLException.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TargetNotValidException.class
- ┃ ┃ ┃ ┃ ┣ 📂helpers
- ┃ ┃ ┃ ┃ ┃ ┣ 📜CaptureHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DatabaseHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ExcelHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜FileHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜Helpers.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜PropertiesHelpers.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜ScreenRecoderHelpers.class
- ┃ ┃ ┃ ┃ ┣ 📂keywords
- ┃ ┃ ┃ ┃ ┃ ┗ 📜WebUI.class
- ┃ ┃ ┃ ┃ ┣ 📂mail
- ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender$1.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailAttachmentsSender.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜EmailConfig.class
- ┃ ┃ ┃ ┃ ┣ 📂report
- ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureManager.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentReportManager.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ExtentTestManager.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TelegramManager.class
- ┃ ┃ ┃ ┃ ┗ 📂utils
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BrowserInfoUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DataFakerUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DataGenerateUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DateUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜DecodeUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜EmailSendUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜IconUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils$1.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜JsonUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜LanguageUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜LocalStorageUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜LogUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ObjectUtils.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜ReportUtils.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜ZipUtils.class
- ┃ ┃ ┣ 📂META-INF
- ┃ ┃ ┃ ┗ 📂services
- ┃ ┃ ┃ ┃ ┗ 📜io.qameta.allure.listener.TestLifecycleListener
- ┃ ┃ ┗ 📜log4j2.properties
- ┃ ┣ 📂generated-sources
- ┃ ┃ ┗ 📂annotations
- ┃ ┣ 📂generated-test-sources
- ┃ ┃ ┗ 📂test-annotations
- ┃ ┗ 📂test-classes
- ┃ ┃ ┣ 📂anhtester
- ┃ ┃ ┃ ┗ 📂com
- ┃ ┃ ┃ ┃ ┣ 📂common
- ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseTest.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜CommonPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜CommonSteps.class
- ┃ ┃ ┃ ┃ ┣ 📂dataprovider
- ┃ ┃ ┃ ┃ ┃ ┗ 📜DataProviderManager.class
- ┃ ┃ ┃ ┃ ┣ 📂hooks
- ┃ ┃ ┃ ┃ ┃ ┣ 📜CucumberListener.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜Hooks.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TestContext.class
- ┃ ┃ ┃ ┃ ┣ 📂listeners
- ┃ ┃ ┃ ┃ ┃ ┣ 📜AllureListener.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TestListener.class
- ┃ ┃ ┃ ┃ ┣ 📂projects
- ┃ ┃ ┃ ┃ ┃ ┗ 📂website
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂cms
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommonPageCMS.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LoginPage.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂stepdefinitions
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LoginSteps.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂crm
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂models
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClientModel.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInModel.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂pages
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Clients
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ClientPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Dashboard
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜DashboardPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂Projects
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProjectPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂SignIn
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SignInPageCRM.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂Tasks
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TaskPage.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂stepdefinitions
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DashboardSteps.class
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜LoginSteps.class
- ┃ ┃ ┃ ┃ ┗ 📂runners
- ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginCMSTestRunner.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜SigninCRMTestRunner.class
- ┃ ┃ ┃ ┃ ┃ ┣ 📜TestRunnerAllFeatureByTag.class
- ┃ ┃ ┃ ┃ ┃ ┗ 📜TestRunnerForDashboardHRM.class
  ┃ ┃ ┣ 📂config
  ┃ ┃ ┃ ┣ 📜config.json
  ┃ ┃ ┃ ┣ 📜config.properties
@@ -453,10 +328,12 @@ or
  ┗ 📜README.md
 ```
 
-## Copyright 2022-2025 Anh Tester
+## ✅Copyright 2022-2025 Anh Tester
 
 ### ⭐️ I will support your company if needed
+
 #### **📗 Documents:** https://deepwiki.com/anhtester/AutomationFrameworkCucumberTestNG
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/anhtester/AutomationFrameworkCucumberTestNG)
 
 > Anh Tester Blog: https://anhtester.com/
 
