@@ -4,6 +4,8 @@
 
 ## Test Automation Framework Cucumber TestNG and Selenium Java building by Anh Tester
 
+### 💥Important: when clone this repo, you should select 'Recursive' to get all submodules
+
 **SOME FEATURES IN FRAMEWORK**
 
 1. Run the parallel Scenario on feature file
@@ -18,11 +20,13 @@
 10. Read data test from Json file
 11. Main keyword is WebUI
 12. Sample test feature
+13. Use DataFaker and JavaFaker to generate data 
+14. Javadoc for this source
 
 ### **SYSTEM REQUIREMENTS**
 
-- **JDK version >= 17**
-- Chrome, Edge, Firefox browser
+- Install Java JDK (recommend JDK >= 17)
+- Install Chrome Browser, Edge Browser, Firefox Browser
 - Setup **Allure environment**:
   https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons
   or
@@ -449,7 +453,10 @@ or
  ┗ 📜README.md
 ```
 
-## Copyright 2022-2024 Anh Tester
+## Copyright 2022-2025 Anh Tester
+
+### ⭐️ I will support your company if needed
+#### **📗 Documents:** https://deepwiki.com/anhtester/AutomationFrameworkCucumberTestNG
 
 > Anh Tester Blog: https://anhtester.com/
 
