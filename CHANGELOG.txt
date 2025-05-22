@@ -1,3 +1,9 @@
+v1.8.6
+======
+May 22, 2025
+* Update Selenium 4.32.0 support CDP 136
+* Add .gitmodules file for keywords package contains WebUI class
+
 v1.8.5
 ======
 Feb 23, 2025

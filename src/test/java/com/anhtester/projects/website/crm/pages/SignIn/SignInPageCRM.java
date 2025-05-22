@@ -90,12 +90,12 @@ public class SignInPageCRM extends CommonPageCRM {
 
     public void verifySignInSuccess(){
         waitForPageLoaded();
-        Assert.assertTrue(checkElementExists(getDashboardPage().menuDashboard), "The Dashboard page not display.");
+        Assert.assertTrue(checkElementExist(getDashboardPage().menuDashboard), "The Dashboard page not display.");
     }
 
     public void verifySignInFail(){
         waitForPageLoaded();
-        Assert.assertTrue(checkElementExists(alertErrorMessage), "The Dashboard page not display.");
+        Assert.assertTrue(checkElementExist(alertErrorMessage), "The Dashboard page not display.");
         Assert.assertEquals(getTextElement(alertErrorMessage), "Authentication failed!", "The error message content not match.");
     }
 
