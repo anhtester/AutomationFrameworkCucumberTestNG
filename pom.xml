@@ -6,7 +6,7 @@
 
     <groupId>com.anhtester</groupId>
     <artifactId>anhtester-cucumber-testng</artifactId>
-    <version>1.8.6</version>
+    <version>1.8.7</version>
     <name>TestAutomationFrameworkCucumberTestNG</name>
     <url>https://github.com/anhtester/AutomationFrameworkCucumberTestNG</url>
 
@@ -15,42 +15,40 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java-compiler.version>17</java-compiler.version>
-        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
 
-        <cucumber.java.version>7.22.2</cucumber.java.version>
-        <gherkin.version>32.1.1</gherkin.version>
+        <cucumber.java.version>7.33.0</cucumber.java.version>
+        <gherkin.version>37.0.0</gherkin.version>
         <cucumber-reporting.version>5.8.4</cucumber-reporting.version>
-        <selenium.version>4.32.0</selenium.version>
+        <selenium.version>4.39.0</selenium.version>
         <testng.version>7.11.0</testng.version>
-        <aspectjweaver.version>1.9.24</aspectjweaver.version>
-        <log4j.version>2.24.3</log4j.version>
-        <slf4j.version>2.0.17</slf4j.version>
-        <allure-testng.version>2.29.1</allure-testng.version>
-        <allure-maven.version>2.15.2</allure-maven.version>
+        <aspectjweaver.version>1.9.25</aspectjweaver.version>
+        <allure-testng.version>2.31.0</allure-testng.version>
+        <allure-maven.version>2.16.1</allure-maven.version>
         <allure-environment-writer.version>1.0.0</allure-environment-writer.version>
         <allure.cmd.download.url>
             https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
         <extentreports.version>5.1.2</extentreports.version>
-        <apache-poi.version>5.4.1</apache-poi.version>
+        <apache-poi.version>5.5.1</apache-poi.version>
         <apache-poi-xml.version>5.2.5</apache-poi-xml.version>
-        <commons-io.version>2.19.0</commons-io.version>
+        <commons-io.version>2.21.0</commons-io.version>
         <owner.version>1.0.12</owner.version>
         <assertj.version>3.24.2</assertj.version>
         <monte-screen-recorder.version>0.7.7.0</monte-screen-recorder.version>
         <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.42</lombok.version>
         <data.supplier.version>1.9.7</data.supplier.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <zip.version>1.17</zip.version>
-        <rest-assured.version>5.5.2</rest-assured.version>
-        <gson.version>2.13.1</gson.version>
-        <jackson-databind.version>2.19.0</jackson-databind.version>
-        <datafaker.version>2.4.3</datafaker.version>
-        <telegram.bot.version>8.3.0</telegram.bot.version>
-        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <rest-assured.version>5.5.6</rest-assured.version>
+        <gson.version>2.13.2</gson.version>
+        <jackson-databind.version>2.20.1</jackson-databind.version>
+        <datafaker.version>2.5.3</datafaker.version>
+        <telegram.bot.version>9.2.1</telegram.bot.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
         <extentreports-cucumber7-adapter.version>1.14.0</extentreports-cucumber7-adapter.version>
-        <mysql-connector-j.version>9.3.0</mysql-connector-j.version>
+        <mysql-connector-j.version>9.5.0</mysql-connector-j.version>
 
         <!-- Suite XML path -->
         <suite.feature>src/test/resources/suites/SuiteFeatureByTag.xml</suite.feature>
@@ -133,19 +131,19 @@
             <version>${cucumber.java.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-gherkin -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-gherkin</artifactId>
-            <version>${cucumber.java.version}</version>
-        </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.cucumber/cucumber-gherkin &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>io.cucumber</groupId>-->
+<!--            <artifactId>cucumber-gherkin</artifactId>-->
+<!--            <version>${cucumber.java.version}</version>-->
+<!--        </dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/io.cucumber/gherkin -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>gherkin</artifactId>
-            <version>${gherkin.version}</version>
-        </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.cucumber/gherkin &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>io.cucumber</groupId>-->
+<!--            <artifactId>gherkin</artifactId>-->
+<!--            <version>${gherkin.version}</version>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
         <dependency>
@@ -200,13 +198,13 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.24.3</version>
+            <version>2.25.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.24.3</version>
+            <version>2.25.2</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
@@ -245,7 +243,7 @@
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.14.0</version>
+            <version>3.14.1</version>
             <type>maven-plugin</type>
         </dependency>
 

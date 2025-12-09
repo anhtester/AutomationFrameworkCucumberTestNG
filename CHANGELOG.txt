@@ -1,3 +1,11 @@
+v1.8.7
+======
+Dec 09, 2025
+* Update Selenium 4.39.0 support CDP 143
+* Update dependency version latest in pom.xml
+* Update class LocalStorageUtils in utils package
+* Update file log4j2.properties to fix log issue
+
 v1.8.6
 ======
 May 22, 2025
