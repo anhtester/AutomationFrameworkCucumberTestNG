@@ -321,7 +321,7 @@ public class WebUI {
    @Step("Verify File Downloaded With JS [Equals]: {0}")
    public static boolean verifyFileDownloadedWithJS_Equals(String fileName) {
       openWebsite("chrome://downloads");
-      sleep(3);
+      sleep(1);
       JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
       String element = (String) js.executeScript("return document.querySelector('downloads-manager').shadowRoot.querySelector('#downloadsList downloads-item').shadowRoot.querySelector('#show').getAttribute('title')");
       File file = new File(element);
@@ -343,7 +343,7 @@ public class WebUI {
    @Step("Verify File Downloaded With JS [Contains]: {0}")
    public static boolean verifyFileDownloadedWithJS_Contains(String fileName) {
       openWebsite("chrome://downloads");
-      sleep(3);
+      sleep(1);
       JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
       String element = (String) js.executeScript("return document.querySelector('downloads-manager').shadowRoot.querySelector('#downloadsList downloads-item').shadowRoot.querySelector('#show').getAttribute('title')");
       File file = new File(element);
@@ -386,7 +386,7 @@ public class WebUI {
       LogUtils.info("getToUrlAuthentication with Password: " + password);
       // Load the application url
       openWebsite(url);
-      sleep(3);
+      waitForPageLoaded();
    }
 
    //Handle HTML5 validation message and valid value
@@ -614,7 +614,7 @@ public class WebUI {
       Actions action = new Actions(DriverManager.getDriver());
       //Click to open form upload
       action.moveToElement(getWebElement(by)).click().perform();
-      sleep(2);
+      sleep(1);
 
       // Create Robot class
       Robot robot = null;
@@ -2514,16 +2514,33 @@ public class WebUI {
    @Step("Set text on text box")
    public static void setText(By by, String value) {
       smartWait();
-      waitForElementVisible(by).sendKeys(value);
-      LogUtils.info("Set text " + value + " on " + by.toString());
+      waitForElementVisible(by);
 
-      if (ExtentTestManager.getExtentTest() != null) {
-         ExtentReportManager.pass("Set text " + value + " on " + by);
+      int maxRetry = 3;
+      for (int i = 0; i < maxRetry; i++) {
+         try {
+            getWebElement(by).sendKeys(value);
+            LogUtils.info("Set text " + value + " on " + by.toString());
+
+            if (ExtentTestManager.getExtentTest() != null) {
+               ExtentReportManager.pass("Set text " + value + " on " + by);
+            }
+            AllureManager.saveTextLog("Set text " + value + " on " + by);
+
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+            return;
+         } catch (StaleElementReferenceException e) {
+            if (i == maxRetry - 1) {
+               LogUtils.error("Failed to set text on element " + by + " after " + maxRetry + " retries.");
+               throw e;
+            }
+            sleep(0.5); // Wait a bit before retry
+            LogUtils.info("Retry setting text on element " + by + " (" + (i + 1) + ")");
+         } catch (Exception e) {
+            LogUtils.error("Failed to set text on element " + by);
+            throw e;
+         }
       }
-      AllureManager.saveTextLog("Set text " + value + " on " + by);
-
-      addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
-
    }
 
    /**
@@ -2536,16 +2553,33 @@ public class WebUI {
    @Step("Set text on text box and press key")
    public static void setText(By by, String value, Keys keys) {
       smartWait();
-      waitForElementVisible(by).sendKeys(value, keys);
-      LogUtils.info("Set text " + value + " on " + by + " and press key " + keys.name());
+      waitForElementVisible(by);
 
-      if (ExtentTestManager.getExtentTest() != null) {
-         ExtentReportManager.pass("Set text " + value + " on " + by + " and press key " + keys.name());
+      int maxRetry = 3;
+      for (int i = 0; i < maxRetry; i++) {
+         try {
+            getWebElement(by).sendKeys(value, keys);
+            LogUtils.info("Set text " + value + " on " + by + " and press key " + keys.name());
+
+            if (ExtentTestManager.getExtentTest() != null) {
+               ExtentReportManager.pass("Set text " + value + " on " + by + " and press key " + keys.name());
+            }
+            AllureManager.saveTextLog("Set text " + value + " on " + by + " and press key " + keys.name());
+
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+            return;
+         } catch (StaleElementReferenceException e) {
+            if (i == maxRetry - 1) {
+               LogUtils.error("Failed to set text on element " + by + " after " + maxRetry + " retries.");
+               throw e;
+            }
+            sleep(0.5); // Wait a bit before retry
+            LogUtils.info("Retry setting text on element " + by + " (" + (i + 1) + ")");
+         } catch (Exception e) {
+            LogUtils.error("Failed to set text on element " + by);
+            throw e;
+         }
       }
-      AllureManager.saveTextLog("Set text " + value + " on " + by + " and press key " + keys.name());
-
-      addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
-
    }
 
    /**
@@ -2664,16 +2698,34 @@ public class WebUI {
    @Step("Click on the element {0}")
    public static void clickElement(By by) {
       smartWait();
-      waitForElementClickable(by).click();
-      LogUtils.info("Clicked on the element " + by.toString());
+      waitForElementVisible(by);
+      waitForElementClickable(by);
 
-      if (ExtentTestManager.getExtentTest() != null) {
-         ExtentReportManager.pass("Clicked on the element " + by);
+      int maxRetry = 3;
+      for (int i = 0; i < maxRetry; i++) {
+         try {
+            getWebElement(by).click();
+            LogUtils.info("Clicked on the element " + by.toString());
+
+            if (ExtentTestManager.getExtentTest() != null) {
+               ExtentReportManager.pass("Clicked on the element " + by);
+            }
+            AllureManager.saveTextLog("Clicked on the element " + by);
+
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+            return;
+         } catch (StaleElementReferenceException | ElementClickInterceptedException e) {
+            if (i == maxRetry - 1) {
+               LogUtils.error("Failed to click element " + by + " after " + maxRetry + " retries.");
+               throw e;
+            }
+            sleep(0.5); // Wait a bit before retry
+            LogUtils.info("Retry clicking element " + by + " (" + (i + 1) + ")");
+         } catch (Exception e) {
+            LogUtils.error("Failed to click element " + by);
+            throw e;
+         }
       }
-      AllureManager.saveTextLog("Clicked on the element " + by);
-
-      addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
-
    }
 
    /**
@@ -2684,16 +2736,34 @@ public class WebUI {
    @Step("Click on the element {0} with timeout {1}s")
    public static void clickElement(By by, int timeout) {
       smartWait();
-      waitForElementClickable(by, timeout).click();
-      LogUtils.info("Clicked on the element " + by.toString());
+      waitForElementVisible(by, timeout);
+      waitForElementClickable(by, timeout);
 
-      if (ExtentTestManager.getExtentTest() != null) {
-         ExtentReportManager.pass("Clicked on the element " + by);
+      int maxRetry = 3;
+      for (int i = 0; i < maxRetry; i++) {
+         try {
+            getWebElement(by).click();
+            LogUtils.info("Clicked on the element " + by.toString());
+
+            if (ExtentTestManager.getExtentTest() != null) {
+               ExtentReportManager.pass("Clicked on the element " + by);
+            }
+            AllureManager.saveTextLog("Clicked on the element " + by);
+
+            addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
+            return;
+         } catch (StaleElementReferenceException | ElementClickInterceptedException e) {
+            if (i == maxRetry - 1) {
+               LogUtils.error("Failed to click element " + by + " after " + maxRetry + " retries.");
+               throw e;
+            }
+            sleep(0.5); // Wait a bit before retry
+            LogUtils.info("Retry clicking element " + by + " (" + (i + 1) + ")");
+         } catch (Exception e) {
+            LogUtils.error("Failed to click element " + by);
+            throw e;
+         }
       }
-      AllureManager.saveTextLog("Clicked on the element " + by);
-
-      addScreenshotToReport(Thread.currentThread().getStackTrace()[1].getMethodName() + "_" + DateUtils.getCurrentDateTime());
-
    }
 
    /**
@@ -3206,19 +3276,19 @@ public class WebUI {
       // wait for Javascript to loaded
       ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
 
-      //Get JS is Ready
-      boolean jsReady = js.executeScript("return document.readyState").toString().equals("complete");
+      try {
+         //Get JS is Ready
+         boolean jsReady = js.executeScript("return document.readyState").toString().equals("complete");
 
-      //Wait Javascript until it is Ready!
-      if (!jsReady) {
-         //LogUtils.info("Javascript in NOT Ready!");
-         //Wait for Javascript to load
-         try {
+         //Wait Javascript until it is Ready!
+         if (!jsReady) {
+            //LogUtils.info("Javascript in NOT Ready!");
+            //Wait for Javascript to load
             wait.until(jsLoad);
-         } catch (Throwable error) {
-            LogUtils.error("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
-            Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
          }
+      } catch (Throwable error) {
+         LogUtils.error("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
+         Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
       }
    }
 
@@ -3232,19 +3302,19 @@ public class WebUI {
       // wait for Javascript to loaded
       ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
 
-      //Get JS is Ready
-      boolean jsReady = js.executeScript("return document.readyState").toString().equals("complete");
+      try {
+         //Get JS is Ready
+         boolean jsReady = js.executeScript("return document.readyState").toString().equals("complete");
 
-      //Wait Javascript until it is Ready!
-      if (!jsReady) {
-         LogUtils.info("Javascript in NOT Ready!");
-         //Wait for Javascript to load
-         try {
+         //Wait Javascript until it is Ready!
+         if (!jsReady) {
+            LogUtils.info("Javascript in NOT Ready!");
+            //Wait for Javascript to load
             wait.until(jsLoad);
-         } catch (Throwable error) {
-            LogUtils.error("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
-            Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
          }
+      } catch (Throwable error) {
+         LogUtils.error("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
+         Assert.fail("Timeout waiting for page load. (" + FrameworkConstants.WAIT_PAGE_LOADED + "s)");
       }
    }
 
