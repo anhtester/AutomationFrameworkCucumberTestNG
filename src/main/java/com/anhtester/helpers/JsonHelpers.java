@@ -1,344 +1,99 @@
 package com.anhtester.helpers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.anhtester.constants.FrameworkConstants;
 import com.anhtester.utils.LogUtils;
-import org.testng.annotations.Test;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 public class JsonHelpers {
 
-    @Test
-    public void testGetValue() {
-        getValueJsonObject("vehicle", "oto", "number");
-        getValueJsonObject("vehicle", "oto", "hyundai");
-        getValueJsonObject("users", "new_email");
-        //updateValueJsonObject("users", "inbox_id", "123456789");
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
-        getValueJsonFileArray(
-                "src/test/resources/testdata/JsonDataTest2.json",
-                0,
-                "lastname"
-        );
-        getValueJsonFileArray(
-                "src/test/resources/testdata/JsonDataTest2.json",
-                0,
-                "bookingdates",
-                "checkin"
-        );
-        updateValueJsonFile_Object(
-                "src/test/resources/testdata/JsonDataTest1.json",
-                "body",
-                "height",
-                165
-        );
-    }
-
-    public static String getValueJsonObject(String keyName) {
-        String value = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-
+    /**
+     * Reads a JSON file and maps it to a specified class.
+     *
+     * @param jsonFilePath the path to the JSON file.
+     * @param clazz        the class to map the JSON to.
+     * @param <T>          the type of the class.
+     * @return an object of the specified class, or null if an error occurs.
+     */
+    public static <T> T readJsonFile(String jsonFilePath, Class<T> clazz) {
         try {
-            // Parse the JSON file into a JsonNode
-            JsonNode rootNode = objectMapper.readTree(new File(FrameworkConstants.JSON_DATA_FILE_PATH));
-
-            value = rootNode.path(keyName).asText();
-            LogUtils.info("Value: " + value);
-
+            return objectMapper.readValue(new File(jsonFilePath), clazz);
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return value;
-    }
-
-    public static String getValueJsonObject(String parentKey, String keyName) {
-        String value = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            // Parse the JSON file into a JsonNode
-            JsonNode rootNode = objectMapper.readTree(new File(FrameworkConstants.JSON_DATA_FILE_PATH));
-
-            value = rootNode.path(parentKey).path(keyName).asText();
-            LogUtils.info("Value: " + value);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return value;
-    }
-
-    public static String getValueJsonObject(String parentKey1, String parentKey2, String keyName) {
-        String value = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            // Parse the JSON file into a JsonNode
-            JsonNode rootNode = objectMapper.readTree(new File(FrameworkConstants.JSON_DATA_FILE_PATH));
-
-            value = rootNode.path(parentKey1).path(parentKey2).path(keyName).asText();
-            LogUtils.info("Value: " + value);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return value;
-    }
-
-    public static String getValueJsonFileArray(String filePath, int itemIndex, String keyName) {
-        String value = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            JsonNode rootNode = objectMapper.readTree(new File(filePath));
-            JsonNode itemNode = rootNode.get(itemIndex);
-
-            value = itemNode.path(keyName).asText();
-            LogUtils.info("Value: " + value);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return value;
-    }
-
-    public static String getValueJsonFileArray(String filePath, int itemIndex, String parentKey, String keyName) {
-        String value = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            JsonNode rootNode = objectMapper.readTree(new File(filePath));
-            JsonNode itemNode = rootNode.get(itemIndex);
-
-            value = itemNode.path(parentKey).path(keyName).asText();
-            LogUtils.info("Value: " + value);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return value;
-    }
-
-    public static void updateValueJsonObject(String keyName, Number value) {
-        Reader reader;
-        try {
-            reader = Files.newBufferedReader(Paths.get(FrameworkConstants.JSON_DATA_FILE_PATH));
-
-            Gson gson = new Gson();
-            //Convert Json file to Json Object
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            LogUtils.info("Original JSON: " + jsonObject);
-
-            //Update value if exist key
-            jsonObject.addProperty(keyName, value);
-
-            LogUtils.info("Modified JSON: " + jsonObject);
-
-            //Store new Json data to file
-            File jsonFile = new File(FrameworkConstants.JSON_DATA_FILE_PATH);
-            OutputStream outputStream = new FileOutputStream(jsonFile);
-            outputStream.write(gson.toJson(jsonObject).getBytes());
-            outputStream.flush();
-            reader.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtils.error("Failed to read JSON file: " + e.getMessage());
+            return null;
         }
     }
 
-    public static void updateValueJsonObject(String keyName, String value) {
-        Reader reader;
+    /**
+     * Reads a JSON file and maps it to a list of objects.
+     *
+     * @param jsonFilePath the path to the JSON file.
+     * @param typeReference the type reference for the list of objects.
+     * @param <T>          the type of the objects in the list.
+     * @return a list of objects, or null if an error occurs.
+     */
+    public static <T> List<T> readJsonFileToList(String jsonFilePath, TypeReference<List<T>> typeReference) {
         try {
-            reader = Files.newBufferedReader(Paths.get(FrameworkConstants.JSON_DATA_FILE_PATH));
-
-            Gson gson = new Gson();
-            //Convert Json file to Json Object
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            LogUtils.info("Original JSON: " + jsonObject);
-
-            //Update value if exist key
-            jsonObject.addProperty(keyName, value);
-
-            LogUtils.info("Modified JSON: " + jsonObject);
-
-            //Store new Json data to file
-            File jsonFile = new File(FrameworkConstants.JSON_DATA_FILE_PATH);
-            OutputStream outputStream = new FileOutputStream(jsonFile);
-            outputStream.write(gson.toJson(jsonObject).getBytes());
-            outputStream.flush();
-            reader.close();
-
+            return objectMapper.readValue(new File(jsonFilePath), typeReference);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtils.error("Failed to read JSON file: " + e.getMessage());
+            return null;
         }
     }
 
-    public static void updateValueJsonObject(String parentKey, String keyName, Number value) {
-        Reader reader;
+    /**
+     * Reads a JSON file and maps it to a map of objects.
+     *
+     * @param jsonFilePath the path to the JSON file.
+     * @param typeReference the type reference for the map of objects.
+     * @param <K>          the type of the keys in the map.
+     * @param <V>          the type of the values in the map.
+     * @return a map of objects, or null if an error occurs.
+     */
+    public static <K, V> Map<K, V> readJsonFileToMap(String jsonFilePath, TypeReference<Map<K, V>> typeReference) {
         try {
-            reader = Files.newBufferedReader(Paths.get(FrameworkConstants.JSON_DATA_FILE_PATH));
-
-            Gson gson = new Gson();
-            //Convert Json file to Json Object
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            LogUtils.info("Original JSON: " + jsonObject);
-
-            //Update value if exist key
-            jsonObject.getAsJsonObject(parentKey).addProperty(keyName, value);
-
-            LogUtils.info("Modified JSON: " + jsonObject);
-
-            //Store new Json data to file
-            File jsonFile = new File(FrameworkConstants.JSON_DATA_FILE_PATH);
-            OutputStream outputStream = new FileOutputStream(jsonFile);
-            outputStream.write(gson.toJson(jsonObject).getBytes());
-            outputStream.flush();
-            reader.close();
+            return objectMapper.readValue(new File(jsonFilePath), typeReference);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtils.error("Failed to read JSON file: " + e.getMessage());
+            return null;
         }
     }
 
-    public static void updateValueJsonObject(String parentKey, String keyName, String value) {
-        Reader reader;
+    /**
+     * Writes an object to a JSON file.
+     *
+     * @param jsonFilePath the path to the JSON file.
+     * @param object       the object to write.
+     */
+    public static void writeJsonFile(String jsonFilePath, Object object) {
         try {
-            reader = Files.newBufferedReader(Paths.get(FrameworkConstants.JSON_DATA_FILE_PATH));
-
-            Gson gson = new Gson();
-            //Convert Json file to Json Object
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            LogUtils.info("Original JSON: " + jsonObject);
-
-            //Update value if exist key
-            jsonObject.getAsJsonObject(parentKey).addProperty(keyName, value);
-
-            LogUtils.info("Modified JSON: " + jsonObject);
-
-            //Store new Json data to file
-            File jsonFile = new File(FrameworkConstants.JSON_DATA_FILE_PATH);
-            OutputStream outputStream = new FileOutputStream(jsonFile);
-            outputStream.write(gson.toJson(jsonObject).getBytes());
-            outputStream.flush();
-            reader.close();
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(jsonFilePath), object);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtils.error("Failed to write JSON file: " + e.getMessage());
         }
     }
 
-    public static void updateValueJsonFile_Object(String filePath, String keyName, String value) {
-        Reader reader;
+    /**
+     * Gets a specific node from a JSON file.
+     *
+     * @param jsonFilePath the path to the JSON file.
+     * @param nodeName     the name of the node to get.
+     * @return the JsonNode, or null if an error occurs.
+     */
+    public static JsonNode getJsonNode(String jsonFilePath, String nodeName) {
         try {
-            reader = Files.newBufferedReader(Paths.get(filePath));
-
-            Gson gson = new Gson();
-            //Convert Json file to Json Object
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            LogUtils.info("Original JSON: " + jsonObject);
-
-            //Update value if exist key
-            jsonObject.addProperty(keyName, value);
-
-            LogUtils.info("Modified JSON: " + jsonObject);
-
-            //Store new Json data to new file
-            File jsonFile = new File(filePath);
-            OutputStream outputStream = new FileOutputStream(jsonFile);
-            outputStream.write(gson.toJson(jsonObject).getBytes());
-            outputStream.flush();
-
-            //Close reader
-            reader.close();
-
+            JsonNode rootNode = objectMapper.readTree(new File(jsonFilePath));
+            return rootNode.path(nodeName);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LogUtils.error("Failed to get JSON node: " + e.getMessage());
+            return null;
         }
     }
-
-    public static void updateValueJsonFile_Object(String filePath, String keyName, Number value) {
-        Reader reader;
-        try {
-            reader = Files.newBufferedReader(Paths.get(filePath));
-
-            Gson gson = new Gson();
-            //Convert Json file to Json Object
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            LogUtils.info("Original JSON: " + jsonObject);
-
-            //Update value if exist key
-            jsonObject.addProperty(keyName, value);
-
-            LogUtils.info("Modified JSON: " + jsonObject);
-
-            //Store new Json data to new file
-            File jsonFile = new File(filePath);
-            OutputStream outputStream = new FileOutputStream(jsonFile);
-            outputStream.write(gson.toJson(jsonObject).getBytes());
-            outputStream.flush();
-
-            //Close reader
-            reader.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void updateValueJsonFile_Object(String filePath, String parentKey, String keyName, String value) {
-        Reader reader;
-        try {
-            reader = Files.newBufferedReader(Paths.get(filePath));
-
-            Gson gson = new Gson();
-            //Convert Json file to Json Object
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            LogUtils.info("Original JSON: " + jsonObject);
-
-            //Update value if exist key
-            jsonObject.getAsJsonObject(parentKey).addProperty(keyName, value);
-
-            LogUtils.info("Modified JSON: " + jsonObject);
-
-            //Store new Json data to file
-            File jsonFile = new File(filePath);
-            OutputStream outputStream = new FileOutputStream(jsonFile);
-            outputStream.write(gson.toJson(jsonObject).getBytes());
-            outputStream.flush();
-            reader.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void updateValueJsonFile_Object(String filePath, String parentKey, String keyName, Number value) {
-        Reader reader;
-        try {
-            reader = Files.newBufferedReader(Paths.get(filePath));
-
-            Gson gson = new Gson();
-            //Convert Json file to Json Object
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            LogUtils.info("Original JSON: " + jsonObject);
-
-            //Update value if exist key
-            jsonObject.getAsJsonObject(parentKey).addProperty(keyName, value);
-
-            LogUtils.info("Modified JSON: " + jsonObject);
-
-            //Store new Json data to file
-            File jsonFile = new File(filePath);
-            OutputStream outputStream = new FileOutputStream(jsonFile);
-            outputStream.write(gson.toJson(jsonObject).getBytes());
-            outputStream.flush();
-            reader.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

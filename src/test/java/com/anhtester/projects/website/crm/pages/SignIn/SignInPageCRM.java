@@ -15,8 +15,8 @@ import static com.anhtester.keywords.WebUI.*;
 
 public class SignInPageCRM extends CommonPageCRM {
 
-    private String pageUrl = "/signin";
-    private String pageTitle = "Sign in | RISE CRM | Anh Tester Demo";
+    private final String pageUrl = "/signin";
+    private final String pageTitle = "Sign in | RISE CRM | Anh Tester Demo";
 
     public By inputEmail = By.xpath("//input[@id='email']");
     public By inputPassword = By.xpath("//input[@id='password']");
@@ -27,16 +27,14 @@ public class SignInPageCRM extends CommonPageCRM {
     public By labelEmailError = By.xpath("//span[@id='email-error']");
     public By labelPasswordError = By.xpath("//span[@id='password-error']");
 
-
-    ExcelHelpers excelHelpers;
+    private final ExcelHelpers excelHelpers;
 
     public SignInPageCRM() {
         super();
-        excelHelpers = new ExcelHelpers();
+        excelHelpers = new ExcelHelpers(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
     }
 
     public DashboardPageCRM signInWithAdminRole() {
-        excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
         openWebsite(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
         verifyEquals(getPageTitle(), pageTitle, "The title of sign in page not match.");
@@ -50,7 +48,6 @@ public class SignInPageCRM extends CommonPageCRM {
     }
 
     public DashboardPageCRM signInWithClientRole() {
-        excelHelpers.setExcelFile(FrameworkConstants.EXCEL_DATA_FILE_PATH, "SignIn");
         openWebsite(FrameworkConstants.URL_CRM);
         verifyContains(getCurrentUrl(), pageUrl, "The url of sign in page not match.");
         verifyEquals(getPageTitle(), pageTitle, "The title of sign in page not match.");
@@ -88,15 +85,14 @@ public class SignInPageCRM extends CommonPageCRM {
         return new DashboardPageCRM();
     }
 
-    public void verifySignInSuccess(){
+    public void verifySignInSuccess() {
         waitForPageLoaded();
         Assert.assertTrue(checkElementExist(getDashboardPage().menuDashboard), "The Dashboard page not display.");
     }
 
-    public void verifySignInFail(){
+    public void verifySignInFail() {
         waitForPageLoaded();
-        Assert.assertTrue(checkElementExist(alertErrorMessage), "The Dashboard page not display.");
+        Assert.assertTrue(checkElementExist(alertErrorMessage), "The error message is not displayed.");
         Assert.assertEquals(getTextElement(alertErrorMessage), "Authentication failed!", "The error message content not match.");
     }
-
 }

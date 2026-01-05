@@ -49,6 +49,7 @@
         <commons-lang3.version>3.20.0</commons-lang3.version>
         <extentreports-cucumber7-adapter.version>1.14.0</extentreports-cucumber7-adapter.version>
         <mysql-connector-j.version>9.5.0</mysql-connector-j.version>
+        <opencsv.version>5.9</opencsv.version>
 
         <!-- Suite XML path -->
         <suite.feature>src/test/resources/suites/SuiteFeatureByTag.xml</suite.feature>
@@ -315,6 +316,13 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectjweaver.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
         </dependency>
 
     </dependencies>

@@ -9,361 +9,319 @@ import com.anhtester.exceptions.InvalidPathForExcelException;
 import com.anhtester.utils.LogUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Objects;
 
 public class ExcelHelpers {
 
     private FileInputStream fis;
     private FileOutputStream fileOut;
-    private Workbook workbook;
-    private Sheet sheet;
+    private final Workbook workbook;
+    private final Sheet sheet;
     private Cell cell;
     private Row row;
-    private String excelFilePath;
-    private Map<String, Integer> columns = new HashMap<>();
+    private final String excelFilePath;
+    private final Map<String, Integer> columns = new HashMap<>();
 
-    public ExcelHelpers() {
-    }
-
-    //Set Excel File
-    public void setExcelFile(String excelPath, String sheetName) {
-        LogUtils.info("Set Excel File: " + excelPath);
-        LogUtils.info("Sheet Name: " + sheetName);
-
+    /**
+     * Constructs an ExcelHelpers object and sets up the Excel file and sheet for reading and writing.
+     *
+     * @param excelPath the path to the Excel file.
+     * @param sheetName the name of the sheet to be accessed.
+     */
+    public ExcelHelpers(String excelPath, String sheetName) {
+        this.excelFilePath = excelPath;
         try {
-            File f = new File(excelPath);
-
-            if (!f.exists()) {
-                try {
-                    LogUtils.info("File Excel path not found.");
-                    throw new InvalidPathForExcelException("File Excel path not found.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            if (sheetName.isEmpty()) {
-                try {
-                    LogUtils.info("The Sheet Name is empty.");
-                    throw new InvalidPathForExcelException("The Sheet Name is empty.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
             fis = new FileInputStream(excelPath);
             workbook = WorkbookFactory.create(fis);
             sheet = workbook.getSheet(sheetName);
-            //sh = wb.getSheetAt(0); //0 - index of 1st sheet
             if (sheet == null) {
-                //sh = wb.createSheet(sheetName);
-                try {
-                    LogUtils.info("Sheet name not found.");
-                    throw new InvalidPathForExcelException("Sheet name not found.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                throw new InvalidPathForExcelException("Sheet with name '" + sheetName + "' does not exist in the Excel file.");
             }
+            mapColumnHeaders();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read the Excel file: " + e.getMessage(), e);
+        }
+    }
 
-            excelFilePath = excelPath;
-
-            //adding all the column header names to the map 'columns'
-            sheet.getRow(0).forEach(cell -> {
+    /**
+     * Maps the column headers to their respective column indices.
+     */
+    private void mapColumnHeaders() {
+        Row firstRow = sheet.getRow(0);
+        if (firstRow != null) {
+            firstRow.forEach(cell -> {
                 columns.put(cell.getStringCellValue(), cell.getColumnIndex());
             });
-
-        } catch (Exception e) {
-            e.getMessage();
-            LogUtils.error(e.getMessage());
         }
     }
 
-    //This method takes the row number as a parameter and returns the data for that row.
-    public Row getRowData(int rowNum) {
-        row = sheet.getRow(rowNum);
-        return row;
-    }
-
-
-    public Object[][] getExcelData(String excelPath, String sheetName) {
-        Object[][] data = null;
-        Workbook workbook = null;
-
-        LogUtils.info("Set Excel file " + excelPath);
-        LogUtils.info("Selected Sheet: " + sheetName);
-
+    /**
+     * Closes the workbook and input stream to release file resources.
+     */
+    public void close() {
         try {
-
-            File f = new File(excelPath);
-
-            if (!f.exists()) {
-                try {
-                    LogUtils.info("File Excel path not found.");
-                    throw new InvalidPathForExcelException("File Excel path not found.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            if (workbook != null) {
+                workbook.close();
             }
-            if (sheetName.isEmpty()) {
-                try {
-                    LogUtils.info("The Sheet Name is empty.");
-                    throw new InvalidPathForExcelException("The Sheet Name is empty.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            if (fis != null) {
+                fis.close();
             }
-
-            // load the file
-            FileInputStream fis = new FileInputStream(excelPath);
-
-            // load the workbook
-            workbook = new XSSFWorkbook(fis);
-            // load the sheet
-            Sheet sheet = workbook.getSheet(sheetName);
-            // load the row
-            Row row = sheet.getRow(0);
-
-            int noOfRows = sheet.getPhysicalNumberOfRows();
-            int noOfCols = row.getLastCellNum();
-
-            System.out.println(noOfRows + " - " + noOfCols);
-
-            Cell cell;
-            data = new Object[noOfRows - 1][noOfCols];
-
-            //FOR loop runs from 1 to drop header line (headline is 0)
-            for (int i = 1; i < noOfRows; i++) {
-                for (int j = 0; j < noOfCols; j++) {
-                    row = sheet.getRow(i);
-                    cell = row.getCell(j);
-
-                    //This is used to determine the data type from cells in Excel and then convert it to String for ease of reading
-                    switch (cell.getCellType()) {
-                        case STRING:
-                            data[i - 1][j] = cell.getStringCellValue();
-                            break;
-                        case NUMERIC:
-                            data[i - 1][j] = String.valueOf(cell.getNumericCellValue());
-                            break;
-                        case BLANK:
-                            data[i - 1][j] = "";
-                            break;
-                        default:
-                            data[i - 1][j] = null;
-                            break;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.getMessage();
-            throw new RuntimeException(e);
-        }
-        return data;
-    }
-
-    public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
-        LogUtils.info("Excel File: " + excelPath);
-        LogUtils.info("Sheet Name: " + sheetName);
-
-        Object[][] data = null;
-
-        try {
-
-            File f = new File(excelPath);
-
-            if (!f.exists()) {
-                try {
-                    LogUtils.info("File Excel path not found.");
-                    throw new InvalidPathForExcelException("File Excel path not found.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            fis = new FileInputStream(excelPath);
-            workbook = new XSSFWorkbook(fis);
-            sheet = workbook.getSheet(sheetName);
-
-            int rows = getRows();
-            int columns = getColumns();
-
-            LogUtils.info("Row: " + rows + " - Column: " + columns);
-            LogUtils.info("StartRow: " + startRow + " - EndRow: " + endRow);
-
-            data = new Object[(endRow - startRow) + 1][1];
-            Hashtable<String, String> table = null;
-            for (int rowNums = startRow; rowNums <= endRow; rowNums++) {
-                table = new Hashtable<>();
-                for (int colNum = 0; colNum < columns; colNum++) {
-                    table.put(getCellData(0, colNum), getCellData(rowNums, colNum));
-                }
-                data[rowNums - startRow][0] = table;
-            }
-
         } catch (IOException e) {
-            e.printStackTrace();
-            LogUtils.error(e.getMessage());
+            LogUtils.error("Failed to close the Excel file resources: " + e.getMessage());
         }
-
-        return data;
-
     }
 
-    public String getTestCaseName(String testCaseName) {
-        String value = testCaseName;
-        int position = value.indexOf("@");
-        value = value.substring(0, position);
-        position = value.lastIndexOf(".");
-
-        value = value.substring(position + 1);
-        return value;
-    }
-
-    public int getRowContains(String sTestCaseName, int colNum) {
-        int i;
-        int rowCount = getRows();
-        for (i = 0; i < rowCount; i++) {
-            if (getCellData(i, colNum).equalsIgnoreCase(sTestCaseName)) {
-                break;
+    /**
+     * Saves the changes made to the workbook back to the Excel file.
+     */
+    public void save() {
+        try {
+            fileOut = new FileOutputStream(excelFilePath);
+            workbook.write(fileOut);
+        } catch (IOException e) {
+            LogUtils.error("Failed to save the Excel file: " + e.getMessage());
+        } finally {
+            try {
+                if (fileOut != null) {
+                    fileOut.close();
+                }
+            } catch (IOException e) {
+                LogUtils.error("Failed to close the FileOutputStream: " + e.getMessage());
             }
         }
-        return i;
     }
 
-    public int getRows() {
-        try {
-            return sheet.getLastRowNum();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw (e);
-        }
-    }
-
-    public int getColumns() {
-        try {
-            row = sheet.getRow(0);
-            return row.getLastCellNum();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw (e);
-        }
-    }
-
-    // Get cell data
-    public String getCellData(int rowNum, int colNum) {
-        try {
-            cell = sheet.getRow(rowNum).getCell(colNum);
-            String CellData = null;
-            switch (cell.getCellType()) {
-                case STRING:
-                    CellData = cell.getStringCellValue();
-                    break;
-                case NUMERIC:
-                    if (DateUtil.isCellDateFormatted(cell)) {
-                        CellData = String.valueOf(cell.getDateCellValue());
-                    } else {
-                        CellData = String.valueOf((long) cell.getNumericCellValue());
-                    }
-                    break;
-                case BOOLEAN:
-                    CellData = Boolean.toString(cell.getBooleanCellValue());
-                    break;
-                case BLANK:
-                    CellData = "";
-                    break;
-            }
-            return CellData;
-        } catch (Exception e) {
+    /**
+     * Retrieves the cell value as a String.
+     *
+     * @param cell the cell from which to retrieve the value.
+     * @return the cell value as a String, or an empty string if the cell is null.
+     */
+    private String getCellValue(Cell cell) {
+        if (cell == null) {
             return "";
         }
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue();
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return Objects.toString(cell.getDateCellValue(), "");
+                }
+                return Objects.toString((long) cell.getNumericCellValue(), "");
+            case BOOLEAN:
+                return Objects.toString(cell.getBooleanCellValue(), "");
+            case BLANK:
+                return "";
+            default:
+                return cell.toString();
+        }
     }
 
+    /**
+     * Gets the data from the specified row.
+     *
+     * @param rowNum the row number.
+     * @return the Row object.
+     */
+    public Row getRowData(int rowNum) {
+        return sheet.getRow(rowNum);
+    }
+
+    /**
+     * Retrieves all test data from the Excel sheet as a 2D array of Hashtables.
+     *
+     * @return a 2D array of objects, where each object is a Hashtable representing a row of data.
+     */
+    public Object[][] getTestData() {
+        return getTestData(1, getRows());
+    }
+
+    /**
+     * Retrieves test data from a specified range of rows in the Excel sheet.
+     *
+     * @param startRow the starting row number.
+     * @param endRow   the ending row number.
+     * @return a 2D array of objects, where each object is a Hashtable representing a row of data.
+     */
+    public Object[][] getTestData(int startRow, int endRow) {
+        Object[][] data = new Object[(endRow - startRow) + 1][1];
+        Hashtable<String, String> table;
+        for (int i = startRow; i <= endRow; i++) {
+            table = new Hashtable<>();
+            Row row = getRowData(i);
+            for (int j = 0; j < getColumns(); j++) {
+                String header = getCellValue(getRowData(0).getCell(j));
+                String value = getCellValue(row.getCell(j));
+                table.put(header, value);
+            }
+            data[i - startRow][0] = table;
+        }
+        return data;
+    }
+
+    /**
+     * Retrieves all data from the sheet as a 2D String array, skipping the header row.
+     *
+     * @return a 2D String array containing the sheet data.
+     */
+    public String[][] getSheetData() {
+        int rowCount = getRows();
+        int colCount = getColumns();
+        String[][] data = new String[rowCount][colCount];
+        for (int i = 1; i <= rowCount; i++) {
+            Row row = getRowData(i);
+            if (row != null) {
+                for (int j = 0; j < colCount; j++) {
+                    data[i - 1][j] = getCellValue(row.getCell(j));
+                }
+            }
+        }
+        return data;
+    }
+
+    /**
+     * Gets the name of the test case from a given string.
+     *
+     * @param testCaseName the full test case name.
+     * @return the simplified test case name.
+     */
+    public String getTestCaseName(String testCaseName) {
+        int atIndex = testCaseName.indexOf('@');
+        if (atIndex != -1) {
+            testCaseName = testCaseName.substring(0, atIndex);
+        }
+        int dotIndex = testCaseName.lastIndexOf('.');
+        if (dotIndex != -1) {
+            testCaseName = testCaseName.substring(dotIndex + 1);
+        }
+        return testCaseName;
+    }
+
+    /**
+     * Finds the row number that contains a specific test case name in a given column.
+     *
+     * @param testCaseName the name of the test case to find.
+     * @param colNum       the column number to search in.
+     * @return the row number, or -1 if not found.
+     */
+    public int getRowContains(String testCaseName, int colNum) {
+        for (int i = 0; i <= getRows(); i++) {
+            if (getCellData(i, colNum).equalsIgnoreCase(testCaseName)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Gets the total number of rows in the sheet.
+     *
+     * @return the last row number.
+     */
+    public int getRows() {
+        return sheet.getLastRowNum();
+    }
+
+    /**
+     * Gets the total number of columns in the sheet.
+     *
+     * @return the last column number in the first row.
+     */
+    public int getColumns() {
+        return sheet.getRow(0).getLastCellNum();
+    }
+
+    /**
+     * Gets the data of a specific cell by row and column number.
+     *
+     * @param rowNum the row number.
+     * @param colNum the column number.
+     * @return the cell data as a String.
+     */
+    public String getCellData(int rowNum, int colNum) {
+        if (rowNum < 0 || colNum < 0) return "";
+        row = sheet.getRow(rowNum);
+        if (row == null) return "";
+        cell = row.getCell(colNum);
+        return getCellValue(cell);
+    }
+
+    /**
+     * Gets the data of a specific cell by row number and column name.
+     *
+     * @param rowNum     the row number.
+     * @param columnName the column name.
+     * @return the cell data as a String.
+     */
     public String getCellData(int rowNum, String columnName) {
+        if (!columns.containsKey(columnName)) {
+            LogUtils.error("Column '" + columnName + "' does not exist.");
+            return "";
+        }
         return getCellData(rowNum, columns.get(columnName));
     }
 
-    // Write data to excel sheet
+    /**
+     * Sets the data of a specific cell by row and column number.
+     *
+     * @param text      the text to set.
+     * @param rowNumber the row number.
+     * @param colNumber the column number.
+     */
     public void setCellData(String text, int rowNumber, int colNumber) {
-        try {
-            row = sheet.getRow(rowNumber);
-            if (row == null) {
-                row = sheet.createRow(rowNumber);
-            }
-            cell = row.getCell(colNumber);
-
-            if (cell == null) {
-                cell = row.createCell(colNumber);
-            }
-            cell.setCellValue(text);
-
-            XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
-            text = text.trim().toLowerCase();
-            if (text == "pass" || text == "passed" || text == "success") {
-                style.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-            }
-            if (text == "fail" || text == "failed" || text == "failure") {
-                style.setFillForegroundColor(IndexedColors.RED.getIndex());
-            }
-            style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-            style.setAlignment(HorizontalAlignment.CENTER);
-            style.setVerticalAlignment(VerticalAlignment.CENTER);
-
-            cell.setCellStyle(style);
-
-            fileOut = new FileOutputStream(excelFilePath);
-            workbook.write(fileOut);
-            fileOut.flush();
-            fileOut.close();
-        } catch (Exception e) {
-            e.getMessage();
-            LogUtils.error(e.getMessage());
+        row = sheet.getRow(rowNumber);
+        if (row == null) {
+            row = sheet.createRow(rowNumber);
         }
+        cell = row.getCell(colNumber);
+        if (cell == null) {
+            cell = row.createCell(colNumber);
+        }
+        cell.setCellValue(text);
+        applyCellStyle(cell, text);
     }
 
+    /**
+     * Sets the data of a specific cell by row number and column name.
+     *
+     * @param text       the text to set.
+     * @param rowNumber  the row number.
+     * @param columnName the column name.
+     */
     public void setCellData(String text, int rowNumber, String columnName) {
-        try {
-            row = sheet.getRow(rowNumber);
-            if (row == null) {
-                row = sheet.createRow(rowNumber);
-            }
-            cell = row.getCell(columns.get(columnName));
-
-            if (cell == null) {
-                cell = row.createCell(columns.get(columnName));
-            }
-            cell.setCellValue(text);
-
-            XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
-            text = text.trim().toLowerCase();
-            if (text == "pass" || text == "passed" || text == "success") {
-                style.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-            }
-            if (text == "fail" || text == "failed" || text == "failure") {
-                style.setFillForegroundColor(IndexedColors.RED.getIndex());
-            }
-
-            style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-            style.setAlignment(HorizontalAlignment.CENTER);
-            style.setVerticalAlignment(VerticalAlignment.CENTER);
-
-            cell.setCellStyle(style);
-
-            fileOut = new FileOutputStream(excelFilePath);
-            workbook.write(fileOut);
-            fileOut.flush();
-            fileOut.close();
-        } catch (Exception e) {
-            e.getMessage();
-            LogUtils.error(e.getMessage());
+        if (!columns.containsKey(columnName)) {
+            LogUtils.error("Column '" + columnName + "' does not exist. Cannot set cell data.");
+            return;
         }
+        setCellData(text, rowNumber, columns.get(columnName));
     }
 
+    /**
+     * Applies cell style based on the cell text (e.g., "pass" or "fail").
+     *
+     * @param cell the cell to style.
+     * @param text the text content of the cell.
+     */
+    private void applyCellStyle(Cell cell, String text) {
+        XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        String lowerCaseText = text.trim().toLowerCase();
+        if (lowerCaseText.equals("pass") || lowerCaseText.equals("passed") || lowerCaseText.equals("success")) {
+            style.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+        } else if (lowerCaseText.equals("fail") || lowerCaseText.equals("failed") || lowerCaseText.equals("failure")) {
+            style.setFillForegroundColor(IndexedColors.RED.getIndex());
+        }
+        cell.setCellStyle(style);
+    }
 }
